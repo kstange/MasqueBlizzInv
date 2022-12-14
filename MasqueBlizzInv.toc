@@ -7,6 +7,6 @@
 
 ## X-Curse-Project-ID: 736923
 ## X-WoWI-ID: TBD
-## X-Wago-ID: TBD
+## X-Wago-ID: baNDxoNo
 
 MasqueBlizzInv.lua
