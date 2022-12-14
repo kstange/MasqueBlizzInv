@@ -1,0 +1,12 @@
+## Interface: 100002
+## Version: 10.0.2.0
+## Title: Masque Blizzard Inventory
+## Notes: Enables Masque to skin the built-in inventory UI
+## Author: SimGuy
+## RequiredDeps: Masque
+
+## X-Curse-Project-ID: TBD
+## X-WoWI-ID: TBD
+## X-Wago-ID: TBD
+
+MasqueBlizzInv.lua
