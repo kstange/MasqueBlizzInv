@@ -5,7 +5,7 @@
 ## Author: SimGuy
 ## RequiredDeps: Masque
 
-## X-Curse-Project-ID: TBD
+## X-Curse-Project-ID: 736923
 ## X-WoWI-ID: TBD
 ## X-Wago-ID: TBD
 
