@@ -1,6 +1,6 @@
 # About Masque Blizzard Inventory
 
-You can install this addon from [CurseForge](https://www.curseforge.com/wow/addons/masque-blizzard-inventory "CurseForge"), [Wago](https://addons.wago.io/addons/masqueblizzinv), or [WoWInterface](https://www.wowinterface.com/downloads/info26503-MasqueBlizzardInventory.html).
+You can install this addon from [CurseForge](https://www.curseforge.com/wow/addons/masque-blizz-inventory "CurseForge"), [Wago](https://addons.wago.io/addons/masqueblizzinv), or [WoWInterface](https://www.wowinterface.com/downloads/info26503-MasqueBlizzardInventory.html).
 
 This addon enables [Masque](https://github.com/SFX-WoW/Masque) ([CurseForge](https://www.curseforge.com/wow/addons/masque), [Wago](https://addons.wago.io/addons/masque), [WoWInterface](https://www.wowinterface.com/downloads/info12097-Masque.html)) to skin the built-in WoW inventory windows.  It requires Masque to function and is configurable only with Masque's settings UI.  It can currently skin the following inventory UI:
 
