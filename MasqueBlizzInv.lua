@@ -18,36 +18,42 @@ local MasqueBlizzInv = {
 		ContainerFrame1 = {
 			Title = "Backpack",
 			Buttons = {
+				-- TODO: Detect bag changes to skin additional buttons
 				ContainerFrame1Item = 34
 			}
 		},
 		ContainerFrame2 = {
 			Title = "Bag 1",
 			Buttons = {
+				-- TODO: Detect bag changes to skin additional buttons
 				ContainerFrame2Item = 34
 			}
 		},
 		ContainerFrame3 = {
 			Title = "Bag 2",
 			Buttons = {
+				-- TODO: Detect bag changes to skin additional buttons
 				ContainerFrame3Item = 34
 			}
 		},
 		ContainerFrame4 = {
 			Title = "Bag 3",
 			Buttons = {
+				-- TODO: Detect bag changes to skin additional buttons
 				ContainerFrame4Item = 34
 			}
 		},
 		ContainerFrame5 = {
 			Title = "Bag 4",
 			Buttons = {
+				-- TODO: Detect bag changes to skin additional buttons
 				ContainerFrame5Item = 34
 			}
 		},
 		ContainerFrame6 = {
 			Title = "Reagent Bag",
 			Buttons = {
+				-- TODO: Detect bag changes to skin additional buttons
 				ContainerFrame6Item = 34
 			}
 		},
@@ -60,6 +66,7 @@ local MasqueBlizzInv = {
 					Item = 28,
 					Bag = 7,
 				},
+				-- TODO: Detect bag changes to skin additional buttons
 				ContainerFrame7Item  = 34,
 				ContainerFrame8Item  = 34,
 				ContainerFrame9Item  = 34,
@@ -130,7 +137,7 @@ function MasqueBlizzInv:HandleEvent(event, target)
 			frame = MasqueBlizzInv.Groups.VoidStorageFrame
 		end
 		if not frame then
-			print("unknown frame", target)
+			--print("unknown frame", target)
 			return
 		end
 		--print("skinning:", frame.Title, frame.Skinned)
@@ -141,6 +148,9 @@ function MasqueBlizzInv:HandleEvent(event, target)
 	end
 end
 
+-- Skin any buttons in the buttons table in Masque group group.  If parent
+-- is set, then the button names are children of the parent table.
+-- Buttons can be a nested table.
 function MasqueBlizzInv:Skin(buttons, group, parent)
 	if not parent then parent = _G end
 	for button, children in pairs(buttons) do
@@ -166,6 +176,8 @@ function MasqueBlizzInv:Skin(buttons, group, parent)
 	end
 end
 
+-- Skin the ReagentBank the first time the user opens it.  There's
+-- no event to capture and it doesn't exist on initial bank open.
 function MasqueBlizzInv:BankFrame_ShowPanel()
 	local frame = MasqueBlizzInv.Groups.ReagentBankFrame
 	--print("skinning:", frame.Title, frame.Skinned)
