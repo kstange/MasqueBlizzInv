@@ -4,7 +4,7 @@ You can install this addon from [CurseForge](https://www.curseforge.com/wow/addo
 
 This addon enables [Masque](https://github.com/SFX-WoW/Masque) ([CurseForge](https://www.curseforge.com/wow/addons/masque), [Wago](https://addons.wago.io/addons/masque), [WoWInterface](https://www.wowinterface.com/downloads/info12097-Masque.html)) to skin the built-in WoW inventory windows.  It requires Masque to function and is configurable only with Masque's settings UI.  It can currently skin the following inventories:
 
-* Backpack and Bags (1 - 4, 
+* Backpack, Bags, Reagent Bag
 * Bank, Reagent Bank, and Bags
 * Guild Bank
 * Void Storage
