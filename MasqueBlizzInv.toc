@@ -6,7 +6,7 @@
 ## RequiredDeps: Masque
 
 ## X-Curse-Project-ID: 736923
-## X-WoWI-ID: TBD
+## X-WoWI-ID: 26503
 ## X-Wago-ID: baNDxoNo
 
 MasqueBlizzInv.lua
