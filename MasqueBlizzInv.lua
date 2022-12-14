@@ -69,6 +69,14 @@ local MasqueBlizzInv = {
 				ContainerFrame13Item = 34,
 			}
 		},
+		ReagentBankFrame = {
+			Title = "Reagent Bank",
+			Delayed = true,
+			Skinned = false,
+			Buttons = {
+				ReagentBankFrameItem = 98
+			}
+		},
 		GuildBankFrame = {
 			Title = "Guild Bank",
 			Delayed = true,
@@ -93,6 +101,20 @@ local MasqueBlizzInv = {
 				GuildBankTab8 = { Button = 0 },
 			}
 		},
+		VoidStorageFrame = {
+			Title = "Void Storage",
+			Delayed = true,
+			Skinned = false,
+			Buttons = {
+				VoidStorageStorageButton = 80,
+				VoidStorageDepositButton = 9,
+				VoidStorageWithdrawButton = 9,
+				-- Tab buttons don't have icon in a reliable place
+				--VoidStorageFrame = {
+				--	Page = 2
+				--}
+			}
+		}
 	}
 }
 
@@ -104,9 +126,11 @@ function MasqueBlizzInv:HandleEvent(event, target)
 			frame = MasqueBlizzInv.Groups.BankFrame
 		elseif target == 10 then -- Guild Bank
 			frame = MasqueBlizzInv.Groups.GuildBankFrame
+		elseif target == 26 then -- Void Storage
+			frame = MasqueBlizzInv.Groups.VoidStorageFrame
 		end
 		if not frame then
-			--print("unknown frame", target)
+			print("unknown frame", target)
 			return
 		end
 		--print("skinning:", frame.Title, frame.Skinned)
@@ -128,22 +152,33 @@ function MasqueBlizzInv:Skin(buttons, group, parent)
 		else
 			-- If zero, assume button is the actual button name
 			if (children == 0) then
+				--print("button:", button, children, parent[button])
 				group:AddButton(parent[button])
-				--print("button:", button, children, parent[button]:GetName())
 
 			-- Otherwise, append the range of numbers to the name
 			else
 				for i = 1, children do
+					--print("button:", button, children, parent[button..i])
 					group:AddButton(parent[button..i])
-					--print("button:", button, children, parent[button..i]:GetName())
 				end
 			end
 		end
 	end
 end
 
+function MasqueBlizzInv:BankFrame_ShowPanel()
+	local frame = MasqueBlizzInv.Groups.ReagentBankFrame
+	--print("skinning:", frame.Title, frame.Skinned)
+	if BankFrame.activeTabIndex == 2 and not frame.Skinned then
+		MasqueBlizzInv:Skin(frame.Buttons, frame.Group)
+		frame.Skinned = true
+	end
+end
+
 function MasqueBlizzInv:Init()
 	-- Hook functions to skin elusive buttons
+	hooksecurefunc("BankFrame_ShowPanel",
+	               MasqueBlizzInv.BankFrame_ShowPanel)
 
 	-- Capture events to skin elusive buttons
 	MasqueBlizzInv.Events = CreateFrame("Frame")
