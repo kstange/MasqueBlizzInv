@@ -12,8 +12,10 @@
 local MSQ = LibStub("Masque")
 
 -- Title will be used for the group name shown in Masque
+-- Delayed indicates this group will be deferred to a hook or event
 -- Buttons should contain a list of frame names with an integer value
---  If  0, assume to be a singular button with that name
+--  If -1, assume to be a singular button with that name
+--  If  0, this is a dynamic frame to be skinned later
 --  If >0, attempt to loop through frames with the name prefix suffixed with
 --  the integer range
 -- State can be used for storing information about special buttons
@@ -22,43 +24,34 @@ local MasqueBlizzInv = {
 		ContainerFrame1 = {
 			Title = "Backpack",
 			Buttons = {
-				-- TODO: Detect bag changes to skin additional buttons
-				ContainerFrame1Item = 34
+				ContainerFrame1Item = 0
 			}
 		},
-		ContainerFrame2 = {
-			Title = "Bag 1",
+		ContainerFrames = {
+			Title = "Main Bags",
 			Buttons = {
-				-- TODO: Detect bag changes to skin additional buttons
-				ContainerFrame2Item = 34
-			}
-		},
-		ContainerFrame3 = {
-			Title = "Bag 2",
-			Buttons = {
-				-- TODO: Detect bag changes to skin additional buttons
-				ContainerFrame3Item = 34
-			}
-		},
-		ContainerFrame4 = {
-			Title = "Bag 3",
-			Buttons = {
-				-- TODO: Detect bag changes to skin additional buttons
-				ContainerFrame4Item = 34
-			}
-		},
-		ContainerFrame5 = {
-			Title = "Bag 4",
-			Buttons = {
-				-- TODO: Detect bag changes to skin additional buttons
-				ContainerFrame5Item = 34
+				ContainerFrame2Item = 0,
+				ContainerFrame3Item = 0,
+				ContainerFrame4Item = 0,
+				ContainerFrame5Item = 0,
 			}
 		},
 		ContainerFrame6 = {
 			Title = "Reagent Bag",
 			Buttons = {
-				-- TODO: Detect bag changes to skin additional buttons
-				ContainerFrame6Item = 34
+				ContainerFrame6Item = 0
+			}
+		},
+		BankContainerFrames = {
+			Title = "Bank Bags",
+			Buttons = {
+				ContainerFrame7Item  = 0,
+				ContainerFrame8Item  = 0,
+				ContainerFrame9Item  = 0,
+				ContainerFrame10Item = 0,
+				ContainerFrame11Item = 0,
+				ContainerFrame12Item = 0,
+				ContainerFrame13Item = 0,
 			}
 		},
 		BankFrame = {
@@ -70,14 +63,6 @@ local MasqueBlizzInv = {
 					Item = 28,
 					Bag = 7,
 				},
-				-- TODO: Detect bag changes to skin additional buttons
-				ContainerFrame7Item  = 34,
-				ContainerFrame8Item  = 34,
-				ContainerFrame9Item  = 34,
-				ContainerFrame10Item = 34,
-				ContainerFrame11Item = 34,
-				ContainerFrame12Item = 34,
-				ContainerFrame13Item = 34,
 			}
 		},
 		ReagentBankFrame = {
@@ -102,14 +87,14 @@ local MasqueBlizzInv = {
 					Column6 = { Button = 14 },
 					Column7 = { Button = 14 },
 				},
-				GuildBankTab1 = { Button = 0 },
-				GuildBankTab2 = { Button = 0 },
-				GuildBankTab3 = { Button = 0 },
-				GuildBankTab4 = { Button = 0 },
-				GuildBankTab5 = { Button = 0 },
-				GuildBankTab6 = { Button = 0 },
-				GuildBankTab7 = { Button = 0 },
-				GuildBankTab8 = { Button = 0 },
+				GuildBankTab1 = { Button = -1 },
+				GuildBankTab2 = { Button = -1 },
+				GuildBankTab3 = { Button = -1 },
+				GuildBankTab4 = { Button = -1 },
+				GuildBankTab5 = { Button = -1 },
+				GuildBankTab6 = { Button = -1 },
+				GuildBankTab7 = { Button = -1 },
+				GuildBankTab8 = { Button = -1 },
 			}
 		},
 		VoidStorageFrame = {
@@ -152,9 +137,57 @@ function MasqueBlizzInv:HandleEvent(event, target)
 	end
 end
 
--- Skin any buttons in the buttons table in Masque group group.  If parent
--- is set, then the button names are children of the parent table.
--- Buttons can be a nested table.
+-- Bags are mapped in this way:
+--  * ContainerFrame1 is always Backpack
+--  * ContainerFrame2 - 5 are the Held Bags
+--  * ContainerFrame6 is always Reagent Bag
+--  * ContainerFrame7 - 13 are the Bank Bags
+--
+-- Held and Bank bags use whichever frame is next available and not
+-- already showing when they are opened.  This means that Bank Bag
+-- 7 could use Frame7 if opened first, or Frame13 if opened after
+-- all other bags, so each time a bag is opened we need to check if
+-- all its buttons are skinned and skin the ones that are new.
+function MasqueBlizzInv:ContainerFrame_GenerateFrame(slots, target)
+	-- Skip this if the bag is empty or the Frame isn't defined
+	if slots == 0 or not self then return end
+
+	-- Work on whichever frame Blizzard is giving us
+	local frame = self:GetName()
+	local frameitem = frame .. "Item"
+	local group = nil
+	--print("bag update:", frame, slots, target)
+
+	-- Identify which group this bag belongs to by ID
+	if target >= 13 then -- We don't know about this bag
+		print("MBI Error: Unknown bag opened", frame, slots, target)
+		return
+	elseif target >= 6 then -- This is a bank bag
+		group = MasqueBlizzInv.Groups.BankContainerFrames
+	elseif target == 5 then -- This is the reagent bag
+		group = MasqueBlizzInv.Groups.ContainerFrame6
+	elseif target >= 1 then -- This is a held (main) bag
+		group = MasqueBlizzInv.Groups.ContainerFrames
+	elseif target == 0 then -- This is the backpack
+		group = MasqueBlizzInv.Groups.ContainerFrame1
+	end
+
+	local skinned = group.Buttons[frameitem]
+
+	-- If skinned isn't -1 (a singular button) and there are more
+	-- slots than already skinned, skin those new slots
+	if skinned >= 0 and skinned < slots then
+		for i = group.Buttons[frameitem] + 1, slots do
+			group.Group:AddButton(_G[frameitem .. i])
+			--print("skinning:", frameitem, i)
+		end
+		group.Buttons[frameitem] = slots
+	end
+end
+
+-- Skin any buttons in the table as members of the given Masque group.
+-- If parent is set, then the button names are children of the parent
+-- table. The buttons value can be a nested table.
 function MasqueBlizzInv:Skin(buttons, group, parent)
 	if not parent then parent = _G end
 	for button, children in pairs(buttons) do
@@ -165,12 +198,12 @@ function MasqueBlizzInv:Skin(buttons, group, parent)
 			end
 		else
 			-- If zero, assume button is the actual button name
-			if (children == 0) then
+			if children == -1 then
 				--print("button:", button, children, parent[button])
 				group:AddButton(parent[button])
 
 			-- Otherwise, append the range of numbers to the name
-			else
+			elseif children > 0 then
 				for i = 1, children do
 					--print("button:", button, children, parent[button..i])
 					group:AddButton(parent[button..i])
@@ -193,6 +226,8 @@ end
 
 function MasqueBlizzInv:Init()
 	-- Hook functions to skin elusive buttons
+	hooksecurefunc("ContainerFrame_GenerateFrame",
+	               MasqueBlizzInv.ContainerFrame_GenerateFrame)
 	hooksecurefunc("BankFrame_ShowPanel",
 	               MasqueBlizzInv.BankFrame_ShowPanel)
 
