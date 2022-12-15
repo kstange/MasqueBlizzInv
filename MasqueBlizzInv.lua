@@ -148,14 +148,35 @@ end
 -- 7 could use Frame7 if opened first, or Frame13 if opened after
 -- all other bags, so each time a bag is opened we need to check if
 -- all its buttons are skinned and skin the ones that are new.
-function MasqueBlizzInv:ContainerFrame_GenerateFrame(slots, target)
-	-- Skip this if the bag is empty or the Frame isn't defined
-	if slots == 0 or not self then return end
-
+--
+-- If the Combined Bag appears, it just adds all the other buttons
+-- to itself from their true parents, and sets its size to 0,
+-- so we'll have to simulate skinning the bags one by one.
+function MasqueBlizzInv:ContainerFrame_GenerateFrame(slots, target, parent)
 	-- Work on whichever frame Blizzard is giving us
-	local frame = self:GetName()
+	if self and not parent then
+		parent = self
+	elseif not parent then
+		return
+	end
+	local frame = parent:GetName()
 	local frameitem = frame .. "Item"
 	local group = nil
+
+	-- If this is the Combined Bag, simulate skinning the bags one by one.
+	if frame == "ContainerFrameCombinedBags" then
+		--print("bag combined:", frame, slots, target)
+		for i = 1, 5 do
+			-- Figure out the number of slots in each bag
+			local slots = C_Container.GetContainerNumSlots(i-1)
+			MasqueBlizzInv:ContainerFrame_GenerateFrame(slots, i-1, _G["ContainerFrame"..i])
+		end
+		return
+	end
+
+	-- Skip processing if the bag has no slots
+	if slots == 0 then return end
+
 	--print("bag update:", frame, slots, target)
 
 	-- Identify which group this bag belongs to by ID
