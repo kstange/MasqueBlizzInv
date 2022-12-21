@@ -218,7 +218,7 @@ function MasqueBlizzInv:Skin(buttons, group, parent)
 				MasqueBlizzInv:Skin(children, group, parent[button])
 			end
 		else
-			-- If zero, assume button is the actual button name
+			-- If -1, assume button is the actual button name
 			if children == -1 then
 				--print("button:", button, children, parent[button])
 				group:AddButton(parent[button])
