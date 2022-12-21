@@ -13,6 +13,7 @@ local MSQ = LibStub("Masque")
 
 -- Title will be used for the group name shown in Masque
 -- Delayed indicates this group will be deferred to a hook or event
+-- Notes will be displayed (if provided) in the Masque settings UI
 -- Buttons should contain a list of frame names with an integer value
 --  If -1, assume to be a singular button with that name
 --  If  0, this is a dynamic frame to be skinned later
@@ -23,12 +24,14 @@ local MasqueBlizzInv = {
 	Groups = {
 		ContainerFrame1 = {
 			Title = "Backpack",
+			Notes = "This group skins the Backpack.  If you have enabled the Combined Backpack, it will only skin the slots from the real Backpack and not other bags.",
 			Buttons = {
 				ContainerFrame1Item = 0
 			}
 		},
 		ContainerFrames = {
 			Title = "Main Bags",
+			Notes = "This group skins the main Bags other than the Backpack and Reagent Bag.  If you have enabled the Combined Backpack, it will only skin the slots from those bags and not the Backpack.",
 			Buttons = {
 				ContainerFrame2Item = 0,
 				ContainerFrame3Item = 0,
@@ -259,8 +262,11 @@ function MasqueBlizzInv:Init()
 
 	-- Create groups for each defined button group and add any buttons
 	-- that should exist at this point
-	for _, cont in pairs(MasqueBlizzInv.Groups) do
-		cont.Group = MSQ:Group("Blizzard Inventory", cont.Title)
+	for id, cont in pairs(MasqueBlizzInv.Groups) do
+		cont.Group = MSQ:Group("Blizzard Inventory", cont.Title, id)
+		if cont.Notes then
+			cont.Group.Notes = cont.Notes
+		end
 		if not cont.Delayed then
 			MasqueBlizzInv:Skin(cont.Buttons, cont.Group)
 		end
