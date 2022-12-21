@@ -1,5 +1,5 @@
 ## Interface: 100002
-## Version: 10.0.2.0
+## Version: @project-version@
 ## Title: Masque Blizzard Inventory
 ## Notes: Enables Masque to skin the built-in inventory UI
 ## Author: SimGuy
