@@ -263,7 +263,7 @@ function MasqueBlizzInv:Init()
 	-- Create groups for each defined button group and add any buttons
 	-- that should exist at this point
 	for id, cont in pairs(MasqueBlizzInv.Groups) do
-		cont.Group = MSQ:Group("Blizzard Inventory", cont.Title, "MasqueBlizzInv_" .. id)
+		cont.Group = MSQ:Group("Blizzard Inventory", cont.Title, id)
 		if cont.Notes then
 			cont.Group.Notes = cont.Notes
 		end
