@@ -11,6 +11,9 @@
 
 local MSQ = LibStub("Masque")
 
+local _, Shared = ...
+local L = Shared.Locale
+
 -- Title will be used for the group name shown in Masque
 -- Delayed indicates this group will be deferred to a hook or event
 -- Notes will be displayed (if provided) in the Masque settings UI
@@ -24,14 +27,14 @@ local MasqueBlizzInv = {
 	Groups = {
 		ContainerFrame1 = {
 			Title = "Backpack",
-			Notes = "This group skins the Backpack.  If you have enabled the Combined Backpack, it will only skin the slots from the real Backpack and not other bags.",
+			Notes = L["This group skins the Backpack.  If you have enabled the Combined Backpack, it will only skin the slots from the real Backpack and not other bags."],
 			Buttons = {
 				ContainerFrame1Item = 0
 			}
 		},
 		ContainerFrames = {
 			Title = "Main Bags",
-			Notes = "This group skins the main Bags other than the Backpack and Reagent Bag.  If you have enabled the Combined Backpack, it will only skin the slots from those bags and not the Backpack.",
+			Notes = L["This group skins the main Bags other than the Backpack and Reagent Bag.  If you have enabled the Combined Backpack, it will only skin the slots from those bags and not the Backpack."],
 			Buttons = {
 				ContainerFrame2Item = 0,
 				ContainerFrame3Item = 0,
@@ -264,6 +267,8 @@ function MasqueBlizzInv:Init()
 	-- that should exist at this point
 	for id, cont in pairs(MasqueBlizzInv.Groups) do
 		cont.Group = MSQ:Group("Blizzard Inventory", cont.Title, id)
+		-- Reset l10n group names after ensuring migration to Static IDs
+		cont.Group:SetName(L[cont.Title])
 		if cont.Notes then
 			cont.Group.Notes = cont.Notes
 		end

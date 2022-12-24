@@ -9,4 +9,5 @@
 ## X-WoWI-ID: 26503
 ## X-Wago-ID: baNDxoNo
 
+Locales\Locales.xml
 MasqueBlizzInv.lua
