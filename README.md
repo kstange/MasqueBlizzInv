@@ -21,4 +21,6 @@ If you like the Dragonflight UI improvements and don't want to use a bag or inve
 
 I've done very limited testing with Wrath Classic because I don't play it, but I believe everything should work.  If you report bugs or submit patches, I'll do my best to address them.  Classic Era is not yet supported because some work is still needed.
 
+If you'd like to help localize this addon, please submit translations [here](https://www.curseforge.com/wow/addons/masque-blizz-inventory/localization).
+
 If you're looking to skin the built-in action bars as well, check out [Masque Blizzard Bars](/kstange/MasqueBlizzBars) ([CurseForge](https://www.curseforge.com/wow/addons/masque-blizz-bars-revived "CurseForge"), [Wago](https://addons.wago.io/addons/masqueblizzbars), [WoWInterface](https://www.wowinterface.com/downloads/info26502-MasqueBlizzardBars.html))!
