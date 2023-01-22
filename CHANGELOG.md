@@ -1,6 +1,6 @@
 ### Version 10.0.5.0
 
-* Bump TOC for WoW 10.0.5
+* Updated for Retail 10.0.5
 * Initial support for Wrath Classic 3.4.1
 * Add Support for Mail (Inbox, Send Mail, and Open Mail Attachments)
 
