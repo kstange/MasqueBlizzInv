@@ -19,8 +19,14 @@ Each element type is its own group so you can configure them independently.  The
 
 If you like the Dragonflight UI improvements and don't want to use a bag or inventory mod, this is for you.  If you use an inventory mod that replaces the built-in UI, you won't get anything from this addon for any elements that have been replaced.  For example, if you are using a Bag mod but have not replaced the Guild Bank interface, this will still work for the Guild Bank.
 
+## Classic Support
+
 I've done very limited testing with Wrath Classic because I don't play it, but I believe everything should work.  If you report bugs or submit patches, I'll do my best to address them.  Classic Era is not yet supported because some work is still needed.
 
+## Localization
+
 If you'd like to help localize this addon, please submit translations [here](https://www.curseforge.com/wow/addons/masque-blizz-inventory/localization).
+
+## Other Mods
 
 If you're looking to skin the built-in action bars as well, check out [Masque Blizzard Bars](/kstange/MasqueBlizzBars) ([CurseForge](https://www.curseforge.com/wow/addons/masque-blizz-bars-revived "CurseForge"), [Wago](https://addons.wago.io/addons/masqueblizzbars), [WoWInterface](https://www.wowinterface.com/downloads/info26502-MasqueBlizzardBars.html))!
