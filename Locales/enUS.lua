@@ -18,6 +18,8 @@ local _, Shared = ...
 local L = Shared.Locale
 
 -- These all reference the names of containers in game. Try to label them the way Blizzard refers to them.
+L["Bags"] = "Bags"
+L["This group skins the Backpack, the Keyring, main bags and bank bags"] = "This group skins the Backpack, the Keyring, main bags and bank bags"
 L["Backpack"] = "Backpack"
 L["This group skins the Backpack.  If you have enabled the Combined Backpack, it will only skin the slots from the real Backpack and not other bags."] = "This group skins the Backpack.  If you have enabled the Combined Backpack, it will only skin the slots from the real Backpack and not other bags."
 L["Main Bags"] = "Main Bags"

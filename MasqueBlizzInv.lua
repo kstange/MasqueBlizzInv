@@ -14,10 +14,15 @@ local MSQ = LibStub("Masque")
 local _, Shared = ...
 local L = Shared.Locale
 
+local _, _, _, ver = GetBuildInfo()
+
 -- Title will be used for the group name shown in Masque
 -- Delayed indicates this group will be deferred to a hook or event
 -- Init is a function that will be run at load time for this group
 -- Notes will be displayed (if provided) in the Masque settings UI
+-- Versions specifies which WoW clients this group supports:
+--  To match it must be >= low and < high.
+--  High number is the first interface unsupported
 -- Buttons should contain a list of frame names with an integer value
 --  If -1, assume to be a singular button with that name
 --  If  0, this is a dynamic frame to be skinned later
@@ -26,9 +31,30 @@ local L = Shared.Locale
 -- State can be used for storing information about special buttons
 local MasqueBlizzInv = {
 	Groups = {
+		ContainerFrameClassic = {
+			Title = "Bags",
+			Notes = L["This group skins the Backpack, the Keyring, main bags and bank bags"],
+			Versions = { nil, 100000 },
+			Buttons = {
+				ContainerFrame1Item = 0,
+				ContainerFrame2Item = 0,
+				ContainerFrame3Item = 0,
+				ContainerFrame4Item = 0,
+				ContainerFrame5Item = 0,
+				ContainerFrame6Item = 0,
+				ContainerFrame7Item = 0,
+				ContainerFrame8Item = 0,
+				ContainerFrame9Item = 0,
+				ContainerFrame10Item = 0,
+				ContainerFrame11Item = 0,
+				ContainerFrame12Item = 0,
+				ContainerFrame13Item = 0,
+			}
+		},
 		ContainerFrame1 = {
 			Title = "Backpack",
 			Notes = L["This group skins the Backpack.  If you have enabled the Combined Backpack, it will only skin the slots from the real Backpack and not other bags."],
+			Versions = { 100000, nil },
 			Buttons = {
 				ContainerFrame1Item = 0
 			}
@@ -36,6 +62,7 @@ local MasqueBlizzInv = {
 		ContainerFrames = {
 			Title = "Main Bags",
 			Notes = L["This group skins the main Bags other than the Backpack and Reagent Bag.  If you have enabled the Combined Backpack, it will only skin the slots from those bags and not the Backpack."],
+			Versions = { 100000, nil },
 			Buttons = {
 				ContainerFrame2Item = 0,
 				ContainerFrame3Item = 0,
@@ -45,12 +72,14 @@ local MasqueBlizzInv = {
 		},
 		ContainerFrame6 = {
 			Title = "Reagent Bag",
+			Versions = { 100000, nil },
 			Buttons = {
 				ContainerFrame6Item = 0
 			}
 		},
 		BankContainerFrames = {
 			Title = "Bank Bags",
+			Versions = { 100000, nil },
 			Buttons = {
 				ContainerFrame7Item  = 0,
 				ContainerFrame8Item  = 0,
@@ -76,6 +105,7 @@ local MasqueBlizzInv = {
 			Title = "Reagent Bank",
 			Delayed = true,
 			Skinned = false,
+			Versions = { 60000, nil },
 			Buttons = {
 				ReagentBankFrameItem = 98
 			}
@@ -108,6 +138,7 @@ local MasqueBlizzInv = {
 			Title = "Void Storage",
 			Delayed = true,
 			Skinned = false,
+			Versions = { 40300, nil },
 			Buttons = {
 				VoidStorageStorageButton = 80,
 				VoidStorageDepositButton = 9,
@@ -169,7 +200,7 @@ function MasqueBlizzInv:HandleEvent(event, target)
 	end
 end
 
--- Bags are mapped in this way:
+-- Retail Bags are mapped in this way:
 --  * ContainerFrame1 is always Backpack
 --  * ContainerFrame2 - 5 are the Held Bags
 --  * ContainerFrame6 is always Reagent Bag
@@ -184,6 +215,8 @@ end
 -- If the Combined Bag appears, it just adds all the other buttons
 -- to itself from their true parents, and sets its size to 0,
 -- so we'll have to simulate skinning the bags one by one.
+--
+-- However, if this is Classic then we just treat all bags the same.
 function MasqueBlizzInv:ContainerFrame_GenerateFrame(slots, target, parent)
 	-- Work on whichever frame Blizzard is giving us
 	if self and not parent then
@@ -215,6 +248,8 @@ function MasqueBlizzInv:ContainerFrame_GenerateFrame(slots, target, parent)
 	if target >= 13 then -- We don't know about this bag
 		print("MBI Error: Unknown bag opened", frame, slots, target)
 		return
+	elseif MasqueBlizzInv:CheckVersion({ nil, 100000 }) then
+		group = MasqueBlizzInv.Groups.ContainerFrameClassic
 	elseif target >= 6 then -- This is a bank bag
 		group = MasqueBlizzInv.Groups.BankContainerFrames
 	elseif target == 5 then -- This is the reagent bag
@@ -295,34 +330,64 @@ function MasqueBlizzInv:SendMailFrame_Update()
 	end
 end
 
+-- Check if the current interface version is between the low number (inclusive)
+-- and the high number (exclusive) for implementations that are dependent upon
+-- client version.
+function MasqueBlizzInv:CheckVersion(versions)
+	if not versions or
+	   (versions and
+	    (not versions[1] or ver >= versions[1]) and
+	    (not versions[2] or ver <  versions[2])
+	   ) then
+		return true
+	else
+		return false
+	end
+end
+
 function MasqueBlizzInv:Init()
 	-- Hook functions to skin elusive buttons
+
+	-- All Bag types
 	hooksecurefunc("ContainerFrame_GenerateFrame",
 	               MasqueBlizzInv.ContainerFrame_GenerateFrame)
-	hooksecurefunc("BankFrame_ShowPanel",
-	               MasqueBlizzInv.BankFrame_ShowPanel)
+
+	-- Send Mail
 	hooksecurefunc("SendMailFrame_Update",
 	               MasqueBlizzInv.SendMailFrame_Update)
 
+	-- Reagent Bank
+	if MasqueBlizzInv:CheckVersion({ 60000, nil }) then
+		hooksecurefunc("BankFrame_ShowPanel",
+		               MasqueBlizzInv.BankFrame_ShowPanel)
+	end
+
 	-- Capture events to skin elusive buttons
 	MasqueBlizzInv.Events = CreateFrame("Frame")
-	MasqueBlizzInv.Events:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_SHOW")
+
+	if MasqueBlizzInv:CheckVersion({ 30401, nil }) then
+		-- Bank, Guild Bank, and Void Storage
+		MasqueBlizzInv.Events:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_SHOW")
+	end
+
 	MasqueBlizzInv.Events:SetScript("OnEvent", MasqueBlizzInv.HandleEvent)
 
 	-- Create groups for each defined button group and add any buttons
 	-- that should exist at this point
 	for id, cont in pairs(MasqueBlizzInv.Groups) do
-		cont.Group = MSQ:Group("Blizzard Inventory", cont.Title, id)
-		-- Reset l10n group names after ensuring migration to Static IDs
-		cont.Group:SetName(L[cont.Title])
-		if cont.Init then
-			cont.Init(cont.Buttons)
-		end
-		if cont.Notes then
-			cont.Group.Notes = cont.Notes
-		end
-		if not cont.Delayed then
-			MasqueBlizzInv:Skin(cont.Buttons, cont.Group)
+		if MasqueBlizzInv:CheckVersion(cont.Versions) then
+			cont.Group = MSQ:Group("Blizzard Inventory", cont.Title, id)
+			-- Reset l10n group names after ensuring migration to Static IDs
+			cont.Group:SetName(L[cont.Title])
+			if cont.Init then
+				cont.Init(cont.Buttons)
+			end
+			if cont.Notes then
+				cont.Group.Notes = cont.Notes
+			end
+			if not cont.Delayed then
+				MasqueBlizzInv:Skin(cont.Buttons, cont.Group)
+			end
 		end
 	end
 end
