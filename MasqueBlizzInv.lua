@@ -16,6 +16,7 @@ local L = Shared.Locale
 
 -- Title will be used for the group name shown in Masque
 -- Delayed indicates this group will be deferred to a hook or event
+-- Init is a function that will be run at load time for this group
 -- Notes will be displayed (if provided) in the Masque settings UI
 -- Buttons should contain a list of frame names with an integer value
 --  If -1, assume to be a singular button with that name
@@ -115,6 +116,31 @@ local MasqueBlizzInv = {
 				--VoidStorageFrame = {
 				--	Page = 2
 				--}
+			}
+		},
+		MailFrame = {
+			Title = "Mail",
+			Notes = L["This group skins the Inbox, Send Mail, and Open Mail attachment icons."],
+			Init = function (buttons)
+					-- Send buttons only use NormalTexture, so
+					-- create an icon for Masque to display
+					for i = 1, buttons.SendMailAttachment do
+						button = _G['SendMailAttachment'..i]
+						button.icon = button:CreateTexture()
+					end
+				end,
+			Buttons = {
+				MailItem1Button = -1,
+				MailItem2Button = -1,
+				MailItem3Button = -1,
+				MailItem4Button = -1,
+				MailItem5Button = -1,
+				MailItem6Button = -1,
+				MailItem7Button = -1,
+				-- It appears the game defines 16 attachment
+				-- slots even though players can only use 12
+				OpenMailAttachmentButton = ATTACHMENTS_MAX,
+				SendMailAttachment = ATTACHMENTS_MAX_SEND,
 			}
 		}
 	}
@@ -251,12 +277,32 @@ function MasqueBlizzInv:BankFrame_ShowPanel()
 	end
 end
 
+-- Blizzard uses SetNormalTexture() for SendMailAttachment icons but Masque
+-- doesn't so we have to set the icons for items when the frame updates.
+function MasqueBlizzInv:SendMailFrame_Update()
+	local frame = MasqueBlizzInv.Groups.MailFrame
+	local button = "SendMailAttachment"
+	for i=1, frame.Buttons[button] do
+		local icon = _G[button..i].icon
+		if HasSendMailItem(i) then
+			local _, _, itemTexture, _, _ = GetSendMailItem(i)
+			icon:SetTexture(itemTexture or "Interface\\Icons\\INV_Misc_QuestionMark")
+		else
+			icon:SetTexture(nil)
+		end
+		-- If we don't do this, sometimes the icon ends up behind the backdrop
+		icon:SetDrawLayer("ARTWORK")
+	end
+end
+
 function MasqueBlizzInv:Init()
 	-- Hook functions to skin elusive buttons
 	hooksecurefunc("ContainerFrame_GenerateFrame",
 	               MasqueBlizzInv.ContainerFrame_GenerateFrame)
 	hooksecurefunc("BankFrame_ShowPanel",
 	               MasqueBlizzInv.BankFrame_ShowPanel)
+	hooksecurefunc("SendMailFrame_Update",
+	               MasqueBlizzInv.SendMailFrame_Update)
 
 	-- Capture events to skin elusive buttons
 	MasqueBlizzInv.Events = CreateFrame("Frame")
@@ -269,6 +315,9 @@ function MasqueBlizzInv:Init()
 		cont.Group = MSQ:Group("Blizzard Inventory", cont.Title, id)
 		-- Reset l10n group names after ensuring migration to Static IDs
 		cont.Group:SetName(L[cont.Title])
+		if cont.Init then
+			cont.Init(cont.Buttons)
+		end
 		if cont.Notes then
 			cont.Group.Notes = cont.Notes
 		end

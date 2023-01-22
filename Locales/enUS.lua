@@ -28,3 +28,6 @@ L["Bank"] = "Bank"
 L["Reagent Bank"] = "Reagent Bank"
 L["Guild Bank"] = "Guild Bank"
 L["Void Storage"] = "Void Storage"
+L["Mail"] = "Mail"
+L["This group skins the Inbox, Send Mail, and Open Mail attachment icons."] = "This group skins the Inbox, Send Mail, and Open Mail attachment icons."
+
