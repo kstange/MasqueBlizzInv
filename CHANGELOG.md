@@ -1,3 +1,8 @@
+### Version 10.0.5.0
+
+* Bump TOC for WoW 10.0.5
+* Add Support for Mail (Inbox, Send Mail, and Open Mail Attachments)
+
 ### Version 10.0.2.0
 
 * Initial version

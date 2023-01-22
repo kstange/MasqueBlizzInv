@@ -13,6 +13,7 @@ This addon enables [Masque](https://github.com/SFX-WoW/Masque) ([CurseForge](htt
 * Reagent Bank
 * Guild Bank
 * Void Storage
+* Mail
 
 Each element type is its own group so you can configure them independently.  The Combined Backpack will inherit the Backpack and Main Bags configuration.
 
