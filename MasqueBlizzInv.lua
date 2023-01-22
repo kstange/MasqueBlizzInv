@@ -33,7 +33,7 @@ local MasqueBlizzInv = {
 	Groups = {
 		ContainerFrameClassic = {
 			Title = "Bags",
-			Notes = L["This group skins the Backpack, the Keyring, main bags and bank bags"],
+			Notes = L["This group skins the Backpack, the Keyring, Main Bags, and Bank Bags"],
 			Versions = { nil, 100000 },
 			Buttons = {
 				ContainerFrame1Item = 0,
@@ -151,7 +151,7 @@ local MasqueBlizzInv = {
 		},
 		MailFrame = {
 			Title = "Mail",
-			Notes = L["This group skins the Inbox, Send Mail, and Open Mail attachment icons."],
+			Notes = L["This group skins the Inbox, Send Mail, and Open Mail attachments."],
 			Init = function (buttons)
 					-- Send buttons only use NormalTexture, so
 					-- create an icon for Masque to display
