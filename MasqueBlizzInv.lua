@@ -159,6 +159,12 @@ local MasqueBlizzInv = {
 						local button = _G['SendMailAttachment'..i]
 						button.icon = button:CreateTexture()
 					end
+					-- FIXME: This should be handled with regions
+					-- Define the icon border where Masque expects
+					for i = 1, INBOXITEMS_TO_DISPLAY do
+						local button = _G['MailItem'..i..'Button']
+						button.Border = button.IconBorder
+					end
 				end,
 			Buttons = {
 				MailItem1Button = -1,
