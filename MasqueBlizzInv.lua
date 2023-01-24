@@ -156,7 +156,7 @@ local MasqueBlizzInv = {
 					-- Send buttons only use NormalTexture, so
 					-- create an icon for Masque to display
 					for i = 1, buttons.SendMailAttachment do
-						button = _G['SendMailAttachment'..i]
+						local button = _G['SendMailAttachment'..i]
 						button.icon = button:CreateTexture()
 					end
 				end,
@@ -288,7 +288,13 @@ function MasqueBlizzInv:Skin(buttons, group, parent)
 			-- If -1, assume button is the actual button name
 			if children == -1 then
 				--print("button:", button, children, parent[button])
-				group:AddButton(parent[button])
+				-- FIXME: Temporary workaround for MailItem Buttons
+				-- Need to redesign metadata to specify types, regions
+				if (string.sub(button, 1, 8) == "MailItem") then
+					group:AddButton(parent[button], nil, "Action")
+				else
+					group:AddButton(parent[button])
+				end
 
 			-- Otherwise, append the range of numbers to the name
 			elseif children > 0 then
@@ -309,6 +315,17 @@ function MasqueBlizzInv:BankFrame_ShowPanel()
 	if BankFrame.activeTabIndex == 2 and not frame.Skinned then
 		MasqueBlizzInv:Skin(frame.Buttons, frame.Group)
 		frame.Skinned = true
+	end
+end
+
+-- When new items are being rendered upon opening the mailbox, sometimes
+-- the backdrop frame ends up in front of the icon.  Set the draw layer
+-- to prevent that.
+function MasqueBlizzInv:InboxFrame_Update()
+	local frame = MasqueBlizzInv.Groups.MailFrame
+	for i=1, INBOXITEMS_TO_DISPLAY do
+		local icon = _G["MailItem"..i.."ButtonIcon"]
+		icon:SetDrawLayer("ARTWORK", -1)
 	end
 end
 
@@ -351,6 +368,10 @@ function MasqueBlizzInv:Init()
 	-- All Bag types
 	hooksecurefunc("ContainerFrame_GenerateFrame",
 	               MasqueBlizzInv.ContainerFrame_GenerateFrame)
+
+	-- Inbox
+	hooksecurefunc("InboxFrame_Update",
+	               MasqueBlizzInv.InboxFrame_Update)
 
 	-- Send Mail
 	hooksecurefunc("SendMailFrame_Update",
