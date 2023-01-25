@@ -12,24 +12,27 @@
 -- https://www.curseforge.com/wow/addons/masque-blizz-inventory/localization
 
 local Locale = GetLocale()
-if Locale ~= "enUS" then return end
+-- allow enUS to fill empty strings for other locales
+--if Locale ~= "enUS" then return end
 
 local _, Shared = ...
 local L = Shared.Locale
 
--- These all reference the names of containers in game. Try to label them the way Blizzard refers to them.
-L["Bags"] = "Bags"
-L["This group skins the Backpack, the Keyring, Main Bags, and Bank Bags"] = "This group skins the Backpack, the Keyring, Main Bags, and Bank Bags"
-L["Backpack"] = "Backpack"
-L["This group skins the Backpack.  If you have enabled the Combined Backpack, it will only skin the slots from the real Backpack and not other bags."] = "This group skins the Backpack.  If you have enabled the Combined Backpack, it will only skin the slots from the real Backpack and not other bags."
-L["Main Bags"] = "Main Bags"
-L["This group skins the main Bags other than the Backpack and Reagent Bag.  If you have enabled the Combined Backpack, it will only skin the slots from those bags and not the Backpack."] = "This group skins the main Bags other than the Backpack and Reagent Bag.  If you have enabled the Combined Backpack, it will only skin the slots from those bags and not the Backpack."
-L["Reagent Bag"] = "Reagent Bag"
-L["Bank Bags"] = "Bank Bags"
-L["Bank"] = "Bank"
-L["Reagent Bank"] = "Reagent Bank"
-L["Guild Bank"] = "Guild Bank"
-L["Void Storage"] = "Void Storage"
-L["Mail"] = "Mail"
-L["This group skins the Inbox, Send Mail, and Open Mail attachments."] = "This group skins the Inbox, Send Mail, and Open Mail attachments."
+-- Defaults for these are the keys themselves
+--L["Bags"] = "Bags"
+--L["Backpack"] = "Backpack"
+--L["Main Bags"] = "Main Bags"
+--L["Reagent Bag"] = "Reagent Bag"
+--L["Bank Bags"] = "Bank Bags"
+--L["Bank"] = "Bank"
+--L["Reagent Bank"] = "Reagent Bank"
+--L["Guild Bank"] = "Guild Bank"
+--L["Void Storage"] = "Void Storage"
+--L["Mail"] = "Mail"
+
+-- Using short keys for these long strings, so enUS needs to be defined as well
+L["NOTES_BAGS_CLASSIC"] = "This group skins the Backpack, the Keyring, Main Bags, and Bank Bags."
+L["NOTES_BACKPACK"] = "This group skins the Backpack.  If you have enabled the Combined Backpack, it will only skin the slots from the real Backpack and not other bags."
+L["NOTES_MAIN_BAGS"] = "This group skins the main Bags other than the Backpack and Reagent Bag.  If you have enabled the Combined Backpack, it will only skin the slots from those bags and not the Backpack."
+L["NOTES_MAIL"] = "This group skins the Inbox, Send Mail, and Open Mail attachments."
 
