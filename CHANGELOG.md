@@ -1,9 +1,6 @@
-# Version 10.0.5.0
+# Version 10.0.5.1
 
-* Updated for Retail 10.0.5
-* Initial support for Wrath Classic 3.4.1
-* Added Support for Mail (Inbox, Send Mail, and Open Mail Attachments)
-* Added support for localization. If you'd like to contribute, please submit translations [here](https://www.curseforge.com/wow/addons/masque-blizz-inventory/localization).
+* Added missing Open Mail Letter Button to Mail group
 
 # Release History
 
