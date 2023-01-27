@@ -21,7 +21,7 @@ If you like the Dragonflight UI improvements and don't want to use a bag or inve
 
 ## Classic Support
 
-I've done very limited testing with Wrath Classic because I don't play it, but I believe everything should work.  If you report bugs or submit patches, I'll do my best to address them.  Classic Era is not yet supported because some work is still needed.
+I've done very limited testing with Classic Era and Wrath Classic because I don't play them, but I believe everything should work.  If you report bugs or submit patches, I'll do my best to address them.
 
 ## Localization
 
