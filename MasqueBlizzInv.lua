@@ -33,7 +33,7 @@ local MasqueBlizzInv = {
 	Groups = {
 		ContainerFrameClassic = {
 			Title = "Bags",
-			Notes = L["This group skins the Backpack, the Keyring, Main Bags, and Bank Bags"],
+			Notes = L["NOTES_BAGS_CLASSIC"],
 			Versions = { nil, 100000 },
 			Buttons = {
 				ContainerFrame1Item = 0,
@@ -53,7 +53,7 @@ local MasqueBlizzInv = {
 		},
 		ContainerFrame1 = {
 			Title = "Backpack",
-			Notes = L["This group skins the Backpack.  If you have enabled the Combined Backpack, it will only skin the slots from the real Backpack and not other bags."],
+			Notes = L["NOTES_BACKPACK"],
 			Versions = { 100000, nil },
 			Buttons = {
 				ContainerFrame1Item = 0
@@ -61,7 +61,7 @@ local MasqueBlizzInv = {
 		},
 		ContainerFrames = {
 			Title = "Main Bags",
-			Notes = L["This group skins the main Bags other than the Backpack and Reagent Bag.  If you have enabled the Combined Backpack, it will only skin the slots from those bags and not the Backpack."],
+			Notes = L["NOTES_MAIN_BAGS"],
 			Versions = { 100000, nil },
 			Buttons = {
 				ContainerFrame2Item = 0,
@@ -151,7 +151,7 @@ local MasqueBlizzInv = {
 		},
 		MailFrame = {
 			Title = "Mail",
-			Notes = L["This group skins the Inbox, Send Mail, and Open Mail attachments."],
+			Notes = L["NOTES_MAIN_BAGS"],
 			Init = function (buttons)
 					-- Send buttons only use NormalTexture, so
 					-- create an icon for Masque to display
