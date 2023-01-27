@@ -152,7 +152,7 @@ local MasqueBlizzInv = {
 		},
 		MailFrame = {
 			Title = "Mail",
-			Notes = L["NOTES_MAIN_BAGS"],
+			Notes = L["NOTES_MAIL"],
 			Init = function (buttons)
 					-- Send buttons only use NormalTexture, so
 					-- create an icon for Masque to display
