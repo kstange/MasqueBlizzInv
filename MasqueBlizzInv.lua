@@ -114,6 +114,7 @@ local MasqueBlizzInv = {
 			Title = "Guild Bank",
 			Delayed = true,
 			Skinned = false,
+			Versions = { 20300, nil },
 			Buttons = {
 				GuildBankFrame = {
 					Column1 = { Button = 14 },
