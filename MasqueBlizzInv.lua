@@ -188,6 +188,12 @@ local MasqueBlizzInv = {
 -- Handle events for buttons that get created dynamically by Blizzard
 function MasqueBlizzInv:HandleEvent(event, target)
 	local frame
+	-- Handle Classic Era Bank
+	if event == "BANKFRAME_OPENED" then
+		event = "PLAYER_INTERACTION_MANAGER_FRAME_SHOW"
+		target = 8
+	end
+
 	if event == "PLAYER_INTERACTION_MANAGER_FRAME_SHOW" then
 		if target == 8 then -- Bank
 			frame = MasqueBlizzInv.Groups.BankFrame
@@ -393,6 +399,11 @@ function MasqueBlizzInv:Init()
 
 	-- Capture events to skin elusive buttons
 	MasqueBlizzInv.Events = CreateFrame("Frame")
+
+	if MasqueBlizzInv:CheckVersion({ nil, 30401 }) then
+		-- Bank (Classic Era)
+		MasqueBlizzInv.Events:RegisterEvent("BANKFRAME_OPENED")
+	end
 
 	if MasqueBlizzInv:CheckVersion({ 30401, nil }) then
 		-- Bank, Guild Bank, and Void Storage
