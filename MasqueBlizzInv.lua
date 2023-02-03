@@ -14,13 +14,17 @@ local ACR = LibStub("AceConfigRegistry-3.0")
 local ACD = LibStub("AceConfigDialog-3.0")
 
 local Core = {}
+local Addon = {}
 local AddonName, Shared = ...
 local L = Shared.Locale
+Shared.Addon = Addon
+Shared.Core = Core
 
 local _, _, _, ver = GetBuildInfo()
 
-local AddonFriendlyName = "Masque Blizzard Inventory"
-local MasqueFriendlyName = "Blizzard Inventory"
+Addon.Name = AddonName
+Addon.FriendlyName = "Masque Blizzard Inventory"
+Addon.MasqueFriendlyName = "Blizzard Inventory"
 
 -- Title will be used for the group name shown in Masque
 -- Delayed indicates this group will be deferred to a hook or event
@@ -277,18 +281,20 @@ local Options = {
 	}
 }
 
--- Handle events for buttons that get created dynamically by Blizzard
+-- Handle the load event to initialize things that require Saved Variables
 function Core:HandleEvent(event, target)
-	local frame
-
-	-- Initialize things that require Saved Variables
-	if event == "ADDON_LOADED" and target == AddonName then
-		if not  _G[AddonName] then
-			_G[AddonName] = {}
+	if event == "ADDON_LOADED" and target == Addon.Name then
+		if not  _G[Addon.Name] then
+			_G[Addon.Name] = {}
 		end
-		ACR:RegisterOptionsTable(AddonName, Options)
-		ACD:AddToBlizOptions(AddonName, AddonFriendlyName)
+		ACR:RegisterOptionsTable(Addon.Name, Options)
+		ACD:AddToBlizOptions(Addon.Name, Addon.FriendlyName)
 	end
+end
+
+-- Handle events for buttons that get created dynamically by Blizzard
+function Addon:HandleEvent(event, target)
+	local frame
 
 	-- Handle Classic Era Bank
 	if event == "BANKFRAME_OPENED" then
@@ -296,6 +302,7 @@ function Core:HandleEvent(event, target)
 		target = 8
 	end
 
+	-- This handles Wrath Classic or later
 	if event == "PLAYER_INTERACTION_MANAGER_FRAME_SHOW" then
 		if target == 8 then -- Bank
 			frame = Groups.BankFrame
@@ -333,7 +340,7 @@ end
 -- so we'll have to simulate skinning the bags one by one.
 --
 -- However, if this is Classic then we just treat all bags the same.
-function Core:ContainerFrame_GenerateFrame(slots, target, parent)
+function Addon:ContainerFrame_GenerateFrame(slots, target, parent)
 	-- Work on whichever frame Blizzard is giving us
 	if self and not parent then
 		parent = self
@@ -425,7 +432,7 @@ end
 
 -- Skin the ReagentBank the first time the user opens it.  There's
 -- no event to capture and it doesn't exist on initial bank open.
-function Core:BankFrame_ShowPanel()
+function Addon:BankFrame_ShowPanel()
 	local frame = Groups.ReagentBankFrame
 	--print("skinning:", frame.Title, frame.Skinned)
 	if BankFrame.activeTabIndex == 2 and not frame.Skinned then
@@ -437,7 +444,7 @@ end
 -- When new items are being rendered upon opening the mailbox, sometimes
 -- the backdrop frame ends up in front of the icon.  Set the draw layer
 -- to prevent that.
-function Core:InboxFrame_Update()
+function Addon:InboxFrame_Update()
 	local frame = Groups.MailFrame
 	for i=1, INBOXITEMS_TO_DISPLAY do
 		local icon = _G["MailItem"..i.."ButtonIcon"]
@@ -447,7 +454,7 @@ end
 
 -- Blizzard uses SetNormalTexture() for SendMailAttachment icons but Masque
 -- doesn't so we have to set the icons for items when the frame updates.
-function Core:SendMailFrame_Update()
+function Addon:SendMailFrame_Update()
 	local frame = Groups.MailFrame
 	local button = "SendMailAttachment"
 	for i=1, frame.Buttons[button] do
@@ -478,50 +485,54 @@ function Core:CheckVersion(versions)
 	end
 end
 
-function Core:Init()
-	-- Hook functions to skin elusive buttons
-
+-- These are init steps specific to this addon
+-- This should be run before Core:Init()
+function Addon:Init()
 	-- All Bag types
 	hooksecurefunc("ContainerFrame_GenerateFrame",
-	               Core.ContainerFrame_GenerateFrame)
+	               Addon.ContainerFrame_GenerateFrame)
 
 	-- Inbox
 	hooksecurefunc("InboxFrame_Update",
-	               Core.InboxFrame_Update)
+	               Addon.InboxFrame_Update)
 
 	-- Send Mail
 	hooksecurefunc("SendMailFrame_Update",
-	               Core.SendMailFrame_Update)
+	               Addon.SendMailFrame_Update)
 
 	-- Reagent Bank
 	if Core:CheckVersion({ 60000, nil }) then
 		hooksecurefunc("BankFrame_ShowPanel",
-		               Core.BankFrame_ShowPanel)
+		               Addon.BankFrame_ShowPanel)
 	end
 
-	-- Capture events to skin elusive buttons
-	Core.Events = CreateFrame("Frame")
-
-	-- Init Custom Options
-	Core.Events:RegisterEvent("ADDON_LOADED")
+	Addon.Events = CreateFrame("Frame")
 
 	if Core:CheckVersion({ nil, 30401 }) then
 		-- Bank (Classic Era)
-		Core.Events:RegisterEvent("BANKFRAME_OPENED")
+		Addon.Events:RegisterEvent("BANKFRAME_OPENED")
 	end
 
 	if Core:CheckVersion({ 30401, nil }) then
 		-- Bank, Guild Bank, and Void Storage
-		Core.Events:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_SHOW")
+		Addon.Events:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_SHOW")
 	end
 
+	Addon.Events:SetScript("OnEvent", Addon.HandleEvent)
+
+end
+
+function Core:Init()
+	-- Init Custom Options
+	Core.Events = CreateFrame("Frame")
+	Core.Events:RegisterEvent("ADDON_LOADED")
 	Core.Events:SetScript("OnEvent", Core.HandleEvent)
 
 	-- Create groups for each defined button group and add any buttons
 	-- that should exist at this point
 	for id, cont in pairs(Groups) do
 		if Core:CheckVersion(cont.Versions) then
-			cont.Group = Masque:Group(MasqueFriendlyName, cont.Title, id)
+			cont.Group = Masque:Group(Addon.MasqueFriendlyName, cont.Title, id)
 			-- Reset l10n group names after ensuring migration to Static IDs
 			cont.Group:SetName(L[cont.Title])
 			if cont.Init then
@@ -537,4 +548,5 @@ function Core:Init()
 	end
 end
 
+Addon:Init()
 Core:Init()
