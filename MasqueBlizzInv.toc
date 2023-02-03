@@ -4,10 +4,12 @@
 ## Notes: Enables Masque to skin the built-in inventory UI
 ## Author: SimGuy
 ## RequiredDeps: Masque
+## SavedVariables: MasqueBlizzInv
 
 ## X-Curse-Project-ID: 736923
 ## X-WoWI-ID: 26503
 ## X-Wago-ID: baNDxoNo
 
+Libs\Libs.xml
 Locales\Locales.xml
 MasqueBlizzInv.lua

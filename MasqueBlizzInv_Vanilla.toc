@@ -3,11 +3,13 @@
 ## Title: Masque Blizzard Inventory
 ## Notes: Enables Masque to skin the built-in inventory UI
 ## Author: SimGuy
+## SavedVariables: MasqueBlizzInv
 ## RequiredDeps: Masque
 
 ## X-Curse-Project-ID: 736923
 ## X-WoWI-ID: 26503
 ## X-Wago-ID: baNDxoNo
 
+Libs\Libs.xml
 Locales\Locales.xml
 MasqueBlizzInv.lua

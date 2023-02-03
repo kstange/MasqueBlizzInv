@@ -9,7 +9,7 @@
 -- https://opensource.org/licenses/MIT.
 --
 
-local MSQ = LibStub("Masque")
+local Masque = LibStub("Masque")
 
 local _, Shared = ...
 local L = Shared.Locale
@@ -188,6 +188,10 @@ local MasqueBlizzInv = {
 -- Handle events for buttons that get created dynamically by Blizzard
 function MasqueBlizzInv:HandleEvent(event, target)
 	local frame
+
+	if event == "ADDON_LOADED" and target == "MasqueBlizzInv" then
+	end
+
 	-- Handle Classic Era Bank
 	if event == "BANKFRAME_OPENED" then
 		event = "PLAYER_INTERACTION_MANAGER_FRAME_SHOW"
@@ -400,6 +404,9 @@ function MasqueBlizzInv:Init()
 	-- Capture events to skin elusive buttons
 	MasqueBlizzInv.Events = CreateFrame("Frame")
 
+	-- Init Custom Options
+	MasqueBlizzInv.Events:RegisterEvent("ADDON_LOADED")
+
 	if MasqueBlizzInv:CheckVersion({ nil, 30401 }) then
 		-- Bank (Classic Era)
 		MasqueBlizzInv.Events:RegisterEvent("BANKFRAME_OPENED")
@@ -416,7 +423,7 @@ function MasqueBlizzInv:Init()
 	-- that should exist at this point
 	for id, cont in pairs(MasqueBlizzInv.Groups) do
 		if MasqueBlizzInv:CheckVersion(cont.Versions) then
-			cont.Group = MSQ:Group("Blizzard Inventory", cont.Title, id)
+			cont.Group = Masque:Group("Blizzard Inventory", cont.Title, id)
 			-- Reset l10n group names after ensuring migration to Static IDs
 			cont.Group:SetName(L[cont.Title])
 			if cont.Init then
