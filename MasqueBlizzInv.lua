@@ -307,7 +307,7 @@ function Core:Skin(buttons, group, parent)
 				--print("button:", button, children, parent[button])
 				-- FIXME: Temporary workaround for MailItem Buttons
 				-- Need to redesign metadata to specify types, regions
-				if (string.sub(button, 1, 8) == "MailItem") then
+				if (button:sub(1, 8) == "MailItem") then
 					group:AddButton(parent[button], nil, "Action")
 				else
 					group:AddButton(parent[button])
