@@ -1,7 +1,6 @@
-# Version 10.0.5.1
+# Version 10.0.5.2
 
-* Added support for Classic Era 1.14.3
-* Added missing Open Mail Letter Button to Mail group
+* No functional changes
 
 # Release History
 
