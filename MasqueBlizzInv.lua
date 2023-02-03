@@ -10,12 +10,17 @@
 --
 
 local Masque = LibStub("Masque")
+local ACR = LibStub("AceConfigRegistry-3.0")
+local ACD = LibStub("AceConfigDialog-3.0")
 
 local Core = {}
-local _, Shared = ...
+local AddonName, Shared = ...
 local L = Shared.Locale
 
 local _, _, _, ver = GetBuildInfo()
+
+local AddonFriendlyName = "Masque Blizzard Inventory"
+local MasqueFriendlyName = "Blizzard Inventory"
 
 -- Title will be used for the group name shown in Masque
 -- Delayed indicates this group will be deferred to a hook or event
@@ -184,11 +189,105 @@ local Groups = {
 	}
 }
 
+-- A table indicating the defaults for Options by key.
+-- Only populate options where the default isn't false
+local Defaults = {
+}
+
+-- A table of function callbacks to call upon setting
+-- certain options.  Only populate for options that
+-- require callbacks.
+local OptionCallbacks = {
+	--BankFrameHideSlots = function (key, value)
+	--end,
+}
+
+-- Get an option for the AceConfigDialog
+function Core:GetOption()
+	local key = self[#self]
+	if not key then	return nil end
+
+	local value = false;
+	local settings = _G[AddonName]
+
+	if settings and settings[key] ~= nil then
+		value = settings[key]
+	elseif Defaults and Defaults[key] ~= nil then
+		value = Defaults[key]
+	end
+
+	print("GetOption", key, value)
+	return value
+end
+
+-- Set an option from the AceConfigDialog
+function Core:SetOption(...)
+	local key = self[#self]
+	if not key then	return nil end
+
+	local value = ...
+	local settings = _G[AddonName]
+
+	print("SetOption", key, value)
+	if settings and settings[key] ~= value then
+		settings[key] = value
+	end
+	if OptionCallbacks and OptionCallbacks[key] then
+		local func = OptionCallbacks[key]
+		func(key, value)
+	end
+end
+
+-- AceConfig Options table
+local Options = {
+	type = "group",
+	name = "Masque Blizzard Inventory Extended Options",
+	get  = Core.GetOption,
+	set  = Core.SetOption,
+	args = {
+		Description = {
+			name = "These options allow you to customize inventory elements to make them look better with certain Masque skins, such as by hiding background elements.",
+			type = "description",
+			fontSize = "medium",
+		},
+		BankFrame = {
+			name = "Bank",
+			desc = "Provides options to adjust the appearance of the Bank",
+			type = "group",
+			args = {
+				BankFrameHideSlots = {
+					name = "Hide Slots",
+					desc = "Hide the slot artwork for Bank items",
+					type = "toggle",
+				}
+			}
+		},
+		GuildBankFrame = {
+			name = "Guild Bank",
+			desc = "Provides options to adjust the appearance of the Guild Bank",
+			type = "group",
+			args = {
+				GuildBankFrameHideSlots = {
+					name = "Hide Slots",
+					desc = "Hide the slot artwork for Guild Bank items",
+					type = "toggle",
+				}
+			}
+		}
+	}
+}
+
 -- Handle events for buttons that get created dynamically by Blizzard
 function Core:HandleEvent(event, target)
 	local frame
 
-	if event == "ADDON_LOADED" and target == "MasqueBlizzInv" then
+	-- Initialize things that require Saved Variables
+	if event == "ADDON_LOADED" and target == AddonName then
+		if not  _G[AddonName] then
+			_G[AddonName] = {}
+		end
+		ACR:RegisterOptionsTable(AddonName, Options)
+		ACD:AddToBlizOptions(AddonName, AddonFriendlyName)
 	end
 
 	-- Handle Classic Era Bank
@@ -422,7 +521,7 @@ function Core:Init()
 	-- that should exist at this point
 	for id, cont in pairs(Groups) do
 		if Core:CheckVersion(cont.Versions) then
-			cont.Group = Masque:Group("Blizzard Inventory", cont.Title, id)
+			cont.Group = Masque:Group(MasqueFriendlyName, cont.Title, id)
 			-- Reset l10n group names after ensuring migration to Static IDs
 			cont.Group:SetName(L[cont.Title])
 			if cont.Init then
