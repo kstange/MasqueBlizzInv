@@ -39,6 +39,7 @@ function Addon:HandleEvent(event, target)
 	if event == "PLAYER_INTERACTION_MANAGER_FRAME_SHOW" then
 		if target == 8 then -- Bank
 			frame = Groups.BankFrame
+			Addon:Options_BankFrame_Update()
 		elseif target == 10 then -- Guild Bank
 			frame = Groups.GuildBankFrame
 		elseif target == 26 then -- Void Storage
@@ -140,6 +141,25 @@ function Addon:BankFrame_ShowPanel()
 	end
 end
 
+-- Update the visibility of Bank elements based on settings
+function Addon:Options_BankFrame_Update()
+	-- This only works on Retail due to frame design
+	if not Core:CheckVersion({ 100000, nil }) then return end
+
+	local show = not Core:GetOption('BankFrameHideSlots')
+	local frame = BankSlotsFrame
+	-- This is the texture map used for bank slot artwork
+	local texture = 590156
+
+	-- Find regions that use the texture and hide (or show) them
+	for i = 1, select("#", frame:GetRegions()) do
+		local child = select(i, frame:GetRegions())
+		if type(child) == "table" and child.GetTexture and child:GetTexture() == texture then
+			child:SetShown(show)
+		end
+	end
+end
+
 -- When new items are being rendered upon opening the mailbox, sometimes
 -- the backdrop frame ends up in front of the icon.  Set the draw layer
 -- to prevent that.
@@ -204,9 +224,13 @@ function Addon:Init()
 
 	Addon.Events:SetScript("OnEvent", Addon.HandleEvent)
 
-	-- Register Callbacks for Various Options here, like:
-	-- Metadata.OptionCallbacks.BankFrame = Addon.Update_BankFrame
-
+	if Core:CheckVersion({ 100000, nil }) then
+		-- Register Callbacks for various options here
+		Metadata.OptionCallbacks.BankFrameHideSlots = Addon.Options_BankFrame_Update
+	else
+		-- Empty the whole options table because we don't support it on Classic
+		Metadata.Options = nil
+	end
 end
 
 Addon:Init()

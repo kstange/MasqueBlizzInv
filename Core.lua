@@ -30,9 +30,14 @@ Shared.Core = Core
 local _, _, _, ver = GetBuildInfo()
 
 -- Get an option for the AceConfigDialog
-function Core:GetOption()
-	local key = self[#self]
-	if not key then	return nil end
+function Core:GetOption(key)
+	if not key then
+		if self and self[#self] then
+			key = self[#self]
+		else
+			return nil
+		end
+	end
 
 	local value = false;
 	local settings = _G[AddonName]
@@ -43,7 +48,7 @@ function Core:GetOption()
 		value = Metadata.Defaults[key]
 	end
 
-	print("GetOption", key, value)
+	--print("GetOption", key, value)
 	return value
 end
 
@@ -55,11 +60,12 @@ function Core:SetOption(...)
 	local value = ...
 	local settings = _G[AddonName]
 
-	print("SetOption", key, value)
+	--print("SetOption", key, value)
 	if settings and settings[key] ~= value then
 		settings[key] = value
 	end
 	if Metadata.OptionCallbacks and Metadata.OptionCallbacks[key] then
+		--print("OptionCallback", key)
 		local func = Metadata.OptionCallbacks[key]
 		func(key, value)
 	end
@@ -71,10 +77,13 @@ function Core:HandleEvent(event, target)
 		if not  _G[AddonName] then
 			_G[AddonName] = {}
 		end
-		Metadata.Options.get = Core.GetOption
-		Metadata.Options.set = Core.SetOption
-		ACR:RegisterOptionsTable(AddonName, Metadata.Options)
-		ACD:AddToBlizOptions(AddonName, Metadata.FriendlyName)
+		-- Don't register options unless they're defined.
+		if Metadata.Options then
+			Metadata.Options.get = Core.GetOption
+			Metadata.Options.set = Core.SetOption
+			ACR:RegisterOptionsTable(AddonName, Metadata.Options)
+			ACD:AddToBlizOptions(AddonName, Metadata.FriendlyName)
+		end
 	end
 end
 

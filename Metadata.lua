@@ -221,6 +221,18 @@ Metadata.Options = {
 				}
 			}
 		},
+		ReagentBankFrame = {
+			name = L["Reagent Bank"],
+			desc = "Provides options to adjust the appearance of the Reagent Bank",
+			type = "group",
+			args = {
+				ReagentBankFrameHideSlots = {
+					name = "Hide Slots",
+					desc = "Hide the slot artwork for Reagent Bank items",
+					type = "toggle",
+				}
+			}
+		},
 		GuildBankFrame = {
 			name = L["Guild Bank"],
 			desc = "Provides options to adjust the appearance of the Guild Bank",
