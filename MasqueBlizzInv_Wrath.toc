@@ -12,4 +12,6 @@
 
 Libs\Libs.xml
 Locales\Locales.xml
+Metadata.lua
+Core.lua
 MasqueBlizzInv.lua

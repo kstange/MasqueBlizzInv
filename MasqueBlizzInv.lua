@@ -10,287 +10,22 @@
 --
 
 local Masque = LibStub("Masque")
-local ACR = LibStub("AceConfigRegistry-3.0")
-local ACD = LibStub("AceConfigDialog-3.0")
 
-local Core = {}
-local Addon = {}
 local AddonName, Shared = ...
+
+-- From Locales/Locales.lua
 local L = Shared.Locale
+
+-- From Metadata.lua
+local Metadata = Shared.Metadata
+local Groups = Metadata.Groups
+
+-- From Core.lua
+local Core = Shared.Core
+
+-- Push us into shared object
+local Addon = {}
 Shared.Addon = Addon
-Shared.Core = Core
-
-local _, _, _, ver = GetBuildInfo()
-
-Addon.Name = AddonName
-Addon.FriendlyName = "Masque Blizzard Inventory"
-Addon.MasqueFriendlyName = "Blizzard Inventory"
-
--- Title will be used for the group name shown in Masque
--- Delayed indicates this group will be deferred to a hook or event
--- Init is a function that will be run at load time for this group
--- Notes will be displayed (if provided) in the Masque settings UI
--- Versions specifies which WoW clients this group supports:
---  To match it must be >= low and < high.
---  High number is the first interface unsupported
--- Buttons should contain a list of frame names with an integer value
---  If -1, assume to be a singular button with that name
---  If  0, this is a dynamic frame to be skinned later
---  If >0, attempt to loop through frames with the name prefix suffixed with
---  the integer range
--- State can be used for storing information about special buttons
-local Groups = {
-	ContainerFrameClassic = {
-		Title = "Bags",
-		Notes = L["NOTES_BAGS_CLASSIC"],
-		Versions = { nil, 100000 },
-		Buttons = {
-			ContainerFrame1Item = 0,
-			ContainerFrame2Item = 0,
-			ContainerFrame3Item = 0,
-			ContainerFrame4Item = 0,
-			ContainerFrame5Item = 0,
-			ContainerFrame6Item = 0,
-			ContainerFrame7Item = 0,
-			ContainerFrame8Item = 0,
-			ContainerFrame9Item = 0,
-			ContainerFrame10Item = 0,
-			ContainerFrame11Item = 0,
-			ContainerFrame12Item = 0,
-			ContainerFrame13Item = 0,
-		}
-	},
-	ContainerFrame1 = {
-		Title = "Backpack",
-		Notes = L["NOTES_BACKPACK"],
-		Versions = { 100000, nil },
-		Buttons = {
-			ContainerFrame1Item = 0
-		}
-	},
-	ContainerFrames = {
-		Title = "Main Bags",
-		Notes = L["NOTES_MAIN_BAGS"],
-		Versions = { 100000, nil },
-		Buttons = {
-			ContainerFrame2Item = 0,
-			ContainerFrame3Item = 0,
-			ContainerFrame4Item = 0,
-			ContainerFrame5Item = 0,
-		}
-	},
-	ContainerFrame6 = {
-		Title = "Reagent Bag",
-		Versions = { 100000, nil },
-		Buttons = {
-			ContainerFrame6Item = 0
-		}
-	},
-	BankContainerFrames = {
-		Title = "Bank Bags",
-		Versions = { 100000, nil },
-		Buttons = {
-			ContainerFrame7Item  = 0,
-			ContainerFrame8Item  = 0,
-			ContainerFrame9Item  = 0,
-			ContainerFrame10Item = 0,
-			ContainerFrame11Item = 0,
-			ContainerFrame12Item = 0,
-			ContainerFrame13Item = 0,
-		}
-	},
-	BankFrame = {
-		Title = "Bank",
-		Delayed = true,
-		Skinned = false,
-		Buttons = {
-			BankSlotsFrame = {
-				Item = 28,
-				Bag = 7,
-			},
-		}
-	},
-	ReagentBankFrame = {
-		Title = "Reagent Bank",
-		Delayed = true,
-		Skinned = false,
-		Versions = { 60000, nil },
-		Buttons = {
-			ReagentBankFrameItem = 98
-		}
-	},
-	GuildBankFrame = {
-		Title = "Guild Bank",
-		Delayed = true,
-		Skinned = false,
-		Versions = { 20300, nil },
-		Buttons = {
-			GuildBankFrame = {
-				Column1 = { Button = 14 },
-				Column2 = { Button = 14 },
-				Column3 = { Button = 14 },
-				Column4 = { Button = 14 },
-				Column5 = { Button = 14 },
-				Column6 = { Button = 14 },
-				Column7 = { Button = 14 },
-			},
-			GuildBankTab1 = { Button = -1 },
-			GuildBankTab2 = { Button = -1 },
-			GuildBankTab3 = { Button = -1 },
-			GuildBankTab4 = { Button = -1 },
-			GuildBankTab5 = { Button = -1 },
-			GuildBankTab6 = { Button = -1 },
-			GuildBankTab7 = { Button = -1 },
-			GuildBankTab8 = { Button = -1 },
-		}
-	},
-	VoidStorageFrame = {
-		Title = "Void Storage",
-		Delayed = true,
-		Skinned = false,
-		Versions = { 40300, nil },
-		Buttons = {
-			VoidStorageStorageButton = 80,
-			VoidStorageDepositButton = 9,
-			VoidStorageWithdrawButton = 9,
-			-- Tab buttons don't have icon in a reliable place
-			--VoidStorageFrame = {
-			--	Page = 2
-			--}
-		}
-	},
-	MailFrame = {
-		Title = "Mail",
-		Notes = L["NOTES_MAIL"],
-		Init = function (buttons)
-				-- Send buttons only use NormalTexture, so
-				-- create an icon for Masque to display
-				for i = 1, buttons.SendMailAttachment do
-					local button = _G['SendMailAttachment'..i]
-					button.icon = button:CreateTexture()
-				end
-				-- FIXME: This should be handled with regions
-				-- Define the icon border where Masque expects
-				for i = 1, INBOXITEMS_TO_DISPLAY do
-					local button = _G['MailItem'..i..'Button']
-					button.Border = button.IconBorder
-				end
-			end,
-		Buttons = {
-			MailItem1Button = -1,
-			MailItem2Button = -1,
-			MailItem3Button = -1,
-			MailItem4Button = -1,
-			MailItem5Button = -1,
-			MailItem6Button = -1,
-			MailItem7Button = -1,
-			-- It appears the game defines 16 attachment
-			-- slots even though players can only use 12
-			OpenMailAttachmentButton = ATTACHMENTS_MAX,
-			OpenMailLetterButton = -1,
-			SendMailAttachment = ATTACHMENTS_MAX_SEND,
-		}
-	}
-}
-
--- A table indicating the defaults for Options by key.
--- Only populate options where the default isn't false
-local Defaults = {
-}
-
--- A table of function callbacks to call upon setting
--- certain options.  Only populate for options that
--- require callbacks.
-local OptionCallbacks = {
-	--BankFrameHideSlots = function (key, value)
-	--end,
-}
-
--- Get an option for the AceConfigDialog
-function Core:GetOption()
-	local key = self[#self]
-	if not key then	return nil end
-
-	local value = false;
-	local settings = _G[AddonName]
-
-	if settings and settings[key] ~= nil then
-		value = settings[key]
-	elseif Defaults and Defaults[key] ~= nil then
-		value = Defaults[key]
-	end
-
-	print("GetOption", key, value)
-	return value
-end
-
--- Set an option from the AceConfigDialog
-function Core:SetOption(...)
-	local key = self[#self]
-	if not key then	return nil end
-
-	local value = ...
-	local settings = _G[AddonName]
-
-	print("SetOption", key, value)
-	if settings and settings[key] ~= value then
-		settings[key] = value
-	end
-	if OptionCallbacks and OptionCallbacks[key] then
-		local func = OptionCallbacks[key]
-		func(key, value)
-	end
-end
-
--- AceConfig Options table
-local Options = {
-	type = "group",
-	name = "Masque Blizzard Inventory Extended Options",
-	get  = Core.GetOption,
-	set  = Core.SetOption,
-	args = {
-		Description = {
-			name = "These options allow you to customize inventory elements to make them look better with certain Masque skins, such as by hiding background elements.",
-			type = "description",
-			fontSize = "medium",
-		},
-		BankFrame = {
-			name = "Bank",
-			desc = "Provides options to adjust the appearance of the Bank",
-			type = "group",
-			args = {
-				BankFrameHideSlots = {
-					name = "Hide Slots",
-					desc = "Hide the slot artwork for Bank items",
-					type = "toggle",
-				}
-			}
-		},
-		GuildBankFrame = {
-			name = "Guild Bank",
-			desc = "Provides options to adjust the appearance of the Guild Bank",
-			type = "group",
-			args = {
-				GuildBankFrameHideSlots = {
-					name = "Hide Slots",
-					desc = "Hide the slot artwork for Guild Bank items",
-					type = "toggle",
-				}
-			}
-		}
-	}
-}
-
--- Handle the load event to initialize things that require Saved Variables
-function Core:HandleEvent(event, target)
-	if event == "ADDON_LOADED" and target == Addon.Name then
-		if not  _G[Addon.Name] then
-			_G[Addon.Name] = {}
-		end
-		ACR:RegisterOptionsTable(Addon.Name, Options)
-		ACD:AddToBlizOptions(Addon.Name, Addon.FriendlyName)
-	end
-end
 
 -- Handle events for buttons that get created dynamically by Blizzard
 function Addon:HandleEvent(event, target)
@@ -396,40 +131,6 @@ function Addon:ContainerFrame_GenerateFrame(slots, target, parent)
 	end
 end
 
--- Skin any buttons in the table as members of the given Masque group.
--- If parent is set, then the button names are children of the parent
--- table. The buttons value can be a nested table.
-function Core:Skin(buttons, group, parent)
-	if not parent then parent = _G end
-	for button, children in pairs(buttons) do
-		if (type(children) == "table") then
-			if parent[button] then
-				--print('recurse:', button, parent[button])
-				Core:Skin(children, group, parent[button])
-			end
-		else
-			-- If -1, assume button is the actual button name
-			if children == -1 then
-				--print("button:", button, children, parent[button])
-				-- FIXME: Temporary workaround for MailItem Buttons
-				-- Need to redesign metadata to specify types, regions
-				if (button:sub(1, 8) == "MailItem") then
-					group:AddButton(parent[button], nil, "Action")
-				else
-					group:AddButton(parent[button])
-				end
-
-			-- Otherwise, append the range of numbers to the name
-			elseif children > 0 then
-				for i = 1, children do
-					--print("button:", button, children, parent[button..i])
-					group:AddButton(parent[button..i])
-				end
-			end
-		end
-	end
-end
-
 -- Skin the ReagentBank the first time the user opens it.  There's
 -- no event to capture and it doesn't exist on initial bank open.
 function Addon:BankFrame_ShowPanel()
@@ -470,21 +171,6 @@ function Addon:SendMailFrame_Update()
 	end
 end
 
--- Check if the current interface version is between the low number (inclusive)
--- and the high number (exclusive) for implementations that are dependent upon
--- client version.
-function Core:CheckVersion(versions)
-	if not versions or
-	   (versions and
-	    (not versions[1] or ver >= versions[1]) and
-	    (not versions[2] or ver <  versions[2])
-	   ) then
-		return true
-	else
-		return false
-	end
-end
-
 -- These are init steps specific to this addon
 -- This should be run before Core:Init()
 function Addon:Init()
@@ -520,32 +206,9 @@ function Addon:Init()
 
 	Addon.Events:SetScript("OnEvent", Addon.HandleEvent)
 
-end
+	-- Register Callbacks for Various Options here, like:
+	-- Metadata.OptionCallbacks.BankFrame = Addon.Update_BankFrame
 
-function Core:Init()
-	-- Init Custom Options
-	Core.Events = CreateFrame("Frame")
-	Core.Events:RegisterEvent("ADDON_LOADED")
-	Core.Events:SetScript("OnEvent", Core.HandleEvent)
-
-	-- Create groups for each defined button group and add any buttons
-	-- that should exist at this point
-	for id, cont in pairs(Groups) do
-		if Core:CheckVersion(cont.Versions) then
-			cont.Group = Masque:Group(Addon.MasqueFriendlyName, cont.Title, id)
-			-- Reset l10n group names after ensuring migration to Static IDs
-			cont.Group:SetName(L[cont.Title])
-			if cont.Init then
-				cont.Init(cont.Buttons)
-			end
-			if cont.Notes then
-				cont.Group.Notes = cont.Notes
-			end
-			if not cont.Delayed then
-				Core:Skin(cont.Buttons, cont.Group)
-			end
-		end
-	end
 end
 
 Addon:Init()
