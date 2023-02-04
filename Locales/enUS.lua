@@ -36,3 +36,5 @@ L["NOTES_BACKPACK"] = "This group skins the Backpack.  If you have enabled the C
 L["NOTES_MAIN_BAGS"] = "This group skins the main Bags other than the Backpack and Reagent Bag.  If you have enabled the Combined Backpack, it will only skin the slots from those bags and not the Backpack."
 L["NOTES_MAIL"] = "This group skins the Inbox, Send Mail, and Open Mail attachments."
 
+L["OPTIONS_TITLE_MAIN"] = "%s Extended Options"
+L["OPTIONS_DESCRIPTION_MAIN"] = "These options allow you to customize inventory elements to make them look better with certain Masque skins, such as by hiding background artwork."

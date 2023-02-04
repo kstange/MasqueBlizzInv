@@ -202,10 +202,10 @@ Metadata.OptionCallbacks = {}
 -- AceConfig Options table used to display a panel.
 Metadata.Options = {
 	type = "group",
-	name = (L["%s Extended Options"]).format(Metadata.FriendlyName),
+	name = format(L["OPTIONS_TITLE_MAIN"], Metadata.FriendlyName),
 	args = {
 		Description = {
-			name = "These options allow you to customize inventory elements to make them look better with certain Masque skins, such as by hiding background artwork." .. "\n ",
+			name = L["OPTIONS_DESCRIPTION_MAIN"] .. "\n ",
 			type = "description",
 			fontSize = "medium",
 		},
