@@ -17,6 +17,7 @@ local L = Shared.Locale
 -- From Metadata.lua
 local Metadata = Shared.Metadata
 local Groups = Metadata.Groups
+local Callbacks = Metadata.OptionCallbacks
 
 -- From Core.lua
 local Core = Shared.Core
@@ -42,6 +43,7 @@ function Addon:HandleEvent(event, target)
 			Addon:Options_BankFrame_Update()
 		elseif target == 10 then -- Guild Bank
 			frame = Groups.GuildBankFrame
+			Addon:Options_GuildBankFrame_Update()
 		elseif target == 26 then -- Void Storage
 			frame = Groups.VoidStorageFrame
 		end
@@ -135,9 +137,12 @@ end
 function Addon:BankFrame_ShowPanel()
 	local frame = Groups.ReagentBankFrame
 	--print("skinning:", frame.Title, frame.Skinned)
-	if BankFrame.activeTabIndex == 2 and not frame.Skinned then
-		Core:Skin(frame.Buttons, frame.Group)
-		frame.Skinned = true
+	if BankFrame.activeTabIndex == 2 then
+		Addon:Options_ReagentBankFrame_Update()
+		if not frame.Skinned then
+			Core:Skin(frame.Buttons, frame.Group)
+			frame.Skinned = true
+		end
 	end
 end
 
@@ -157,6 +162,43 @@ function Addon:Options_BankFrame_Update()
 		if type(child) == "table" and child.GetTexture and child:GetTexture() == texture then
 			child:SetShown(show)
 		end
+	end
+end
+
+-- Update the visibility of Reagent Bank elements based on settings
+function Addon:Options_ReagentBankFrame_Update()
+	-- This only works on Retail due to frame design
+	if not Core:CheckVersion({ 100000, nil }) then return end
+
+	local show = not Core:GetOption('ReagentBankFrameHideSlots')
+	local frame = ReagentBankFrame
+	-- This is the atlas name for the reagent bank artwork
+	local atlas = "bank-slots"
+
+	-- Find regions that use the texture and hide (or show) them
+	for i = 1, select("#", frame:GetRegions()) do
+		local child = select(i, frame:GetRegions())
+		if type(child) == "table" and child.GetAtlas then
+			local atlas = child:GetAtlas()
+			if atlas == atlas then
+				child:SetShown(show)
+			end
+		end
+	end
+end
+
+-- Update the visibility of Guild Bank elements based on settings
+function Addon:Options_GuildBankFrame_Update()
+	-- This only works on Retail due to frame design
+	if not Core:CheckVersion({ 100000, nil }) then return end
+
+	local show = not Core:GetOption('GuildBankFrameHideSlots')
+	local frame = GuildBankFrame
+
+	-- Find regions that use the texture and hide (or show) them
+	for i = 1, 7 do
+		local bg = frame['Column' .. i].Background
+		bg:SetShown(show)
 	end
 end
 
@@ -226,7 +268,9 @@ function Addon:Init()
 
 	if Core:CheckVersion({ 100000, nil }) then
 		-- Register Callbacks for various options here
-		Metadata.OptionCallbacks.BankFrameHideSlots = Addon.Options_BankFrame_Update
+		Callbacks.BankFrameHideSlots = Addon.Options_BankFrame_Update
+		Callbacks.ReagentBankFrameHideSlots = Addon.Options_ReagentBankFrame_Update
+		Callbacks.GuildBankFrameHideSlots = Addon.Options_GuildBankFrame_Update
 	else
 		-- Empty the whole options table because we don't support it on Classic
 		Metadata.Options = nil

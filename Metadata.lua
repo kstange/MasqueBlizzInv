@@ -218,7 +218,7 @@ Metadata.Options = {
 					name = "Hide Slots",
 					desc = "Hide the slot artwork for Bank items",
 					type = "toggle",
-				}
+				},
 			}
 		},
 		ReagentBankFrame = {
@@ -230,7 +230,7 @@ Metadata.Options = {
 					name = "Hide Slots",
 					desc = "Hide the slot artwork for Reagent Bank items",
 					type = "toggle",
-				}
+				},
 			}
 		},
 		GuildBankFrame = {
@@ -242,7 +242,7 @@ Metadata.Options = {
 					name = "Hide Slots",
 					desc = "Hide the slot artwork for Guild Bank items",
 					type = "toggle",
-				}
+				},
 			}
 		}
 	}
