@@ -9,8 +9,6 @@
 -- https://opensource.org/licenses/MIT.
 --
 
-local Masque = LibStub("Masque")
-
 local AddonName, Shared = ...
 
 -- From Locales/Locales.lua
