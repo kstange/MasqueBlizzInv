@@ -1,6 +1,7 @@
 # Version 10.0.5.2
 
 * Added options to hide slot artwork for Bank, Guild Bank, Reagent Bank, and Void Storage
+* Added missing Open Mail Money Button
 * Significantly reorganized the code
   * Split functionality into separate files
   * Improved generalization and removed workarounds for Mail Items

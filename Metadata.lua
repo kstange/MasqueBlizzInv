@@ -177,6 +177,7 @@ Metadata.Groups = {
 			-- slots even though players can only use 12
 			OpenMailAttachmentButton = ATTACHMENTS_MAX,
 			OpenMailLetterButton = -1,
+			OpenMailMoneyButton = -1,
 			SendMailAttachment = ATTACHMENTS_MAX_SEND,
 		}
 	}
