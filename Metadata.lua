@@ -196,13 +196,6 @@ Metadata.Types = {
 	GuildBankTab6Button = { type = "Action" },
 	GuildBankTab7Button = { type = "Action" },
 	GuildBankTab8Button = { type = "Action" },
-	MailItem1Button = { map = { Checked = "GetCheckedTexture" } },
-	MailItem2Button = { map = { Checked = "GetCheckedTexture" } },
-	MailItem3Button = { map = { Checked = "GetCheckedTexture" } },
-	MailItem4Button = { map = { Checked = "GetCheckedTexture" } },
-	MailItem5Button = { map = { Checked = "GetCheckedTexture" } },
-	MailItem6Button = { map = { Checked = "GetCheckedTexture" } },
-	MailItem7Button = { map = { Checked = "GetCheckedTexture" } },
 	SendMailAttachment = { map = { Icon = "icon" } },
 }
 
