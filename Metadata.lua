@@ -187,7 +187,14 @@ Metadata.Types = {
 	-- This will be passed for all buttons unless it's otherwise overridden
 	DEFAULT = { type = "Item" },
 
-	-- Mail Items are Action buttons
+	GuildBankTab1Button = { type = "Action" },
+	GuildBankTab2Button = { type = "Action" },
+	GuildBankTab3Button = { type = "Action" },
+	GuildBankTab4Button = { type = "Action" },
+	GuildBankTab5Button = { type = "Action" },
+	GuildBankTab6Button = { type = "Action" },
+	GuildBankTab7Button = { type = "Action" },
+	GuildBankTab8Button = { type = "Action" },
 	MailItem1Button = { map = { Checked = "GetCheckedTexture" } },
 	MailItem2Button = { map = { Checked = "GetCheckedTexture" } },
 	MailItem3Button = { map = { Checked = "GetCheckedTexture" } },

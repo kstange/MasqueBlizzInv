@@ -115,18 +115,19 @@ end
 -- Skin any buttons in the table as members of the given Masque group.
 -- If parent is set, then the button names are children of the parent
 -- table. The buttons value can be a nested table.
-function Core:Skin(buttons, group, parent)
+function Core:Skin(buttons, group, parent, prefix)
 	if not parent then parent = _G end
+	if not prefix then prefix = "" end
 	for button, children in pairs(buttons) do
 		if (type(children) == "table") then
 			if parent[button] then
 				--print('recurse:', button, parent[button])
-				Core:Skin(children, group, parent[button])
+				Core:Skin(children, group, parent[button], prefix .. button)
 			end
 		else
 			-- Pass the correct type for this button so that Masque
 			-- doesn't have to try to figure it out.
-			local btype = Types[button] or {}
+			local btype = Types[prefix .. button] or {}
 			local dtype = Types['DEFAULT'] or {}
 			local type = btype.type or dtype.type or nil
 			local map = btype.map or nil
