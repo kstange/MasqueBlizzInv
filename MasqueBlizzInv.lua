@@ -228,7 +228,7 @@ function Addon:InboxFrame_Update()
 	local frame = Groups.MailFrame
 	for i=1, INBOXITEMS_TO_DISPLAY do
 		local icon = _G["MailItem"..i.."ButtonIcon"]
-		icon:SetDrawLayer("ARTWORK", -1)
+		icon:SetDrawLayer("BACKGROUND", 1)
 	end
 end
 
@@ -246,7 +246,7 @@ function Addon:SendMailFrame_Update()
 			icon:SetTexture(nil)
 		end
 		-- If we don't do this, sometimes the icon ends up behind the backdrop
-		icon:SetDrawLayer("ARTWORK")
+		icon:SetDrawLayer("BACKGROUND", 1)
 	end
 end
 

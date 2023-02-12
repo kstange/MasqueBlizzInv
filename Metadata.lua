@@ -202,7 +202,7 @@ Metadata.Types = {
 	MailItem5Button = { map = { Checked = "GetCheckedTexture" } },
 	MailItem6Button = { map = { Checked = "GetCheckedTexture" } },
 	MailItem7Button = { map = { Checked = "GetCheckedTexture" } },
-	SendMailAttachment = { map = { Icon = "icon", Normal = "GetNormalTexture" } },
+	SendMailAttachment = { map = { Icon = "icon" } },
 }
 
 -- A table indicating the defaults for Options by key.
