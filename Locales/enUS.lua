@@ -39,5 +39,5 @@ L["NOTES_MAIN_BAGS"] = "This group skins the main Bags other than the Backpack a
 L["NOTES_MAIL"] = "This group skins the Inbox, Send Mail, and Open Mail attachments."
 L["OPTIONS_TITLE_MAIN"] = "%s Extended Options"
 L["OPTIONS_DESCRIPTION_MAIN"] = "These options allow you to customize inventory elements to make them look better with certain Masque skins, such as by hiding background artwork."
-L["OPTIONS_DESCRIPTION_SLOTS"] = "Hide the slot artwork for these items."
+L["OPTIONS_DESCRIPTION_SLOTS"] = "Hide the slot artwork behind items."
 L["OPTIONS_DESCRIPTION_GUILDBANK_BACKGROUND"] = "Hide the black background behind Guild Bank items."
