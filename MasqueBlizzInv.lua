@@ -46,6 +46,7 @@ function Addon:HandleEvent(event, target)
 			Addon:Options_GuildBankFrame_Update()
 		elseif target == 26 then -- Void Storage
 			frame = Groups.VoidStorageFrame
+			Addon:Options_VoidStorageFrame_Update()
 		end
 		if not frame then
 			--print("unknown frame", target)
@@ -221,22 +222,66 @@ function Addon:Options_VoidStorageFrame_Update()
 	end
 end
 
+-- Update the visibility of Mail elements based on settings
+function Addon:Options_MailFrame_Update()
+	-- This only works on Retail due to frame design
+	if not Core:CheckVersion({ 100000, nil }) then return end
+
+	local showbg = not Core:GetOption('MailFrameHideInboxBackground')
+	local showinbox = not Core:GetOption('MailFrameHideInboxSlots')
+	local showsend = not Core:GetOption('MailFrameHideSendSlots')
+
+	-- Find regions that use the texture and hide (or show) them
+	for i = 1, INBOXITEMS_TO_DISPLAY do
+		-- There is slot artwork in the parent frame
+		local frame = _G['MailItem' .. i]
+		local texture = 136383
+
+		-- Find regions that use the texture and hide (or show) them
+		for i = 1, select("#", frame:GetRegions()) do
+			local child = select(i, frame:GetRegions())
+			if type(child) == "table" and child.GetTexture and child:GetTexture() == texture then
+				child:SetShown(showbg)
+			end
+		end
+
+		-- The button's also got slot artwork
+		local slot = _G['MailItem' .. i .. 'ButtonSlot']
+		slot:SetShown(showinbox)
+	end
+
+	for i = 1, Groups.MailFrame.Buttons.SendMailAttachment do
+		local frame = _G['SendMailAttachment' .. i]
+		local texture = 130862
+
+		-- Find regions that use the texture and hide (or show) them
+		for i = 1, select("#", frame:GetRegions()) do
+			local child = select(i, frame:GetRegions())
+			if type(child) == "table" and child.GetTexture and child:GetTexture() == texture then
+				child:SetShown(showsend)
+			end
+		end
+	end
+end
+
 -- When new items are being rendered upon opening the mailbox, sometimes
 -- the backdrop frame ends up in front of the icon.  Set the draw layer
 -- to prevent that.
 function Addon:InboxFrame_Update()
 	local frame = Groups.MailFrame
+	Addon:Options_MailFrame_Update()
 	for i=1, INBOXITEMS_TO_DISPLAY do
 		local icon = _G["MailItem"..i.."ButtonIcon"]
 		icon:SetDrawLayer("BACKGROUND", 1)
 	end
 end
 
--- Blizzard uses SetNormalTexture() for SendMailAttachment icons but Masque
--- doesn't so we have to set the icons for items when the frame updates.
+-- Blizzard sets the icon non-standardly for SendMailAttachment icons
+-- so we have to set the icons for items when the frame updates.
 function Addon:SendMailFrame_Update()
 	local frame = Groups.MailFrame
 	local button = "SendMailAttachment"
+	Addon:Options_MailFrame_Update()
 	for i=1, frame.Buttons[button] do
 		local icon = _G[button..i].icon
 		if HasSendMailItem(i) then
@@ -292,6 +337,9 @@ function Addon:Init()
 		Callbacks.GuildBankFrameHideSlots = Addon.Options_GuildBankFrame_Update
 		Callbacks.GuildBankFrameHideBackground = Addon.Options_GuildBankFrame_Update
 		Callbacks.VoidStorageFrameHideSlots = Addon.Options_VoidStorageFrame_Update
+		Callbacks.MailFrameHideInboxSlots = Addon.Options_MailFrame_Update
+		Callbacks.MailFrameHideInboxBackground = Addon.Options_MailFrame_Update
+		Callbacks.MailFrameHideSendSlots = Addon.Options_MailFrame_Update
 	else
 		-- Empty the whole options table because we don't support it on Classic
 		Metadata.Options = nil

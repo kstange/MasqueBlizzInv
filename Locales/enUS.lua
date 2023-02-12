@@ -31,6 +31,9 @@ local L = Shared.Locale
 --L["Mail"] = "Mail"
 --L["Hide Background"] = "Hide Background"
 --L["Hide Slots"] = "Hide Slots"
+--L["Hide Inbox Background"] = "Hide Inbox Background"
+--L["Hide Inbox Slots"] = "Hide Inbox Slots"
+--L["Hide Send Mail Attachment Slots"] = "Hide Send Mail Attachment Slots"
 
 -- Using short keys for these long strings, so enUS needs to be defined as well
 L["NOTES_BAGS_CLASSIC"] = "This group skins the Backpack, the Keyring, Main Bags, and Bank Bags."
@@ -41,3 +44,4 @@ L["OPTIONS_TITLE_MAIN"] = "%s Extended Options"
 L["OPTIONS_DESCRIPTION_MAIN"] = "These options allow you to customize inventory elements to make them look better with certain Masque skins, such as by hiding background artwork."
 L["OPTIONS_DESCRIPTION_SLOTS"] = "Hide the slot artwork behind items."
 L["OPTIONS_DESCRIPTION_GUILDBANK_BACKGROUND"] = "Hide the black background behind Guild Bank items."
+L["OPTIONS_DESCRIPTION_MAIL_INBOX_BACKGROUND"] = "Hide the persistent Inbox slot placeholder artwork."

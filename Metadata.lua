@@ -257,11 +257,13 @@ Metadata.Options = {
 					name = L["Hide Slots"],
 					desc = L["OPTIONS_DESCRIPTION_SLOTS"],
 					type = "toggle",
+					width = "full",
 				},
 				GuildBankFrameHideBackground = {
 					name = L["Hide Background"],
 					desc = L["OPTIONS_DESCRIPTION_GUILDBANK_BACKGROUND"],
 					type = "toggle",
+					width = "full",
 				},
 			}
 		},
@@ -275,7 +277,31 @@ Metadata.Options = {
 					type = "toggle",
 				},
 			}
-		}
+		},
+		MailFrame = {
+			name = L["Mail"],
+			type = "group",
+			args = {
+				MailFrameHideInboxSlots = {
+					name = L["Hide Inbox Slots"],
+					desc = L["OPTIONS_DESCRIPTION_SLOTS"],
+					type = "toggle",
+					width = "full",
+				},
+				MailFrameHideInboxBackground = {
+					name = L["Hide Inbox Background"],
+					desc = L["OPTIONS_DESCRIPTION_MAIL_INBOX_BACKGROUND"],
+					type = "toggle",
+					width = "full",
+				},
+				MailFrameHideSendSlots = {
+					name = L["Hide Send Mail Attachment Slots"],
+					desc = L["OPTIONS_DESCRIPTION_SLOTS"],
+					type = "toggle",
+					width = "full",
+				},
+			}
+		},
 	}
 }
 
