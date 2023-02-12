@@ -22,6 +22,7 @@ local L = Shared.Locale
 -- From Metadata.lua
 local Metadata = Shared.Metadata
 local Groups = Metadata.Groups
+local Types = Metadata.Types
 
 -- Push us into shared object
 local Core = {}
@@ -87,6 +88,30 @@ function Core:HandleEvent(event, target)
 	end
 end
 
+-- Return a regions table based on the information passed for this button
+function Core:MakeRegions(button, map)
+	-- If map is empty, then do nothing
+	if not map then return nil end
+
+	local regions = {}
+	for region, key in pairs(map) do
+		frame = button[key]
+		if frame then
+			-- If this is a function, call it now to get
+			-- the object for the Masque region, otherwise
+			-- assume the object is literal.
+			if type(frame) == "function" then
+				--print("regions function:", region, key, frame)
+				regions[region] = frame(button)
+			else
+				--print("regions frame:", region, key, frame)
+				regions[region] = frame
+			end
+		end
+	end
+	return regions
+end
+
 -- Skin any buttons in the table as members of the given Masque group.
 -- If parent is set, then the button names are children of the parent
 -- table. The buttons value can be a nested table.
@@ -99,22 +124,27 @@ function Core:Skin(buttons, group, parent)
 				Core:Skin(children, group, parent[button])
 			end
 		else
+			-- Pass the correct type for this button so that Masque
+			-- doesn't have to try to figure it out.
+			local btype = Types[button] or {}
+			local dtype = Types['DEFAULT'] or {}
+			local type = btype.type or dtype.type or nil
+			local map = btype.map or nil
+
 			-- If -1, assume button is the actual button name
 			if children == -1 then
 				--print("button:", button, children, parent[button])
-				-- FIXME: Temporary workaround for MailItem Buttons
-				-- Need to redesign metadata to specify types, regions
-				if (button:sub(1, 8) == "MailItem") then
-					group:AddButton(parent[button], nil, "Action")
-				else
-					group:AddButton(parent[button])
-				end
+				local frame = parent[button]
+				local regions = Core:MakeRegions(frame, map)
+				group:AddButton(frame, regions, type)
 
 			-- Otherwise, append the range of numbers to the name
 			elseif children > 0 then
 				for i = 1, children do
 					--print("button:", button, children, parent[button..i])
-					group:AddButton(parent[button..i])
+					local frame = parent[button..i]
+					local regions = Core:MakeRegions(frame, map)
+					group:AddButton(frame, regions, type)
 				end
 			end
 		end

@@ -164,12 +164,6 @@ Metadata.Groups = {
 					local button = _G['SendMailAttachment'..i]
 					button.icon = button:CreateTexture()
 				end
-				-- FIXME: This should be handled with regions
-				-- Define the icon border where Masque expects
-				for i = 1, INBOXITEMS_TO_DISPLAY do
-					local button = _G['MailItem'..i..'Button']
-					button.Border = button.IconBorder
-				end
 			end,
 		Buttons = {
 			MailItem1Button = -1,
@@ -186,6 +180,22 @@ Metadata.Groups = {
 			SendMailAttachment = ATTACHMENTS_MAX_SEND,
 		}
 	}
+}
+
+-- Specify Button Types and Regions for Buttons that need them
+Metadata.Types = {
+	-- This will be passed for all buttons unless it's otherwise overridden
+	DEFAULT = { type = "Item" },
+
+	-- Mail Items are Action buttons
+	MailItem1Button = { map = { Checked = "GetCheckedTexture" } },
+	MailItem2Button = { map = { Checked = "GetCheckedTexture" } },
+	MailItem3Button = { map = { Checked = "GetCheckedTexture" } },
+	MailItem4Button = { map = { Checked = "GetCheckedTexture" } },
+	MailItem5Button = { map = { Checked = "GetCheckedTexture" } },
+	MailItem6Button = { map = { Checked = "GetCheckedTexture" } },
+	MailItem7Button = { map = { Checked = "GetCheckedTexture" } },
+	SendMailAttachment = { map = { Icon = "icon" } },
 }
 
 -- A table indicating the defaults for Options by key.
