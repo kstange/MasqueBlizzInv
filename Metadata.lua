@@ -211,36 +211,49 @@ Metadata.Options = {
 		},
 		BankFrame = {
 			name = L["Bank"],
-			desc = "Provides options to adjust the appearance of the Bank",
 			type = "group",
 			args = {
 				BankFrameHideSlots = {
-					name = "Hide Slots",
-					desc = "Hide the slot artwork for Bank items",
+					name = L["Hide Slots"],
+					desc = L["OPTIONS_DESCRIPTION_SLOTS"],
 					type = "toggle",
 				},
 			}
 		},
 		ReagentBankFrame = {
 			name = L["Reagent Bank"],
-			desc = "Provides options to adjust the appearance of the Reagent Bank",
 			type = "group",
 			args = {
 				ReagentBankFrameHideSlots = {
-					name = "Hide Slots",
-					desc = "Hide the slot artwork for Reagent Bank items",
+					name = L["Hide Slots"],
+					desc = L["OPTIONS_DESCRIPTION_SLOTS"],
 					type = "toggle",
 				},
 			}
 		},
 		GuildBankFrame = {
 			name = L["Guild Bank"],
-			desc = "Provides options to adjust the appearance of the Guild Bank",
 			type = "group",
 			args = {
 				GuildBankFrameHideSlots = {
-					name = "Hide Slots",
-					desc = "Hide the slot artwork for Guild Bank items",
+					name = L["Hide Slots"],
+					desc = L["OPTIONS_DESCRIPTION_SLOTS"],
+					type = "toggle",
+				},
+				GuildBankFrameHideBackground = {
+					name = L["Hide Background"],
+					desc = L["OPTIONS_DESCRIPTION_GUILDBANK_BACKGROUND"],
+					type = "toggle",
+				},
+			}
+		},
+		VoidStorageFrame = {
+			name = L["Void Storage"],
+			type = "group",
+			args = {
+				VoidStorageFrameHideSlots = {
+					name = L["Hide Slots"],
+					desc = L["OPTIONS_DESCRIPTION_SLOTS"],
 					type = "toggle",
 				},
 			}

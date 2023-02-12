@@ -193,12 +193,31 @@ function Addon:Options_GuildBankFrame_Update()
 	if not Core:CheckVersion({ 100000, nil }) then return end
 
 	local show = not Core:GetOption('GuildBankFrameHideSlots')
+	local showbg = not Core:GetOption('GuildBankFrameHideBackground')
 	local frame = GuildBankFrame
 
 	-- Find regions that use the texture and hide (or show) them
 	for i = 1, 7 do
 		local bg = frame['Column' .. i].Background
 		bg:SetShown(show)
+	end
+	frame.BlackBG:SetShown(showbg)
+end
+
+-- Update the visibility of Void Storage elements based on settings
+function Addon:Options_VoidStorageFrame_Update()
+	-- This only works on Retail due to frame design
+	if not Core:CheckVersion({ 100000, nil }) then return end
+
+	local show = not Core:GetOption('VoidStorageFrameHideSlots')
+	local buttons = Groups.VoidStorageFrame.Buttons
+
+	-- Find regions that use the texture and hide (or show) them
+	for button, count in pairs(buttons) do
+		for i = 1, count do
+			local bg = _G[button .. i .. "Bg"]
+			bg:SetShown(show)
+		end
 	end
 end
 
@@ -271,6 +290,8 @@ function Addon:Init()
 		Callbacks.BankFrameHideSlots = Addon.Options_BankFrame_Update
 		Callbacks.ReagentBankFrameHideSlots = Addon.Options_ReagentBankFrame_Update
 		Callbacks.GuildBankFrameHideSlots = Addon.Options_GuildBankFrame_Update
+		Callbacks.GuildBankFrameHideBackground = Addon.Options_GuildBankFrame_Update
+		Callbacks.VoidStorageFrameHideSlots = Addon.Options_VoidStorageFrame_Update
 	else
 		-- Empty the whole options table because we don't support it on Classic
 		Metadata.Options = nil

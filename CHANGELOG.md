@@ -1,6 +1,6 @@
 # Version 10.0.5.2
 
-* Added options to hide slot artwork for Bank, Guild Bank, and Reagent Bank
+* Added options to hide slot artwork for Bank, Guild Bank, Reagent Bank, and Void Storage
 
 # Release History
 
