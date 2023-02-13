@@ -11,8 +11,8 @@
 -- Please use CurseForge to submit localization content for another language:
 -- https://www.curseforge.com/wow/addons/masque-blizz-inventory/localization
 
-local Locale = GetLocale()
 -- allow enUS to fill empty strings for other locales
+--local Locale = GetLocale()
 --if Locale ~= "enUS" then return end
 
 local _, Shared = ...

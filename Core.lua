@@ -1,8 +1,8 @@
--- 
+--
 -- Masque Blizzard Inventory
 -- Enables Masque to skin the built-in inventory UI
 --
--- Copyright 2022 SimGuy
+-- Copyright 2022 - 2023 SimGuy
 --
 -- Use of this source code is governed by an MIT-style
 -- license that can be found in the LICENSE file or at
@@ -14,7 +14,6 @@ local ACR = LibStub("AceConfigRegistry-3.0")
 local ACD = LibStub("AceConfigDialog-3.0")
 
 local AddonName, Shared = ...
-local L = Shared.Locale
 
 -- From Locales/Locales.lua
 local L = Shared.Locale
@@ -98,7 +97,7 @@ function Core:MakeRegions(button, map)
 
 	local regions = {}
 	for region, key in pairs(map) do
-		frame = button[key]
+		local frame = button[key]
 		if frame then
 			-- If this is a function, call it now to get
 			-- the object for the Masque region, otherwise
@@ -218,7 +217,7 @@ function Core:Init()
 
 	-- Create groups for each defined button group and add any buttons
 	-- that should exist at this point
-	for id, cont in pairs(Metadata.Groups) do
+	for id, cont in pairs(Groups) do
 		if Core:CheckVersion(cont.Versions) then
 			cont.Group = Masque:Group(Metadata.MasqueFriendlyName, cont.Title, id)
 			-- Reset l10n group names after ensuring migration to Static IDs

@@ -1,8 +1,8 @@
--- 
+--
 -- Masque Blizzard Inventory
 -- Enables Masque to skin the built-in inventory UI
 --
--- Copyright 2022 SimGuy
+-- Copyright 2022 - 2023 SimGuy
 --
 -- Use of this source code is governed by an MIT-style
 -- license that can be found in the LICENSE file or at
@@ -93,8 +93,8 @@ function Addon:ContainerFrame_GenerateFrame(slots, target, parent)
 		--print("bag combined:", frame, slots, target)
 		for i = 1, 5 do
 			-- Figure out the number of slots in each bag
-			local slots = C_Container.GetContainerNumSlots(i-1)
-			Addon:ContainerFrame_GenerateFrame(slots, i-1, _G["ContainerFrame"..i])
+			local bagslots = C_Container.GetContainerNumSlots(i-1)
+			Addon:ContainerFrame_GenerateFrame(bagslots, i-1, _G["ContainerFrame"..i])
 		end
 		return
 	end
@@ -169,11 +169,8 @@ function Addon:Options_ReagentBankFrame_Update()
 	-- Find regions that use the texture and hide (or show) them
 	for i = 1, select("#", frame:GetRegions()) do
 		local child = select(i, frame:GetRegions())
-		if type(child) == "table" and child.GetAtlas then
-			local atlas = child:GetAtlas()
-			if atlas == atlas then
-				child:SetShown(show)
-			end
+		if type(child) == "table" and child.GetAtlas and child:GetAtlas() == atlas then
+			child:SetShown(show)
 		end
 	end
 end
@@ -228,8 +225,8 @@ function Addon:Options_MailFrame_Update()
 		local texture = 136383
 
 		-- Find regions that use the texture and hide (or show) them
-		for i = 1, select("#", frame:GetRegions()) do
-			local child = select(i, frame:GetRegions())
+		for r = 1, select("#", frame:GetRegions()) do
+			local child = select(r, frame:GetRegions())
 			if type(child) == "table" and child.GetTexture and child:GetTexture() == texture then
 				child:SetShown(showbg)
 			end
@@ -245,8 +242,8 @@ function Addon:Options_MailFrame_Update()
 		local texture = 130862
 
 		-- Find regions that use the texture and hide (or show) them
-		for i = 1, select("#", frame:GetRegions()) do
-			local child = select(i, frame:GetRegions())
+		for r = 1, select("#", frame:GetRegions()) do
+			local child = select(r, frame:GetRegions())
 			if type(child) == "table" and child.GetTexture and child:GetTexture() == texture then
 				child:SetShown(showsend)
 			end
@@ -258,7 +255,6 @@ end
 -- the backdrop frame ends up in front of the icon.  Set the draw layer
 -- to prevent that.
 function Addon:InboxFrame_Update()
-	local frame = Groups.MailFrame
 	Addon:Options_MailFrame_Update()
 	for i=1, INBOXITEMS_TO_DISPLAY do
 		local icon = _G["MailItem"..i.."ButtonIcon"]
