@@ -1,10 +1,9 @@
 # Version 10.0.5.2
 
 * Added options to hide slot artwork for Bank, Guild Bank, Reagent Bank, Void Storage, and Mail (Retail only)
-* Added missing Open Mail Money Button
+* Added missing Open Mail Money Button to Mail group
 * Fixed border colors for Mail Inbox buttons
-  * Note that the highlight that appears when a Mail item is open isn't skinned correctly
-  * This should be fixed in an upcoming release of Masque (10.0.6)
+  * The highlight that appears when a Mail item is open isn't skinned correctly -- this will be fixed in Masque 10.0.6
 * Significantly reorganized the code
   * Split functionality into separate files
   * Improved generalization and removed workarounds for Mail Items
