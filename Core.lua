@@ -88,7 +88,10 @@ function Core:HandleEvent(event, target)
 	end
 end
 
--- Return a regions table based on the information passed for this button
+-- Return a regions table based on the information passed for this button.
+-- This needs to be called for every individual button being skinned, as
+-- it returns actual references to the children of the button instance, not
+-- key names.
 function Core:MakeRegions(button, map)
 	-- If map is empty, then do nothing
 	if not map then return nil end
@@ -115,16 +118,35 @@ end
 -- Skin any buttons in the table as members of the given Masque group.
 -- If parent is set, then the button names are children of the parent
 -- table. The buttons value can be a nested table.
-function Core:Skin(buttons, group, parent, prefix)
+--
+-- If bclass is specified, limit this pass to a specific button class
+-- within the group.  This is used for frames where new buttons get
+-- added only as needed.  We assume the current number of slots in the
+-- Metadata is how many were already skinned, and we'll just skin the
+-- difference up to the total new slots.  If these numbers are equal
+-- we won't do anything.
+--
+-- If this is a nested button structure, the caller needs to pass the
+-- buttons subtree containing the button name, the parent frame, and
+-- the prefix (parent name) or else this won't correctly find the button.
+function Core:Skin(buttons, group, bclass, slots, parent, prefix)
 	if not parent then parent = _G end
 	if not prefix then prefix = "" end
+
+	-- If button isn't set, we want to skin every class of button we were
+	-- given and add it to the group, recursively if needed.
 	for button, children in pairs(buttons) do
-		if (type(children) == "table") then
+		-- If children is a table, process the table recursively as a set
+		-- of buttons.  If bclass was passed, don't do any recursion.
+		if not bclass and type(children) == "table" then
 			if parent[button] then
 				--print('recurse:', button, parent[button])
-				Core:Skin(children, group, parent[button], prefix .. button)
+				Core:Skin(children, group, nil, nil, parent[button], prefix .. button)
 			end
-		else
+		-- Otherwise, try to skin all the expected buttons at this level.
+		-- If bclass was passed, only act on the specific button class.
+		-- If children wasn't a number, we shouldn't be here, so skip this button.
+		elseif (bclass == button or not bclass) and type(children) == "number" then
 			-- Pass the correct type for this button so that Masque
 			-- doesn't have to try to figure it out.
 			local btype = Types[prefix .. button] or {}
@@ -133,19 +155,40 @@ function Core:Skin(buttons, group, parent, prefix)
 			local map = btype.map or nil
 
 			-- If -1, assume button is the actual button name
-			if children == -1 then
+			-- If slots was set, we're confused, don't do anything
+			if children == -1 and not slots then
 				--print("button:", button, children, parent[button])
 				local frame = parent[button]
 				local regions = Core:MakeRegions(frame, map)
 				group:AddButton(frame, regions, type)
 
-			-- Otherwise, append the range of numbers to the name
-			elseif children > 0 then
-				for i = 1, children do
-					--print("button:", button, children, parent[button..i])
+			-- Otherwise, append a range of numbers to the name.
+			--
+			-- If we're not updating total slots, then loop through all
+			-- buttons from 1 to the total number of expected children.
+			--
+			-- If we're update total slots, then start from the number
+			-- we already had plus 1, and loop through any additional
+			-- slots up to the total expected slots.
+			--
+			-- If updating total slots, update the new count after we're
+			-- finished.
+			elseif (not slots and children > 0) or
+			       (slots and children >= 0 and children < slots) then
+				local min, max = 1, children
+				if slots then
+					min = children + 1
+					max = slots
+				end
+				--print("button range:", button, min, max)
+				for i = min, max do
+					--print("button:", button, i, parent[button..i])
 					local frame = parent[button..i]
 					local regions = Core:MakeRegions(frame, map)
 					group:AddButton(frame, regions, type)
+				end
+				if slots then
+					buttons[button] = slots
 				end
 			end
 		end

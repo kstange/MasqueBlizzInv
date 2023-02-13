@@ -120,17 +120,7 @@ function Addon:ContainerFrame_GenerateFrame(slots, target, parent)
 		group = Groups.ContainerFrame1
 	end
 
-	local skinned = group.Buttons[frameitem]
-
-	-- If skinned isn't -1 (a singular button) and there are more
-	-- slots than already skinned, skin those new slots
-	if skinned >= 0 and skinned < slots then
-		for i = group.Buttons[frameitem] + 1, slots do
-			group.Group:AddButton(_G[frameitem .. i])
-			--print("skinning:", frameitem, i)
-		end
-		group.Buttons[frameitem] = slots
-	end
+	Core:Skin(group.Buttons, group.Group, frameitem, slots)
 end
 
 -- Skin the ReagentBank the first time the user opens it.  There's
