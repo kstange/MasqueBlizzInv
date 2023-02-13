@@ -148,10 +148,12 @@ function Addon:Options_BankFrame_Update()
 	local texture = 590156
 
 	-- Find regions that use the texture and hide (or show) them
-	for i = 1, select("#", frame:GetRegions()) do
-		local child = select(i, frame:GetRegions())
-		if type(child) == "table" and child.GetTexture and child:GetTexture() == texture then
-			child:SetShown(show)
+	if frame then
+		for i = 1, select("#", frame:GetRegions()) do
+			local child = select(i, frame:GetRegions())
+			if type(child) == "table" and child.GetTexture and child:GetTexture() == texture then
+				child:SetShown(show)
+			end
 		end
 	end
 end
@@ -163,14 +165,16 @@ function Addon:Options_ReagentBankFrame_Update()
 
 	local show = not Core:GetOption('ReagentBankFrameHideSlots')
 	local frame = ReagentBankFrame
-	-- This is the atlas name for the reagent bank artwork
-	local atlas = "bank-slots"
+	-- This is the texture map used for reagent bank slot artwork
+	local texture = 997675
 
 	-- Find regions that use the texture and hide (or show) them
-	for i = 1, select("#", frame:GetRegions()) do
-		local child = select(i, frame:GetRegions())
-		if type(child) == "table" and child.GetAtlas and child:GetAtlas() == atlas then
-			child:SetShown(show)
+	if frame then
+		for i = 1, select("#", frame:GetRegions()) do
+			local child = select(i, frame:GetRegions())
+			if type(child) == "table" and child.GetTexture and child:GetTexture() == texture then
+				child:SetShown(show)
+			end
 		end
 	end
 end
@@ -185,11 +189,17 @@ function Addon:Options_GuildBankFrame_Update()
 	local frame = GuildBankFrame
 
 	-- Find regions that use the texture and hide (or show) them
-	for i = 1, 7 do
-		local bg = frame['Column' .. i].Background
-		bg:SetShown(show)
+	if frame then
+		for i = 1, 7 do
+			local column = frame['Column' .. i]
+			if column and column.Background then
+				column.Background:SetShown(show)
+			end
+		end
+		if frame.BlackBG then
+			frame.BlackBG:SetShown(showbg)
+		end
 	end
-	frame.BlackBG:SetShown(showbg)
 end
 
 -- Update the visibility of Void Storage elements based on settings
@@ -204,7 +214,9 @@ function Addon:Options_VoidStorageFrame_Update()
 	for button, count in pairs(buttons) do
 		for i = 1, count do
 			local bg = _G[button .. i .. "Bg"]
-			bg:SetShown(show)
+			if bg then
+				bg:SetShown(show)
+			end
 		end
 	end
 end
@@ -225,16 +237,20 @@ function Addon:Options_MailFrame_Update()
 		local texture = 136383
 
 		-- Find regions that use the texture and hide (or show) them
-		for r = 1, select("#", frame:GetRegions()) do
-			local child = select(r, frame:GetRegions())
-			if type(child) == "table" and child.GetTexture and child:GetTexture() == texture then
-				child:SetShown(showbg)
+		if frame then
+			for r = 1, select("#", frame:GetRegions()) do
+				local child = select(r, frame:GetRegions())
+				if type(child) == "table" and child.GetTexture and child:GetTexture() == texture then
+					child:SetShown(showbg)
+				end
 			end
 		end
 
 		-- The button's also got slot artwork
 		local slot = _G['MailItem' .. i .. 'ButtonSlot']
-		slot:SetShown(showinbox)
+		if slot then
+			slot:SetShown(showinbox)
+		end
 	end
 
 	for i = 1, Groups.MailFrame.Buttons.SendMailAttachment do
@@ -242,10 +258,12 @@ function Addon:Options_MailFrame_Update()
 		local texture = 130862
 
 		-- Find regions that use the texture and hide (or show) them
-		for r = 1, select("#", frame:GetRegions()) do
-			local child = select(r, frame:GetRegions())
-			if type(child) == "table" and child.GetTexture and child:GetTexture() == texture then
-				child:SetShown(showsend)
+		if frame then
+			for r = 1, select("#", frame:GetRegions()) do
+				local child = select(r, frame:GetRegions())
+				if type(child) == "table" and child.GetTexture and child:GetTexture() == texture then
+					child:SetShown(showsend)
+				end
 			end
 		end
 	end
@@ -258,7 +276,9 @@ function Addon:InboxFrame_Update()
 	Addon:Options_MailFrame_Update()
 	for i=1, INBOXITEMS_TO_DISPLAY do
 		local icon = _G["MailItem"..i.."ButtonIcon"]
-		icon:SetDrawLayer("BACKGROUND", 1)
+		if icon then
+			icon:SetDrawLayer("BACKGROUND", 1)
+		end
 	end
 end
 
