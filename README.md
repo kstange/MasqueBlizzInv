@@ -1,13 +1,20 @@
 # About Masque Blizzard Inventory
 
+This addon enables [Masque](https://github.com/SFX-WoW/Masque) ([CurseForge](https://www.curseforge.com/wow/addons/masque), [Wago](https://addons.wago.io/addons/masque), [WoWInterface](https://www.wowinterface.com/downloads/info12097-Masque.html)) to skin built-in WoW inventory elements.  An up-to-date version of Masque is required for it to work.
+
+If you like the base WoW interface and don't want to use a separate bag or inventory mod, you're in the right place.
+
 You can install this addon from [CurseForge](https://www.curseforge.com/wow/addons/masque-blizz-inventory "CurseForge"), [Wago](https://addons.wago.io/addons/masqueblizzinv), or [WoWInterface](https://www.wowinterface.com/downloads/info26503-MasqueBlizzardInventory.html).
 
-This addon enables [Masque](https://github.com/SFX-WoW/Masque) ([CurseForge](https://www.curseforge.com/wow/addons/masque), [Wago](https://addons.wago.io/addons/masque), [WoWInterface](https://www.wowinterface.com/downloads/info12097-Masque.html)) to skin built-in WoW inventory elements.  It requires Masque to function and is configurable only with Masque's settings UI.  It can currently skin the following elements:
+## Features
+
+Masque Blizzard Inventory can currently skin the following elements:
 
 * Backpack
 * Main Bags
 * Combined Backpack
 * Reagent Bag
+* Keyring (Classic only)
 * Bank
 * Bank Bags
 * Reagent Bank
@@ -15,13 +22,30 @@ This addon enables [Masque](https://github.com/SFX-WoW/Masque) ([CurseForge](htt
 * Void Storage
 * Mail
 
-Each element type is its own group so you can configure them independently.  The Combined Backpack will inherit the Backpack and Main Bags configuration.
+Each element type is its own group so you can configure them independently from Masque's skin settings.  The Combined Backpack will inherit the Backpack and Main Bags configuration.
 
-If you like the Dragonflight UI improvements and don't want to use a bag or inventory mod, this is for you.  If you use an inventory mod that replaces the built-in UI, you won't get anything from this addon for any elements that have been replaced.  For example, if you are using a Bag mod but have not replaced the Guild Bank interface, this will still work for the Guild Bank.
+An additional options panel is provided to hide background and slot artwork that might clash with certain Masque skins.
+
+## Compatibility
+
+This addon is not intended to apply Masque skins over addons that replace or heavily modify parts of the built-in interface and may conflict with them.  If you experience a conflict, use the Masque Skin Settings to disable the affected group and reload your UI. This should allow the other addon to control the interface without interference.
+
+If you'd like to see Masque support in a conflicting addon, try sending a feature request to that addon's author directly.
 
 ## Classic Support
 
-I've done very limited testing with Classic Era and Wrath Classic because I don't play them, but I believe everything should work.  If you report bugs or submit patches, I'll do my best to address them.
+Classic is missing many features from Retail, so unsupported groups will not appear in Masque options.  As of this writing only the following elements are supported:
+
+* Bags (including Keyring)
+* Bank
+* Mail
+* Guild Bank (Wrath Classic only)
+
+In Classic, all bags are consolidated to a single "Bags" group, including the Keyring.  This is due to the way the game reuses bag windows.
+
+Most interface frames in Classic are drawn from a single background image, so the options to hide background and slot artwork are not available.  Adding this feature would require drawing replacement artwork and including it with the addon, so it is not planned.
+
+I've done limited testing with Classic Era and Wrath Classic because I don't play them, but I believe everything should work.  If you report bugs or submit patches, I'll do my best to address them.
 
 ## Localization
 

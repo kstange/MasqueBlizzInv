@@ -1,6 +1,6 @@
 # Version 10.0.5.2
 
-* Added options to hide slot artwork for Bank, Guild Bank, Reagent Bank, Void Storage, and Mail
+* Added options to hide slot artwork for Bank, Guild Bank, Reagent Bank, Void Storage, and Mail (Retail only)
 * Added missing Open Mail Money Button
 * Fixed border colors for Mail Inbox buttons
   * Note that the highlight that appears when a Mail item is open isn't skinned correctly
