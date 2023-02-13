@@ -94,7 +94,7 @@ function Addon:ContainerFrame_GenerateFrame(slots, target, parent)
 		for i = 1, 5 do
 			-- Figure out the number of slots in each bag
 			local slots = C_Container.GetContainerNumSlots(i-1)
-			Core:ContainerFrame_GenerateFrame(slots, i-1, _G["ContainerFrame"..i])
+			Addon:ContainerFrame_GenerateFrame(slots, i-1, _G["ContainerFrame"..i])
 		end
 		return
 	end
