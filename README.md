@@ -22,15 +22,9 @@ Masque Blizzard Inventory can currently skin the following elements:
 * Void Storage
 * Mail
 
-Each element type is its own group so you can configure them independently from Masque's skin settings.  The Combined Backpack will inherit the Backpack and Main Bags configuration.
+Each element type is its own group so you can configure them independently from Masque's Skin Settings.  The Combined Backpack will inherit the Backpack and Main Bags configuration.
 
 An additional options panel is provided to hide background and slot artwork that might clash with certain Masque skins.
-
-## Compatibility
-
-This addon is not intended to apply Masque skins over addons that replace or heavily modify parts of the built-in interface and may conflict with them.  If you experience a conflict, use the Masque Skin Settings to disable the affected group and reload your UI. This should allow the other addon to control the interface without interference.
-
-If you'd like to see Masque support in a conflicting addon, try sending a feature request to that addon's author directly.
 
 ## Classic Support
 
@@ -46,6 +40,12 @@ In Classic, all bags are consolidated to a single "Bags" group, including the Ke
 Most interface frames in Classic are drawn from a single background image, so the options to hide background and slot artwork are not available.  Adding this feature would require drawing replacement artwork and including it with the addon, so it is not planned.
 
 I've done limited testing with Classic Era and Wrath Classic because I don't play them, but I believe everything should work.  If you report bugs or submit patches, I'll do my best to address them.
+
+## Compatibility
+
+This addon is not intended to apply Masque skins over addons that replace or heavily modify parts of the built-in interface and may conflict with them.  If you experience a conflict, use Masque's Skin Settings to disable the affected group and reload your UI. This should allow the other addon to control the interface without interference.
+
+If you'd like to see Masque support in a conflicting addon, try sending a feature request to that addon's author directly.
 
 ## Localization
 
