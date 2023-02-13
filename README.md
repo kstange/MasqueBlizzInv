@@ -34,7 +34,7 @@ If you'd like to see Masque support in a conflicting addon, try sending a featur
 
 ## Classic Support
 
-Classic is missing many features from Retail, so unsupported groups will not appear in Masque options.  As of this writing only the following elements are supported:
+Classic is missing many features from Retail, so unsupported groups will not appear in Masque options.  Currently, only the following elements are supported:
 
 * Bags (including Keyring)
 * Bank
