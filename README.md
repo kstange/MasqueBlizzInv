@@ -28,22 +28,22 @@ An additional options panel is provided to hide background and slot artwork that
 
 ## Classic Support
 
-Classic is missing many features from Retail, so unsupported groups will not appear in Masque options.  Currently, only the following elements are supported:
+Classic is missing many features from Retail, so unsupported groups will not appear in Masque options.  Currently, only the following elements are supported by the game:
 
 * Bags (including Keyring)
 * Bank
 * Mail
 * Guild Bank (Wrath Classic only)
 
-In Classic, all bags are consolidated to a single "Bags" group, including the Keyring.  This is due to the way the game reuses bag windows.
+In Classic, all bags are consolidated to a single Bags group, including the Keyring.  This is due to the way the game reuses Bag windows.
 
-Most interface frames in Classic are drawn from a single background image, so the options to hide background and slot artwork are not available.  Adding this feature would require drawing replacement artwork and including it with the addon, so it is not planned.
+Most interface frames in Classic are built using a single background image, rather than multiple layers, so the options to hide background and slot artwork are not feasible.  Adding this feature would require drawing replacement artwork and including it with the addon, so it is not planned.
 
 I've done limited testing with Classic Era and Wrath Classic because I don't play them, but I believe everything should work.  If you report bugs or submit patches, I'll do my best to address them.
 
 ## Compatibility
 
-This addon is not intended to apply Masque skins over addons that replace or heavily modify parts of the built-in interface and may conflict with them.  If you experience a conflict, use Masque's Skin Settings to disable the affected group and reload your UI. This should allow the other addon to control the interface without interference.
+This addon is not intended to apply Masque skins over addons that replace or heavily modify parts of the base interface and may conflict with them.  If you experience a conflict, use Masque's Skin Settings to disable the affected group and reload your UI. This should allow the other addon to control the interface without interference.
 
 If you'd like to see Masque support in a conflicting addon, try sending a feature request to that addon's author directly.
 
