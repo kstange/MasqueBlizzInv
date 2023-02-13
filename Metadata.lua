@@ -213,7 +213,7 @@ Metadata.OptionCallbacks = {}
 -- AceConfig Options table used to display a panel.
 Metadata.Options = {
 	type = "group",
-	name = format(L["OPTIONS_TITLE_MAIN"], Metadata.FriendlyName),
+	name = format(L["OPTIONS_TITLE_MAIN"], Metadata.FriendlyName) .. "     |cFFAAAAAA" .. (GetAddOnMetadata(AddonName, "Version") or "Unknown"),
 	args = {
 		Description = {
 			name = L["OPTIONS_DESCRIPTION_MAIN"] .. "\n ",
