@@ -1,3 +1,7 @@
+# Version 10.1.0.0
+
+* Updated for Retail 10.1.0
+
 # Version 10.0.7.0
 
 * Updated for Retail 10.0.7
