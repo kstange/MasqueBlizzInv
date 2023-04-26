@@ -54,3 +54,7 @@ If you'd like to help localize this addon, please submit translations [here](htt
 ## Other Mods
 
 If you're looking to skin the built-in action bars as well, check out [Masque Blizzard Bars](https://github.com/kstange/MasqueBlizzBars) ([CurseForge](https://www.curseforge.com/wow/addons/masque-blizz-bars-revived "CurseForge"), [Wago](https://addons.wago.io/addons/masqueblizzbars), [WoWInterface](https://www.wowinterface.com/downloads/info26502-MasqueBlizzardBars.html))!
+
+## Special Thanks
+
+Thanks to [StormFX](https://github.com/StormFX), the author of Masque, for a ton of feedback and development tips and for creating a logo for the addon.
