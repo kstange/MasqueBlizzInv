@@ -5,6 +5,7 @@
 ## Author: SimGuy
 ## RequiredDeps: Masque
 ## SavedVariables: MasqueBlizzInv
+## IconTexture: Interface\Addons\MasqueBlizzInv\Textures\Icon.tga
 
 ## X-Curse-Project-ID: 736923
 ## X-WoWI-ID: 26503
