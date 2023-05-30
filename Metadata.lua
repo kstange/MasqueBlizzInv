@@ -206,6 +206,7 @@ Metadata.Groups = {
 				if button then
 					button.NewHighlight = button:CreateTexture()
 					button.NewHighlight:SetDrawLayer("HIGHLIGHT")
+					button.NewHighlight:SetTexture(button.HighlightTexture:GetTexture())
 					button.HighlightTexture:SetAlpha(0)
 				end
 			end
