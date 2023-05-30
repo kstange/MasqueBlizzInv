@@ -204,10 +204,13 @@ Metadata.Groups = {
 			for b, i in pairs(buttons) do
 				local button = _G[b]
 				if button then
+					if not button.HighlightTexture then
+						button.HighlightTexture = button:GetHighlightTexture()
+					end
 					button.NewHighlight = button:CreateTexture()
 					button.NewHighlight:SetDrawLayer("HIGHLIGHT")
-					button.NewHighlight:SetTexture(button.HighlightTexture:GetTexture())
 					button.HighlightTexture:SetAlpha(0)
+					button.NewHighlight:SetTexture(button.HighlightTexture:GetTexture())
 				end
 			end
 		end,
