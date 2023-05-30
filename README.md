@@ -14,13 +14,19 @@ Masque Blizzard Inventory can currently skin the following elements:
 * Main Bags
 * Combined Backpack
 * Reagent Bag
-* Keyring (Classic only)
 * Bank
 * Bank Bags
 * Reagent Bank
 * Guild Bank
 * Void Storage
 * Mail
+* Merchants
+* Loot
+* Character
+* Equipment Flyouts
+* Equipment Manager (Classic only)
+* Keyring (Classic only)
+* Bag Bar (Classic only)
 
 Each element type is its own group so you can configure them independently from Masque's Skin Settings.  The Combined Backpack will inherit the Backpack and Main Bags configuration.
 
@@ -30,10 +36,19 @@ An additional options panel is provided to hide background and slot artwork that
 
 Classic is missing many features from Retail, so unsupported groups will not appear in Masque options.  Currently, only the following elements are supported by the game:
 
-* Bags (including Keyring)
+* Bags (including Backpack, Keyring, and Bank)
 * Bank
 * Mail
-* Guild Bank (Wrath Classic only)
+* Merchants
+* Loot
+* Character
+* Bag Bar
+
+The following elements are supported only in Wrath Classic:
+
+* Guild Bank
+* Equipment Manager
+* Equipment Flyouts
 
 In Classic, all bags are consolidated to a single Bags group, including the Keyring.  This is due to the way the game reuses Bag windows.
 

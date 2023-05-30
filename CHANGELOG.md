@@ -1,6 +1,8 @@
-# Version 10.1.0.0
+# Version 10.1.0.1
 
-* Updated for Retail 10.1.0
+* Added support for Merchants, Loot, Character, Equipment Flyouts
+* Added support for Equipment Manager (Wrath Classic only)
+* Added support for Bag Bar (Classic only)
 
 # Release History
 

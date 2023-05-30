@@ -269,6 +269,87 @@ function Addon:Options_MailFrame_Update()
 	end
 end
 
+-- Fix some weird button behavior upon showing the icons in the Equipment Manager
+function Addon:GearManagerDialog_Update()
+	local bar = Groups.GearManagerDialog
+	for i = 1, bar.Buttons.GearSetButton do
+		local button = _G['GearSetButton'..i]
+		if button.icon:GetTexture() ~= nil then
+			button.icon:SetAlpha(1)
+			button.icon:Show()
+		end
+	end
+end
+
+-- Paper Doll Frame Item Flyout buttons are created as needed when a flyout is opened, so
+-- check for any new buttons any time that happens
+function Addon:PaperDollFrameItemFlyout_Show()
+	local activeSlots = 0
+	for slot = 1, PDFITEMFLYOUT_MAXITEMS + 1 do
+		if _G['PaperDollFrameItemFlyoutButtons' .. slot] then
+			activeSlots = slot
+		end
+	end
+
+        -- Skin any extra buttons found
+	local bar = Groups.PaperDollFrameItemFlyout
+	local numButtons = bar.Buttons.PaperDollFrameItemFlyoutButtons
+	if (numButtons < activeSlots) then
+		for i = numButtons + 1, activeSlots do
+                        -- TODO: Update this to use Core:Skin()
+                        bar.Group:AddButton(_G["PaperDollFrameItemFlyoutButtons"..i])
+                end
+                bar.Buttons.PaperDollFrameItemFlyoutButtons = activeSlots
+        end
+end
+
+-- Equipment Flyout buttons are created as needed when a flyout is opened, so
+-- check for any new buttons any time that happens
+function Addon:EquipmentFlyout_Show()
+	local activeSlots = 0
+	for slot = 1, EQUIPMENTFLYOUT_ITEMS_PER_PAGE do
+		if _G['EquipmentFlyoutFrameButton' .. slot] then
+			activeSlots = slot
+		end
+	end
+
+        -- Skin any extra buttons found
+	local bar = Groups.EquipmentFlyoutFrame
+	local numButtons = bar.Buttons.EquipmentFlyoutFrameButton
+	if (numButtons < activeSlots) then
+		for i = numButtons + 1, activeSlots do
+                        -- TODO: Update this to use Core:Skin()
+                        bar.Group:AddButton(_G["EquipmentFlyoutFrameButton"..i])
+                end
+                bar.Buttons.EquipmentFlyoutFrameButton = activeSlots
+        end
+end
+
+function Addon:LootFrame_Open()
+	local lfc = LootFrame.ScrollBox.ScrollTarget
+	local group = Groups.LootFrame
+
+	for i = 1, select("#", lfc:GetChildren()) do
+		local lfi = select(i, lfc:GetChildren())
+
+		-- Try not to add buttons that are already added
+		--
+		-- I'm not sure if the Frame created for the Loot button is used for
+		-- the whole life of the UI so if the frame changes, we'll
+		-- skin whatever replaced it.
+		if lfi and lfi.Item and lfi.Item:GetObjectType() == "Button" then
+			local name = lfi:GetDebugName()
+			if group.State.LootFrameItem[name] ~= lfi then
+
+				-- TODO: Update this to use Core:Skin()
+				lfi.Item.icon:SetDrawLayer("BACKGROUND", 7)
+				group.Group:AddButton(lfi.Item, "Item")
+				group.State.LootFrameItem[name] = lfi
+			end
+		end
+	end
+end
+
 -- When new items are being rendered upon opening the mailbox, sometimes
 -- the backdrop frame ends up in front of the icon.  Set the draw layer
 -- to prevent that.
@@ -320,6 +401,30 @@ function Addon:Init()
 	if Core:CheckVersion({ 60000, nil }) then
 		hooksecurefunc("BankFrame_ShowPanel",
 		               Addon.BankFrame_ShowPanel)
+	end
+
+	-- GearSetDialog (Wrath only)
+	if Core:CheckVersion({ 30300, 40300 }) then
+		hooksecurefunc("GearManagerDialog_Update",
+		               Addon.GearManagerDialog_Update)
+	end
+
+	-- PaperDollFrameItemFlyout (Wrath only)
+	if Core:CheckVersion({ 30300, 40300 }) then
+		hooksecurefunc("PaperDollFrameItemFlyout_Show",
+		               Addon.PaperDollFrameItemFlyout_Show)
+	end
+
+	-- EquipmentFlyout
+	if Core:CheckVersion({ 40300, nil }) then
+		hooksecurefunc("EquipmentFlyout_Show",
+		               Addon.EquipmentFlyout_Show)
+	end
+
+	-- LootFrame (Retail only)
+	if Core:CheckVersion({ 100000, nil }) then
+		hooksecurefunc(LootFrame, "Open",
+		               Addon.LootFrame_Open)
 	end
 
 	Addon.Events = CreateFrame("Frame")

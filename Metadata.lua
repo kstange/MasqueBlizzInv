@@ -183,6 +183,105 @@ Metadata.Groups = {
 			OpenMailMoneyButton = -1,
 			SendMailAttachment = ATTACHMENTS_MAX_SEND,
 		}
+	},
+	MainMenuBarBags = {
+		Title = "Bag Bar",
+		Versions = { nil, 100000 },
+		Buttons = {
+			MainMenuBarBackpackButton = -1,
+			CharacterBag0Slot = -1,
+			CharacterBag1Slot = -1,
+			CharacterBag2Slot = -1,
+			CharacterBag3Slot = -1,
+		}
+	},
+	PaperDollFrame = {
+		Title = "Character",
+		Buttons = {
+			CharacterHeadSlot = -1,
+			CharacterNeckSlot = -1,
+			CharacterShoulderSlot = -1,
+			CharacterBackSlot = -1,
+			CharacterChestSlot = -1,
+			CharacterShirtSlot = -1,
+			CharacterTabardSlot = -1,
+			CharacterWristSlot = -1,
+			CharacterHandsSlot = -1,
+			CharacterWaistSlot = -1,
+			CharacterLegsSlot = -1,
+			CharacterFeetSlot = -1,
+			CharacterFinger0Slot = -1,
+			CharacterFinger1Slot = -1,
+			CharacterTrinket0Slot = -1,
+			CharacterTrinket1Slot = -1,
+			CharacterMainHandSlot = -1,
+			CharacterSecondaryHandSlot = -1,
+			CharacterRangedSlot = -1,
+			CharacterAmmoSlot = -1,
+		}
+	},
+	-- Wrath Classic Only
+	GearManagerDialog = {
+		Title = "Equipment Manager",
+		Versions = { 30300, 40300 },
+		Init = function(buttons)
+			-- Fix icon visibility on Equipment Manager
+			for i = 1, buttons.GearSetButton do
+				local button = _G['GearSetButton'..i]
+				button.icon:SetDrawLayer("BACKGROUND", 4)
+			end
+		end,
+		Buttons = {
+			GearSetButton = 10,
+		}
+	},
+	-- Wrath Classic Only
+	PaperDollFrameItemFlyout = {
+		Title = "Equipment Flyouts",
+		Versions = { 30300, 40300 },
+		Buttons = {
+			PaperDollFrameItemFlyoutButtons = 0,
+		}
+	},
+	EquipmentFlyoutFrame = {
+		Title = "Equipment Flyouts",
+		Versions = { 40300, nil },
+		Buttons = {
+			EquipmentFlyoutFrameButton = 0,
+		}
+	},
+	MerchantFrame = {
+		Title = "Merchants",
+		Buttons = {
+			MerchantItem1ItemButton = -1,
+			MerchantItem2ItemButton = -1,
+			MerchantItem3ItemButton = -1,
+			MerchantItem4ItemButton = -1,
+			MerchantItem5ItemButton = -1,
+			MerchantItem6ItemButton = -1,
+			MerchantItem7ItemButton = -1,
+			MerchantItem8ItemButton = -1,
+			MerchantItem9ItemButton = -1,
+			MerchantItem10ItemButton = -1,
+			MerchantItem11ItemButton = -1,
+			MerchantItem12ItemButton = -1,
+			MerchantBuyBackItemItemButton = -1,
+		}
+	},
+	LootFrame = {
+		Title = "Loot",
+		Versions = { 100000, nil },
+		State = {
+			LootFrameItem = {},
+		},
+		Buttons = {}
+	},
+	LootFrameClassic = {
+		Title = "Loot",
+		Versions = { nil, 100000 },
+		Buttons = {
+			LootButton = 4,
+		}
 	}
 }
 
@@ -200,6 +299,7 @@ Metadata.Types = {
 	GuildBankTab7Button = { type = "Action" },
 	GuildBankTab8Button = { type = "Action" },
 	SendMailAttachment = { map = { Icon = "icon" } },
+	GearSetButton = { map = { Icon = "icon" } },
 }
 
 -- A table indicating the defaults for Options by key.
