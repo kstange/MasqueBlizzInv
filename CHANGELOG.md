@@ -2,7 +2,7 @@
 
 * Added support for Merchants, Loot, Character, Equipment Flyouts
 * Added support for Equipment Manager (Wrath Classic only)
-* Added support for Bag Bar (Classic only)
+* Added support for Bag Bar (Wrath Classic and Classic Era only)
 
 # Release History
 
