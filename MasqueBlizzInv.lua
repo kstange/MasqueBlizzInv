@@ -281,50 +281,44 @@ function Addon:GearManagerDialog_Update()
 	end
 end
 
--- Paper Doll Frame Item Flyout buttons are created as needed when a flyout is opened, so
--- check for any new buttons any time that happens
-function Addon:PaperDollFrameItemFlyout_Show()
+-- A shared function to handle dynamic flyout allocation
+function Addon:HandleFlyout(group, bname, maxslots)
 	local activeSlots = 0
-	for slot = 1, PDFITEMFLYOUT_MAXITEMS + 1 do
-		if _G['PaperDollFrameItemFlyoutButtons' .. slot] then
+	for slot = 1, maxslots + 1 do
+		if _G[bname .. slot] then
 			activeSlots = slot
 		end
 	end
 
         -- Skin any extra buttons found
-	local bar = Groups.PaperDollFrameItemFlyout
-	local numButtons = bar.Buttons.PaperDollFrameItemFlyoutButtons
+	local numButtons = group.Buttons[bname]
 	if (numButtons < activeSlots) then
 		for i = numButtons + 1, activeSlots do
                         -- TODO: Update this to use Core:Skin()
-                        bar.Group:AddButton(_G["PaperDollFrameItemFlyoutButtons"..i])
+			local button = _G[bname .. i]
+                        group.Group:AddButton(button, { Highlight = button.HighlightTexture }, "Item")
                 end
-                bar.Buttons.PaperDollFrameItemFlyoutButtons = activeSlots
+                group.Buttons[bname] = activeSlots
         end
+
+end
+
+-- Paper Doll Frame Item Flyout buttons are created as needed when a flyout is opened, so
+-- check for any new buttons any time that happens
+function Addon:PaperDollFrameItemFlyout_Show()
+	local group = Groups.PaperDollFrameItemFlyout
+	Addon:HandleFlyout(group, 'PaperDollFrameItemFlyoutButtons', PDFITEMFLYOUT_MAXITEMS)
 end
 
 -- Equipment Flyout buttons are created as needed when a flyout is opened, so
 -- check for any new buttons any time that happens
 function Addon:EquipmentFlyout_Show()
-	local activeSlots = 0
-	for slot = 1, EQUIPMENTFLYOUT_ITEMS_PER_PAGE do
-		if _G['EquipmentFlyoutFrameButton' .. slot] then
-			activeSlots = slot
-		end
-	end
-
-        -- Skin any extra buttons found
-	local bar = Groups.EquipmentFlyoutFrame
-	local numButtons = bar.Buttons.EquipmentFlyoutFrameButton
-	if (numButtons < activeSlots) then
-		for i = numButtons + 1, activeSlots do
-                        -- TODO: Update this to use Core:Skin()
-                        bar.Group:AddButton(_G["EquipmentFlyoutFrameButton"..i])
-                end
-                bar.Buttons.EquipmentFlyoutFrameButton = activeSlots
-        end
+	local group = Groups.EquipmentFlyoutFrame
+	Addon:HandleFlyout(group, 'EquipmentFlyoutFrameButton', EQUIPMENTFLYOUT_ITEMS_PER_PAGE)
 end
 
+-- Locate the LootFrameItems  when the LootFrame opens and skin them since
+-- they are generated dynamically.
 function Addon:LootFrame_Open()
 	local lfc = LootFrame.ScrollBox.ScrollTarget
 	local group = Groups.LootFrame
@@ -342,8 +336,8 @@ function Addon:LootFrame_Open()
 			if group.State.LootFrameItem[name] ~= lfi then
 
 				-- TODO: Update this to use Core:Skin()
+				group.Group:AddButton(lfi.Item, nil, "Item")
 				lfi.Item.icon:SetDrawLayer("BACKGROUND", 7)
-				group.Group:AddButton(lfi.Item, "Item")
 				group.State.LootFrameItem[name] = lfi
 			end
 		end

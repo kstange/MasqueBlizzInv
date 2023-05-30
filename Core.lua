@@ -97,7 +97,7 @@ function Core:MakeRegions(button, map)
 
 	local regions = {}
 	for region, key in pairs(map) do
-		local frame = button[key]
+		local frame = button and button[key]
 		if frame then
 			-- If this is a function, call it now to get
 			-- the object for the Masque region, otherwise
