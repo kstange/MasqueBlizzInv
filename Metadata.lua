@@ -197,6 +197,19 @@ Metadata.Groups = {
 	},
 	PaperDollFrame = {
 		Title = "Character",
+		Init = function(buttons)
+			-- Replace the highlight manually on the PaperDollFrame
+			-- AzeritePaperDollItemOverlayMixin:ResetAzeriteTextures()
+			-- aggressively resets the regular highlight to stock
+			for b, i in pairs(buttons) do
+				local button = _G[b]
+				if button then
+					button.NewHighlight = button:CreateTexture()
+					button.NewHighlight:SetDrawLayer("HIGHLIGHT")
+					button.HighlightTexture:SetAlpha(0)
+				end
+			end
+		end,
 		Buttons = {
 			CharacterHeadSlot = -1,
 			CharacterNeckSlot = -1,
@@ -300,6 +313,26 @@ Metadata.Types = {
 	GuildBankTab8Button = { type = "Action" },
 	SendMailAttachment = { map = { Icon = "icon" } },
 	GearSetButton = { map = { Icon = "icon" } },
+	CharacterHeadSlot = { map = { Highlight = "NewHighlight" } },
+	CharacterNeckSlot = { map = { Highlight = "NewHighlight" } },
+	CharacterShoulderSlot = { map = { Highlight = "NewHighlight" } },
+	CharacterBackSlot = { map = { Highlight = "NewHighlight" } },
+	CharacterChestSlot = { map = { Highlight = "NewHighlight" } },
+	CharacterShirtSlot = { map = { Highlight = "NewHighlight" } },
+	CharacterTabardSlot = { map = { Highlight = "NewHighlight" } },
+	CharacterWristSlot = { map = { Highlight = "NewHighlight" } },
+	CharacterHandsSlot = { map = { Highlight = "NewHighlight" } },
+	CharacterWaistSlot = { map = { Highlight = "NewHighlight" } },
+	CharacterLegsSlot = { map = { Highlight = "NewHighlight" } },
+	CharacterFeetSlot = { map = { Highlight = "NewHighlight" } },
+	CharacterFinger0Slot = { map = { Highlight = "NewHighlight" } },
+	CharacterFinger1Slot = { map = { Highlight = "NewHighlight" } },
+	CharacterTrinket0Slot = { map = { Highlight = "NewHighlight" } },
+	CharacterTrinket1Slot = { map = { Highlight = "NewHighlight" } },
+	CharacterMainHandSlot = { map = { Highlight = "NewHighlight" } },
+	CharacterSecondaryHandSlot = { map = { Highlight = "NewHighlight" } },
+	CharacterRangedSlot = { map = { Highlight = "NewHighlight" } },
+	CharacterAmmoSlot = { map = { Highlight = "NewHighlight" } },
 }
 
 -- A table indicating the defaults for Options by key.
