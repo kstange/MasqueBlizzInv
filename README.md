@@ -23,6 +23,7 @@ Masque Blizzard Inventory can currently skin the following elements:
 * Merchants
 * Loot
 * Character
+* Inspect Character
 * Equipment Flyouts
 * Equipment Manager (Classic only)
 * Keyring (Classic only)
@@ -42,6 +43,7 @@ Classic is missing many features from Retail, so unsupported groups will not app
 * Merchants
 * Loot
 * Character
+* Inspect Character
 * Bag Bar
 
 The following elements are supported only in Wrath Classic:

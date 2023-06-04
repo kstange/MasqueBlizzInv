@@ -196,6 +196,33 @@ Metadata.Groups = {
 			CharacterBag3Slot = -1,
 		}
 	},
+	InspectPaperDollFrame = {
+		Title = "Inspect Character",
+		Delayed = true,
+		Skinned = false,
+		Buttons = {
+			InspectHeadSlot = -1,
+			InspectNeckSlot = -1,
+			InspectShoulderSlot = -1,
+			InspectBackSlot = -1,
+			InspectChestSlot = -1,
+			InspectShirtSlot = -1,
+			InspectTabardSlot = -1,
+			InspectWristSlot = -1,
+			InspectHandsSlot = -1,
+			InspectWaistSlot = -1,
+			InspectLegsSlot = -1,
+			InspectFeetSlot = -1,
+			InspectFinger0Slot = -1,
+			InspectFinger1Slot = -1,
+			InspectTrinket0Slot = -1,
+			InspectTrinket1Slot = -1,
+			InspectMainHandSlot = -1,
+			InspectSecondaryHandSlot = -1,
+			InspectRangedSlot = -1,
+			InspectAmmoSlot = -1,
+		}
+	},
 	PaperDollFrame = {
 		Title = "Character",
 		Init = function(buttons)
@@ -433,6 +460,17 @@ Metadata.Options = {
 					desc = L["OPTIONS_DESCRIPTION_SLOTS"],
 					type = "toggle",
 					width = "full",
+				},
+			}
+		},
+		InspectPaperDollFrame = {
+			name = L["Inspect Character"],
+			type = "group",
+			args = {
+				InspectPaperDollFrameHideSlots = {
+					name = L["Hide Slots"],
+					desc = L["OPTIONS_DESCRIPTION_SLOTS"],
+					type = "toggle",
 				},
 			}
 		},

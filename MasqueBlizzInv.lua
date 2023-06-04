@@ -36,6 +36,16 @@ function Addon:HandleEvent(event, target)
 		target = 8
 	end
 
+	-- This handles Character Inspection
+	if event == "INSPECT_READY" and InspectPaperDollFrame then
+		frame = Groups.InspectPaperDollFrame
+		--print("skinning:", frame.Title, frame.Skinned)
+		if not frame.Skinned then
+			Core:Skin(frame.Buttons, frame.Group)
+			frame.Skinned = true
+		end
+	end
+
 	-- This handles Wrath Classic or later
 	if event == "PLAYER_INTERACTION_MANAGER_FRAME_SHOW" then
 		if target == 8 then -- Bank
@@ -440,6 +450,7 @@ function Addon:Init()
 	end
 
 	Addon.Events = CreateFrame("Frame")
+	Addon.Events:RegisterEvent("INSPECT_READY")
 
 	if Core:CheckVersion({ nil, 30401 }) then
 		-- Bank (Classic Era)
