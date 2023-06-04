@@ -221,6 +221,23 @@ function Addon:Options_VoidStorageFrame_Update()
 	end
 end
 
+-- Update the visibility of Equipment Flyout Frame background based on settings
+function Addon:Options_EquipmentFlyout_Show()
+	-- This frame only exists on Retail
+	if not Core:CheckVersion({ 100000, nil }) then return end
+
+	local show = not Core:GetOption('EquipmentFlyoutFrameHideSlots')
+	local frame = EquipmentFlyoutFrameButtons
+
+	if not show then
+		local i = 1
+		while frame['bg' .. i] do
+			frame['bg' .. i]:Hide()
+			i = i + 1
+		end
+	end
+end
+
 -- Update the visibility of Mail elements based on settings
 function Addon:Options_MailFrame_Update()
 	-- This only works on Retail due to frame design
@@ -315,6 +332,7 @@ end
 function Addon:EquipmentFlyout_Show()
 	local group = Groups.EquipmentFlyoutFrame
 	Addon:HandleFlyout(group, 'EquipmentFlyoutFrameButton', EQUIPMENTFLYOUT_ITEMS_PER_PAGE)
+	Addon:Options_EquipmentFlyout_Show()
 end
 
 -- Locate the LootFrameItems  when the LootFrame opens and skin them since
@@ -445,6 +463,7 @@ function Addon:Init()
 		Callbacks.MailFrameHideInboxSlots = Addon.Options_MailFrame_Update
 		Callbacks.MailFrameHideInboxBackground = Addon.Options_MailFrame_Update
 		Callbacks.MailFrameHideSendSlots = Addon.Options_MailFrame_Update
+		Callbacks.EquipmentFlyoutFrameHideSlots = Addon.Options_EquipmentFlyout_Show
 	else
 		-- Empty the whole options table because we don't support it on Classic
 		Metadata.Options = nil

@@ -184,6 +184,7 @@ Metadata.Groups = {
 			SendMailAttachment = ATTACHMENTS_MAX_SEND,
 		}
 	},
+	-- Classic Only
 	MainMenuBarBags = {
 		Title = "Bag Bar",
 		Versions = { nil, 100000 },
@@ -432,6 +433,39 @@ Metadata.Options = {
 					desc = L["OPTIONS_DESCRIPTION_SLOTS"],
 					type = "toggle",
 					width = "full",
+				},
+			}
+		},
+		PaperDollFrame = {
+			name = L["Character"],
+			type = "group",
+			args = {
+				PaperDollFrameHideSlots = {
+					name = L["Hide Slots"],
+					desc = L["OPTIONS_DESCRIPTION_SLOTS"],
+					type = "toggle",
+				},
+			}
+		},
+		EquipmentFlyoutFrame = {
+			name = L["Equipment Flyouts"],
+			type = "group",
+			args = {
+				EquipmentFlyoutFrameHideSlots = {
+					name = L["Hide Slots"],
+					desc = L["OPTIONS_DESCRIPTION_SLOTS"],
+					type = "toggle",
+				},
+			}
+		},
+		MerchantFrame = {
+			name = L["Merchants"],
+			type = "group",
+			args = {
+				MerchantFrameHideSlots = {
+					name = L["Hide Slots"],
+					desc = L["OPTIONS_DESCRIPTION_SLOTS"],
+					type = "toggle",
 				},
 			}
 		},
