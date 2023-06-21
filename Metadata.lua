@@ -463,6 +463,7 @@ Metadata.Options = {
 				},
 			}
 		},
+--[[
 		InspectPaperDollFrame = {
 			name = L["Inspect Character"],
 			type = "group",
@@ -485,6 +486,7 @@ Metadata.Options = {
 				},
 			}
 		},
+]]--
 		EquipmentFlyoutFrame = {
 			name = L["Equipment Flyouts"],
 			type = "group",
@@ -496,6 +498,7 @@ Metadata.Options = {
 				},
 			}
 		},
+--[[
 		MerchantFrame = {
 			name = L["Merchants"],
 			type = "group",
@@ -507,6 +510,7 @@ Metadata.Options = {
 				},
 			}
 		},
+]]
 	}
 }
 
