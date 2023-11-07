@@ -1,10 +1,6 @@
-# Version 10.1.7.1
+# Version 10.2.0.0
 
-* Updated for Wrath Classic 3.4.3
-
-# Version 10.1.7.0
-
-* Updated for Retail 10.1.7
+* Updated for Retail 10.2.0
 
 # Release History
 
