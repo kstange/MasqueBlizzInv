@@ -1,5 +1,5 @@
 --
--- Masque Blizzard Bars
+-- Masque Blizzard Inventory
 --
 -- Locales\zhCN.lua -- zhCN Localization File
 --
@@ -9,7 +9,7 @@
 --
 
 -- Please use CurseForge to submit localization content for another language:
--- https://www.curseforge.com/wow/addons/masque-blizz-bars-revived/localization
+-- https://www.curseforge.com/wow/addons/masque-blizz-inventory/localization
 
 local Locale = GetLocale()
 if Locale ~= "zhCN" then return end
