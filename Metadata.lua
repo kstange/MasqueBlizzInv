@@ -229,7 +229,7 @@ Metadata.Groups = {
 			-- Replace the highlight manually on the PaperDollFrame
 			-- AzeritePaperDollItemOverlayMixin:ResetAzeriteTextures()
 			-- aggressively resets the regular highlight to stock
-			for b, i in pairs(buttons) do
+			for b, _ in pairs(buttons) do
 				local button = _G[b]
 				if button then
 					if not button.HighlightTexture then
@@ -381,7 +381,8 @@ Metadata.OptionCallbacks = {}
 -- AceConfig Options table used to display a panel.
 Metadata.Options = {
 	type = "group",
-	name = format(L["OPTIONS_TITLE_MAIN"], Metadata.FriendlyName) .. "     |cFFAAAAAA" .. (GetAddOnMetadata(AddonName, "Version") or "Unknown"),
+	name = format(L["OPTIONS_TITLE_MAIN"], Metadata.FriendlyName) .. "     |cFFAAAAAA" ..
+	              (GetAddOnMetadata(AddonName, "Version") or "Unknown"),
 	args = {
 		Description = {
 			name = L["OPTIONS_DESCRIPTION_MAIN"] .. "\n ",
