@@ -146,7 +146,9 @@ Metadata.Groups = {
 		Title = "Void Storage",
 		Delayed = true,
 		Skinned = false,
-		Versions = { 40300, nil },
+		-- Originally added in 4.3.0, but not being added in
+		-- Cata Classic, so mark as unsupported until 10.0.0
+		Versions = { 100000, nil },
 		Buttons = {
 			VoidStorageStorageButton = 80,
 			VoidStorageDepositButton = 9,
