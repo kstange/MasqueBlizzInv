@@ -49,11 +49,11 @@ Classic is missing many features from Retail, so unsupported groups will not app
 The following elements are supported only in Wrath Classic:
 
 * Equipment Manager
-* Equipment Flyouts
 
 The following elements are supported only in Wrath Classic and Cataclysm Classic:
 
 * Guild Bank
+* Equipment Flyouts
 
 In Classic, all bags are consolidated to a single Bags group, including the Keyring.  This is due to the way the game reuses Bag windows.  In Cataclysm Classic, the Keyring and Equipment Manager have been removed, and Void Storage was not implemented.
 
