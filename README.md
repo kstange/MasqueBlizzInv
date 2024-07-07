@@ -17,6 +17,7 @@ Masque Blizzard Inventory can currently skin the following elements:
 * Bank
 * Bank Bags
 * Reagent Bank
+* Warband Bank
 * Guild Bank
 * Void Storage
 * Mail

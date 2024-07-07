@@ -451,6 +451,17 @@ Metadata.Options = {
 				},
 			}
 		},
+		AccountBankPanel = {
+			name = L["Warband Bank"],
+			type = "group",
+			args = {
+				AccountBankPanelHideSlots = {
+					name = L["Hide Slots"],
+					desc = L["OPTIONS_DESCRIPTION_SLOTS"],
+					type = "toggle",
+				},
+			}
+		},
 		GuildBankFrame = {
 			name = L["Guild Bank"],
 			type = "group",

@@ -152,6 +152,7 @@ function Addon:BankFrame_ShowPanel()
 
 	local abframe = Groups.AccountBankPanel
 	if BankFrame.activeTabIndex == 3 then
+		Addon:Options_AccountBankPanel_Update()
 		if not abframe.Skinned then
 			Core:SkinButtonPool(abframe.ButtonPools, abframe.Group)
 			abframe.Skinned = true
@@ -198,6 +199,19 @@ function Addon:Options_ReagentBankFrame_Update()
 				child:SetShown(show)
 			end
 		end
+	end
+end
+
+-- Update the visibility of Warband Bank elements based on settings
+function Addon:Options_AccountBankPanel_Update()
+	-- This only works on Retail due to frame design
+	if not Core:CheckVersion({ 110000, nil }) then return end
+
+	local show = not Core:GetOption('AccountBankPanelHideSlots')
+
+	-- Find all the item buttons in the Warband Bank and hide (or show) them
+	for itemButton in AccountBankPanel.itemButtonPool:EnumerateActive() do
+		itemButton.Background:SetShown(show)
 	end
 end
 
@@ -487,6 +501,12 @@ function Addon:Init()
 		Callbacks.MailFrameHideInboxBackground = Addon.Options_MailFrame_Update
 		Callbacks.MailFrameHideSendSlots = Addon.Options_MailFrame_Update
 		Callbacks.EquipmentFlyoutFrameHideSlots = Addon.Options_EquipmentFlyout_Show
+		if Core:CheckVersion({ 110000, nil }) then
+			Callbacks.AccountBankPanelHideSlots = Addon.Options_AccountBankPanel_Update
+		else
+			Metadata.Options.args.AccountBankPanel = nil
+		end
+
 	else
 		-- Empty the whole options table because we don't support it on Classic
 		Metadata.Options = nil

@@ -1,3 +1,9 @@
+# Version 11.0.0.0
+
+* Updated for Retail 11.0.0
+* Added support for Warband Bank
+* Added support for Combined Backpack as a distinct group in Retail 11.0.0
+
 # Version 10.2.7.0
 
 * Updated TOC for Retail 10.2.7
