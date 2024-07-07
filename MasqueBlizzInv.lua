@@ -71,7 +71,8 @@ function Addon:HandleEvent(event, target)
 end
 
 -- Retail Bags are mapped in this way:
---  * ContainerFrame1 is always Backpack
+--  * ContainerFrameCombinedBags is always the Combined Backpack
+--  * ContainerFrame1 is always standard Backpack
 --  * ContainerFrame2 - 5 are the Held Bags
 --  * ContainerFrame6 is always Reagent Bag
 --  * ContainerFrame7 - 13 are the Bank Bags
@@ -82,11 +83,14 @@ end
 -- all other bags, so each time a bag is opened we need to check if
 -- all its buttons are skinned and skin the ones that are new.
 --
--- If the Combined Bag appears, it just adds all the other buttons
--- to itself from their true parents, and sets its size to 0,
--- so we'll have to simulate skinning the bags one by one.
+-- If the Combined Backpack appears in 10.0, it just adds all the other
+-- buttons to itself from their true parents, and sets its size to 0,
+-- so we'll have to simulate skinning the bags one by one. In 11.0,
+-- the Combined Backpack uses an itemButtonPool of its own.
 --
--- However, if this is Classic then we just treat all bags the same.
+-- However, if this is Classic then we just treat all bags the same
+-- because the frames get reused arbitrarily depending on which opens
+-- first.
 function Addon:ContainerFrame_GenerateFrame(slots, target, parent)
 	-- Work on whichever frame Blizzard is giving us
 	if self and not parent then
@@ -96,10 +100,10 @@ function Addon:ContainerFrame_GenerateFrame(slots, target, parent)
 	end
 	local frame = parent:GetName()
 	local frameitem = frame .. "Item"
-	local group = nil
+	local group
 
-	-- If this is the Combined Bag, simulate skinning the bags one by one.
-	if frame == "ContainerFrameCombinedBags" then
+	-- If this is the Combined Bag, simulate skinning the bags one by one
+	if frame == "ContainerFrameCombinedBags" and Core:CheckVersion({ nil, 110000 }) then
 		--print("bag combined:", frame, slots, target)
 		for i = 1, 5 do
 			-- Figure out the number of slots in each bag
@@ -110,11 +114,11 @@ function Addon:ContainerFrame_GenerateFrame(slots, target, parent)
 	end
 
 	-- Skip processing if the bag has no slots
-	if slots == 0 then return end
+	if slots == 0 and frame ~= "ContainerFrameCombinedBags" then return end
 
 	--print("bag update:", frame, slots, target)
 
-	-- Identify which group this bag belongs to by ID
+	-- Identify which group this bag belongs to by ID or name
 	if target >= 13 then -- We don't know about this bag
 		print("MBI Error: Unknown bag opened", frame, slots, target)
 		return
@@ -122,27 +126,35 @@ function Addon:ContainerFrame_GenerateFrame(slots, target, parent)
 		group = Groups.ContainerFrameClassic
 	elseif target >= 6 then -- This is a bank bag
 		group = Groups.BankContainerFrames
-	elseif target == 5 then -- This is the reagent bag
-		group = Groups.ContainerFrame6
-	elseif target >= 1 then -- This is a held (main) bag
+	elseif target >= 1 and target < 5 then -- This is a held (main) bag
 		group = Groups.ContainerFrames
-	elseif target == 0 then -- This is the backpack
-		group = Groups.ContainerFrame1
+	else -- This frame matches its name (reagent, backpack, combined)
+		group = Groups[frame]
 	end
 
 	Core:Skin(group.Buttons, group.Group, frameitem, slots)
+	if group.ButtonPools then
+		Core:SkinButtonPool(group.ButtonPools, group.Group)
+	end
 end
 
--- Skin the ReagentBank the first time the user opens it.  There's
--- no event to capture and it doesn't exist on initial bank open.
+-- Skin the ReagentBank and AccountBank the first time the user opens them.
+-- There's no event to capture and it doesn't exist on initial bank open.
 function Addon:BankFrame_ShowPanel()
-	local frame = Groups.ReagentBankFrame
-	--print("skinning:", frame.Title, frame.Skinned)
+	local rbframe = Groups.ReagentBankFrame
 	if BankFrame.activeTabIndex == 2 then
 		Addon:Options_ReagentBankFrame_Update()
-		if not frame.Skinned then
-			Core:Skin(frame.Buttons, frame.Group)
-			frame.Skinned = true
+		if not rbframe.Skinned then
+			Core:Skin(rbframe.Buttons, rbframe.Group)
+			rbframe.Skinned = true
+		end
+	end
+
+	local abframe = Groups.AccountBankPanel
+	if BankFrame.activeTabIndex == 3 then
+		if not abframe.Skinned then
+			Core:SkinButtonPool(abframe.ButtonPools, abframe.Group)
+			abframe.Skinned = true
 		end
 	end
 end

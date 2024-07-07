@@ -60,10 +60,12 @@ Metadata.Groups = {
 	},
 	ContainerFrame1 = {
 		Title = "Backpack",
-		Notes = L["NOTES_BACKPACK"],
 		Versions = { 100000, nil },
 		Buttons = {
 			ContainerFrame1Item = 0
+		},
+		ButtonPools = {
+			ContainerFrame1
 		}
 	},
 	ContainerFrames = {
@@ -75,6 +77,12 @@ Metadata.Groups = {
 			ContainerFrame3Item = 0,
 			ContainerFrame4Item = 0,
 			ContainerFrame5Item = 0,
+		},
+		ButtonPools = {
+			ContainerFrame2,
+			ContainerFrame3,
+			ContainerFrame4,
+			ContainerFrame5
 		}
 	},
 	ContainerFrame6 = {
@@ -82,6 +90,17 @@ Metadata.Groups = {
 		Versions = { 100000, nil },
 		Buttons = {
 			ContainerFrame6Item = 0
+		},
+		ButtonPools = {
+			ContainerFrame6
+		}
+	},
+	ContainerFrameCombinedBags = {
+		Title = "Combined Backpack",
+		Versions = { 110000, nil },
+		Buttons = { },
+		ButtonPools = {
+			ContainerFrameCombinedBags
 		}
 	},
 	BankContainerFrames = {
@@ -95,6 +114,15 @@ Metadata.Groups = {
 			ContainerFrame11Item = 0,
 			ContainerFrame12Item = 0,
 			ContainerFrame13Item = 0,
+		},
+		ButtonPools = {
+			ContainerFrame7,
+			ContainerFrame8,
+			ContainerFrame9,
+			ContainerFrame10,
+			ContainerFrame11,
+			ContainerFrame12,
+			ContainerFrame13
 		}
 	},
 	BankFrame = {
@@ -115,6 +143,16 @@ Metadata.Groups = {
 		Versions = { 60000, nil },
 		Buttons = {
 			ReagentBankFrameItem = 98
+		}
+	},
+	AccountBankPanel = {
+		Title = "Warband Bank",
+		Delayed = true,
+		Skinned = false,
+		Versions = { 110000, nil },
+		Buttons = { },
+		ButtonPools = {
+			AccountBankPanel
 		}
 	},
 	GuildBankFrame = {

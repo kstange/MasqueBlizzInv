@@ -23,6 +23,8 @@ local L = Shared.Locale
 --L["Backpack"] = "Backpack"
 --L["Main Bags"] = "Main Bags"
 --L["Reagent Bag"] = "Reagent Bag"
+--L["Combined Backpack"] = "Combined Backpack"
+--L["Warband Bank"] = "Warband Bank"
 --L["Bank Bags"] = "Bank Bags"
 --L["Bank"] = "Bank"
 --L["Reagent Bank"] = "Reagent Bank"
@@ -44,8 +46,7 @@ local L = Shared.Locale
 
 -- Using short keys for these long strings, so enUS needs to be defined as well
 L["NOTES_BAGS_CLASSIC"] = "This group skins the Backpack, the Keyring, Main Bags, and Bank Bags."
-L["NOTES_BACKPACK"] = "This group skins the Backpack.  If you have enabled the Combined Backpack, it will only skin the slots from the real Backpack and not other bags."
-L["NOTES_MAIN_BAGS"] = "This group skins the main Bags other than the Backpack and Reagent Bag.  If you have enabled the Combined Backpack, it will only skin the slots from those bags and not the Backpack."
+L["NOTES_MAIN_BAGS"] = "This group skins the main Bags other than the Backpack and Reagent Bag."
 L["NOTES_MAIL"] = "This group skins the Inbox, Send Mail, and Open Mail attachments."
 L["OPTIONS_TITLE_MAIN"] = "%s Extended Options"
 L["OPTIONS_DESCRIPTION_MAIN"] = "These options allow you to customize inventory elements to make them look better with certain Masque skins, such as by hiding background artwork."

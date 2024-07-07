@@ -194,6 +194,21 @@ function Core:Skin(buttons, group, bclass, slots, parent, prefix)
 	end
 end
 
+-- In 11.0 Blizzard added an itemButtonPool concept which makes finding all the
+-- buttons in a container really easy.
+function Core:SkinButtonPool(pools, group)
+	for _, frame in ipairs(pools) do
+		if frame.itemButtonPool then
+			for button in frame.itemButtonPool:EnumerateActive() do
+				-- TODO These should always be ItemButtons by
+				-- nature of Blizzard code, but support regions
+				-- just in case.
+				group:AddButton(button, nil, "Item")
+			end
+		end
+	end
+end
+
 -- Check if the current interface version is between the low number (inclusive)
 -- and the high number (exclusive) for implementations that are dependent upon
 -- client version.
