@@ -148,7 +148,6 @@ Metadata.Groups = {
 	AccountBankPanel = {
 		Title = "Warband Bank",
 		Delayed = true,
-		Skinned = false,
 		Versions = { 110000, nil },
 		Buttons = { },
 		ButtonPools = {

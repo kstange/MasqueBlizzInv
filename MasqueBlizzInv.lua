@@ -153,10 +153,7 @@ function Addon:BankFrame_ShowPanel()
 	local abframe = Groups.AccountBankPanel
 	if BankFrame.activeTabIndex == 3 then
 		Addon:Options_AccountBankPanel_Update()
-		if not abframe.Skinned then
-			Core:SkinButtonPool(abframe.ButtonPools, abframe.Group)
-			abframe.Skinned = true
-		end
+		Core:SkinButtonPool(abframe.ButtonPools, abframe.Group)
 	end
 end
 

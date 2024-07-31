@@ -1,3 +1,7 @@
+# Version 11.0.0.2
+
+* Fixed skinning of Warband Bank immediately after purchasing the first tab
+
 # Version 11.0.0.1
 
 * Updated TOC for Classic Era 1.15.3
