@@ -46,7 +46,7 @@ function Addon:HandleEvent(event, target)
 		end
 	end
 
-	-- This handles Wrath Classic or later
+	-- This handles Cataclysm Classic or later
 	if event == "PLAYER_INTERACTION_MANAGER_FRAME_SHOW" then
 		if target == 8 then -- Bank
 			frame = Groups.BankFrame
@@ -446,18 +446,6 @@ function Addon:Init()
 	if Core:CheckVersion({ 60000, nil }) then
 		hooksecurefunc("BankFrame_ShowPanel",
 		               Addon.BankFrame_ShowPanel)
-	end
-
-	-- GearSetDialog (Wrath only)
-	if Core:CheckVersion({ 30300, 40300 }) then
-		hooksecurefunc("GearManagerDialog_Update",
-		               Addon.GearManagerDialog_Update)
-	end
-
-	-- PaperDollFrameItemFlyout (Wrath only)
-	if Core:CheckVersion({ 30300, 40300 }) then
-		hooksecurefunc("PaperDollFrameItemFlyout_Show",
-		               Addon.PaperDollFrameItemFlyout_Show)
 	end
 
 	-- EquipmentFlyout
