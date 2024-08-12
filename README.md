@@ -10,25 +10,24 @@ You can install this addon from [CurseForge](https://www.curseforge.com/wow/addo
 
 Masque Blizzard Inventory can currently skin the following elements:
 
-* Backpack
-* Main Bags
-* Combined Backpack
-* Reagent Bag
-* Bank
-* Bank Bags
-* Reagent Bank
-* Warband Bank
-* Guild Bank
-* Void Storage
-* Mail
-* Merchants
-* Loot
-* Character
-* Inspect Character
-* Equipment Flyouts
-* Equipment Manager (Wrath Classic only)
-* Keyring (Classic only)
-* Bag Bar (Classic only)
+- Backpack
+- Main Bags
+- Combined Backpack
+- Reagent Bag
+- Bank
+- Bank Bags
+- Reagent Bank
+- Warband Bank
+- Guild Bank
+- Void Storage
+- Mail
+- Merchants
+- Loot
+- Character
+- Inspect Character
+- Equipment Flyouts
+- Keyring (Classic only)
+- Bag Bar (Classic only)
 
 Each element type is its own group so you can configure them independently from Masque's Skin Settings.  The Combined Backpack will inherit the Backpack and Main Bags configuration.
 
@@ -38,29 +37,25 @@ An additional options panel is provided to hide background and slot artwork that
 
 Classic is missing many features from Retail, so unsupported groups will not appear in Masque options.  Currently, only the following elements are supported by the game:
 
-* Bags (including Backpack, Keyring, and Bank)
-* Bank
-* Mail
-* Merchants
-* Loot
-* Character
-* Inspect Character
-* Bag Bar
+- Bags (including Backpack, Keyring, and Bank)
+- Bank
+- Mail
+- Merchants
+- Loot
+- Character
+- Inspect Character
+- Bag Bar
 
-The following elements are supported only in Wrath Classic:
+The following elements are supported only in Cataclysm Classic:
 
-* Equipment Manager
-
-The following elements are supported only in Wrath Classic and Cataclysm Classic:
-
-* Guild Bank
-* Equipment Flyouts
+- Guild Bank
+- Equipment Flyouts
 
 In Classic, all bags are consolidated to a single Bags group, including the Keyring.  This is due to the way the game reuses Bag windows.  In Cataclysm Classic, the Keyring and Equipment Manager have been removed, and Void Storage was not implemented.
 
 Most interface frames in Classic are built using a single background image, rather than multiple layers, so the options to hide background and slot artwork are not feasible.  Adding this feature would require drawing replacement artwork and including it with the addon, so it is not planned.
 
-I've done limited testing with Classic Era, Wrath Classic, and Cataclysm Classic because I don't play them, but I believe everything should work.  If you report bugs or submit patches, I'll do my best to address them.
+I've done limited testing with Classic Era and Cataclysm Classic because I don't play them, but I believe everything should work.  If you report bugs or submit patches, I'll do my best to address them.
 
 ## Compatibility
 
