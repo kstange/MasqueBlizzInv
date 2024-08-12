@@ -304,29 +304,6 @@ Metadata.Groups = {
 			CharacterAmmoSlot = -1,
 		}
 	},
-	-- Wrath Classic Only
-	GearManagerDialog = {
-		Title = "Equipment Manager",
-		Versions = { 30300, 40300 },
-		Init = function(buttons)
-			-- Fix icon visibility on Equipment Manager
-			for i = 1, buttons.GearSetButton do
-				local button = _G['GearSetButton'..i]
-				button.icon:SetDrawLayer("BACKGROUND", 4)
-			end
-		end,
-		Buttons = {
-			GearSetButton = 10,
-		}
-	},
-	-- Wrath Classic Only
-	PaperDollFrameItemFlyout = {
-		Title = "Equipment Flyouts",
-		Versions = { 30300, 40300 },
-		Buttons = {
-			PaperDollFrameItemFlyoutButtons = 0,
-		}
-	},
 	EquipmentFlyoutFrame = {
 		Title = "Equipment Flyouts",
 		Versions = { 40300, nil },
