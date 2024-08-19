@@ -2,17 +2,18 @@
 -- Masque Blizzard Inventory
 -- Enables Masque to skin the built-in inventory UI
 --
--- Copyright 2022 - 2023 SimGuy
+-- Copyright 2022 - 2024 SimGuy
 --
 -- Use of this source code is governed by an MIT-style
 -- license that can be found in the LICENSE file or at
 -- https://opensource.org/licenses/MIT.
 --
 
-local AddonName, Shared = ...
+local _, Shared = ...
 
 -- From Locales/Locales.lua
-local L = Shared.Locale
+-- Not used yet
+--local L = Shared.Locale
 
 -- From Metadata.lua
 local Metadata = Shared.Metadata
