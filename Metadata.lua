@@ -9,7 +9,7 @@
 -- https://opensource.org/licenses/MIT.
 --
 
-local AddonName, Shared = ...
+local _, Shared = ...
 
 -- From Locales/Locales.lua
 local L = Shared.Locale
