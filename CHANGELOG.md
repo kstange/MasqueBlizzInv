@@ -1,8 +1,9 @@
-# Version 11.0.2.0
+# Version 11.0.5.0
 
 - Adjusted draw layer of some icons to be artwork instead of background
 - Updated TOC for Retail 11.0.5 (PTR)
-- Updated TOC for Classic Era 1.15.4 (PTR)
+- Updated TOC for Cataclysm Classic 4.4.1 (PTR)
+- Updated TOC for Classic Era 1.15.4
 
 # Version 11.0.0.2
 
