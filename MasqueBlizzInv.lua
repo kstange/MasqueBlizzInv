@@ -389,7 +389,6 @@ function Addon:LootFrame_Open()
 
 				-- TODO: Update this to use Core:Skin()
 				group.Group:AddButton(lfi.Item, nil, "Item")
-				lfi.Item.icon:SetDrawLayer("ARTWORK", -1)
 				group.State.LootFrameItem[name] = lfi
 			end
 		end
@@ -403,9 +402,6 @@ function Addon:InboxFrame_Update()
 	Addon:Options_MailFrame_Update()
 	for i=1, INBOXITEMS_TO_DISPLAY do
 		local icon = _G["MailItem"..i.."ButtonIcon"]
-		if icon then
-			icon:SetDrawLayer("ARTWORK", -1)
-		end
 	end
 end
 
@@ -423,8 +419,6 @@ function Addon:SendMailFrame_Update()
 		else
 			icon:SetTexture(nil)
 		end
-		-- If we don't do this, sometimes the icon ends up behind the backdrop
-		icon:SetDrawLayer("ARTWORK", -1)
 	end
 end
 

@@ -1,6 +1,7 @@
 # Version 11.0.5.0
 
-- Adjusted draw layer of some icons to be artwork instead of background
+- Removed icon draw layer tweaks due to Masque changes
+  - Note: Update to Masque version 11.0.2 or later to fix issues with missing icons
 - Updated TOC for Retail 11.0.5 (PTR)
 - Updated TOC for Cataclysm Classic 4.4.1 (PTR)
 - Updated TOC for Classic Era 1.15.4
