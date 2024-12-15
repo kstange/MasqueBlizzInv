@@ -1,3 +1,8 @@
+# Version 11.0.7.0
+
+- Updated TOC for Retail 11.0.7
+- Updated TOC for Classic Era 1.15.5
+
 # Version 11.0.5.0
 
 - Removed icon draw layer workarounds due to Masque improvements
