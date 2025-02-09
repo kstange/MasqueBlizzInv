@@ -2,6 +2,7 @@
 ## Version: @project-version@
 ## Title: Masque Blizzard Inventory
 ## Notes: Enables Masque to skin the built-in inventory UI
+## Notes-ruRU: Позволяет Masque изменять внешний вид встроенного пользовательского интерфейса инвентаря.
 ## Notes-zhCN: 允许Masque对内置库存UI进行换皮肤
 ## Author: SimGuy
 ## SavedVariables: MasqueBlizzInv
