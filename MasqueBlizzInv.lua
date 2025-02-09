@@ -400,9 +400,6 @@ end
 -- to prevent that.
 function Addon:InboxFrame_Update()
 	Addon:Options_MailFrame_Update()
-	for i=1, INBOXITEMS_TO_DISPLAY do
-		local icon = _G["MailItem"..i.."ButtonIcon"]
-	end
 end
 
 -- Blizzard sets the icon non-standardly for SendMailAttachment icons
