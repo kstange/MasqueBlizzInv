@@ -29,10 +29,12 @@ Metadata.MasqueFriendlyName = "Blizzard Inventory"
 --  To match it must be >= low and < high.
 --  High number is the first interface unsupported
 -- Buttons should contain a list of frame names with an integer value
+--  If -2, assume to be a function that returns a table of buttons
 --  If -1, assume to be a singular button with that name
 --  If  0, this is a dynamic frame to be skinned later
 --  If >0, attempt to loop through frames with the name prefix suffixed with
 --  the integer range
+-- ButtonPools should reference parent frames containing an itemButtonPool
 -- State can be used for storing information about special buttons
 Metadata.Groups = {
 	ContainerFrameClassic = {
