@@ -46,16 +46,16 @@ Classic is missing many features from Retail, so unsupported groups will not app
 - Inspect Character
 - Bag Bar
 
-The following elements are supported only in Cataclysm Classic:
+The following elements are supported only in Pandaria Classic:
 
 - Guild Bank
 - Equipment Flyouts
 
-In Classic, all bags are consolidated to a single Bags group, including the Keyring.  This is due to the way the game reuses Bag windows.  In Cataclysm Classic, the Keyring and Equipment Manager have been removed, and Void Storage was not implemented.
+In Classic, all bags are consolidated to a single Bags group, including the Keyring.  This is due to the way the game reuses Bag windows.  Since Cataclysm Classic, the Keyring and Equipment Manager have been removed, and Void Storage was not implemented.
 
 Most interface frames in Classic are built using a single background image, rather than multiple layers, so the options to hide background and slot artwork are not feasible.  Adding this feature would require drawing replacement artwork and including it with the addon, so it is not planned.
 
-I've done limited testing with Classic Era and Cataclysm Classic because I don't play them, but I believe everything should work.  If you report bugs or submit patches, I'll do my best to address them.
+I've done limited testing with Classic Era and Pandaria Classic because I don't play them, but I believe everything should work.  If you report bugs or submit patches, I'll do my best to address them.
 
 ## Compatibility
 
