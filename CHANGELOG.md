@@ -1,6 +1,6 @@
 # Version 11.2.0.1
 
-- Added support for the Retail Bank UI refresh in 11.2.0
+- Added support for the Retail Bank refresh in 11.2.0
   - Bank Bags, Reagent Bank, and Void Storage have been removed from the game.
   - The Warband Bank shares options with the Bank because it uses the same inventory system.
 
