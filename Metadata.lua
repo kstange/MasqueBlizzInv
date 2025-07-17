@@ -104,7 +104,7 @@ Metadata.Groups = {
 	},
 	BankContainerFrames = {
 		Title = "Bank Bags",
-		Versions = { 100000, nil },
+		Versions = { 100000, 110200 },
 		Buttons = {
 			ContainerFrame7Item  = 0,
 			ContainerFrame8Item  = 0,
@@ -128,6 +128,7 @@ Metadata.Groups = {
 		Title = "Bank",
 		Delayed = true,
 		Skinned = false,
+		Versions = { nil, 110200 },
 		Buttons = {
 			BankSlotsFrame = {
 				Item = 28,
@@ -139,7 +140,7 @@ Metadata.Groups = {
 		Title = "Reagent Bank",
 		Delayed = true,
 		Skinned = false,
-		Versions = { 60000, nil },
+		Versions = { 60000, 110200 },
 		Buttons = {
 			ReagentBankFrameItem = 98
 		}
@@ -147,10 +148,19 @@ Metadata.Groups = {
 	AccountBankPanel = {
 		Title = "Warband Bank",
 		Delayed = true,
-		Versions = { 110000, nil },
+		Versions = { 110000, 110200 },
 		Buttons = { },
 		ButtonPools = {
 			AccountBankPanel
+		}
+	},
+	BankPanel = {
+		Title = "Bank",
+		Delayed = true,
+		Versions = { 110200, nil },
+		Buttons = { },
+		ButtonPools = {
+			BankPanel
 		}
 	},
 	GuildBankFrame = {
@@ -184,7 +194,7 @@ Metadata.Groups = {
 		Skinned = false,
 		-- Originally added in 4.3.0, but not being added in
 		-- Cata Classic, so mark as unsupported until 10.0.0
-		Versions = { 100000, nil },
+		Versions = { 100000, 110200 },
 		Buttons = {
 			VoidStorageStorageButton = 80,
 			VoidStorageDepositButton = 9,

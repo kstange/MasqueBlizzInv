@@ -158,31 +158,47 @@ function Addon:BankFrame_ShowPanel()
 	end
 end
 
+-- Skin the Bank when the panel is refreshed. This is the unified bank from
+-- 11.2.0 onward.
+function Addon:BankPanel_RefreshBankPanel()
+	local bpframe = Groups.BankPanel
+	Addon:Options_BankFrame_Update()
+	Core:SkinButtonPool(bpframe.ButtonPools, bpframe.Group)
+end
+
+
 -- Update the visibility of Bank elements based on settings
 function Addon:Options_BankFrame_Update()
 	-- This only works on Retail due to frame design
-	if not Core:CheckVersion({ 100000, nil }) then return end
-
 	local show = not Core:GetOption('BankFrameHideSlots')
-	local frame = BankSlotsFrame
-	-- This is the texture map used for bank slot artwork
-	local texture = 590156
+	if Core:CheckVersion({ 100000, 110200 }) then
 
-	-- Find regions that use the texture and hide (or show) them
-	if frame then
-		for i = 1, select("#", frame:GetRegions()) do
-			local child = select(i, frame:GetRegions())
-			if type(child) == "table" and child.GetTexture and child:GetTexture() == texture then
-				child:SetShown(show)
+		local frame = BankSlotsFrame
+		-- This is the texture map used for bank slot artwork
+		local texture = 590156
+
+		-- Find regions that use the texture and hide (or show) them
+		if frame then
+			for i = 1, select("#", frame:GetRegions()) do
+				local child = select(i, frame:GetRegions())
+				if type(child) == "table" and child.GetTexture and child:GetTexture() == texture then
+					child:SetShown(show)
+				end
 			end
 		end
+	elseif Core:CheckVersion({ 110200, nil }) then
+		-- Find all the item buttons in the Warband Bank and hide (or show) them
+		for itemButton in BankPanel.itemButtonPool:EnumerateActive() do
+			itemButton.Background:SetShown(show)
+		end
 	end
+
 end
 
 -- Update the visibility of Reagent Bank elements based on settings
 function Addon:Options_ReagentBankFrame_Update()
 	-- This only works on Retail due to frame design
-	if not Core:CheckVersion({ 100000, nil }) then return end
+	if not Core:CheckVersion({ 100000, 110200 }) then return end
 
 	local show = not Core:GetOption('ReagentBankFrameHideSlots')
 	local frame = ReagentBankFrame
@@ -203,7 +219,7 @@ end
 -- Update the visibility of Warband Bank elements based on settings
 function Addon:Options_AccountBankPanel_Update()
 	-- This only works on Retail due to frame design
-	if not Core:CheckVersion({ 110000, nil }) then return end
+	if not Core:CheckVersion({ 110000, 110200 }) then return end
 
 	local show = not Core:GetOption('AccountBankPanelHideSlots')
 
@@ -239,7 +255,7 @@ end
 -- Update the visibility of Void Storage elements based on settings
 function Addon:Options_VoidStorageFrame_Update()
 	-- This only works on Retail due to frame design
-	if not Core:CheckVersion({ 100000, nil }) then return end
+	if not Core:CheckVersion({ 100000, 110200 }) then return end
 
 	local show = not Core:GetOption('VoidStorageFrameHideSlots')
 	local buttons = Groups.VoidStorageFrame.Buttons
@@ -434,10 +450,14 @@ function Addon:Init()
 	hooksecurefunc("SendMailFrame_Update",
 	               Addon.SendMailFrame_Update)
 
-	-- Reagent Bank
-	if Core:CheckVersion({ 60000, nil }) then
+	-- Reagent Bank and Warband Bank
+	if Core:CheckVersion({ 60000, 110200 }) then
 		hooksecurefunc("BankFrame_ShowPanel",
 		               Addon.BankFrame_ShowPanel)
+	end
+	if Core:CheckVersion({ 110200, nil }) then
+		hooksecurefunc(BankPanel, "RefreshBankPanel",
+		               Addon.BankPanel_RefreshBankPanel)
 	end
 
 	-- EquipmentFlyout
@@ -470,15 +490,20 @@ function Addon:Init()
 	if Core:CheckVersion({ 100000, nil }) then
 		-- Register Callbacks for various options here
 		Callbacks.BankFrameHideSlots = Addon.Options_BankFrame_Update
-		Callbacks.ReagentBankFrameHideSlots = Addon.Options_ReagentBankFrame_Update
 		Callbacks.GuildBankFrameHideSlots = Addon.Options_GuildBankFrame_Update
 		Callbacks.GuildBankFrameHideBackground = Addon.Options_GuildBankFrame_Update
-		Callbacks.VoidStorageFrameHideSlots = Addon.Options_VoidStorageFrame_Update
+		if Core:CheckVersion({ nil, 110200 }) then
+			Callbacks.ReagentBankFrameHideSlots = Addon.Options_ReagentBankFrame_Update
+			Callbacks.VoidStorageFrameHideSlots = Addon.Options_VoidStorageFrame_Update
+		else
+			Metadata.Options.args.ReagentBankFrame = nil
+			Metadata.Options.args.VoidStorageFrame = nil
+		end
 		Callbacks.MailFrameHideInboxSlots = Addon.Options_MailFrame_Update
 		Callbacks.MailFrameHideInboxBackground = Addon.Options_MailFrame_Update
 		Callbacks.MailFrameHideSendSlots = Addon.Options_MailFrame_Update
 		Callbacks.EquipmentFlyoutFrameHideSlots = Addon.Options_EquipmentFlyout_Show
-		if Core:CheckVersion({ 110000, nil }) then
+		if Core:CheckVersion({ 110000, 110200 }) then
 			Callbacks.AccountBankPanelHideSlots = Addon.Options_AccountBankPanel_Update
 		else
 			Metadata.Options.args.AccountBankPanel = nil
