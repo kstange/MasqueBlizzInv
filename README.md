@@ -8,7 +8,7 @@ You can install this addon from [CurseForge](https://www.curseforge.com/wow/addo
 
 ## Features
 
-Masque Blizzard Inventory can currently skin the following elements:
+Masque Blizzard Inventory can currently skin the following elements, according to your game version:
 
 - Backpack
 - Main Bags
@@ -22,39 +22,28 @@ Masque Blizzard Inventory can currently skin the following elements:
 - Character
 - Inspect Character
 - Equipment Flyouts
-- Keyring (Classic only)
+- Keyring (Classic only, before Cataclysm)
 - Bag Bar (Classic only)
 
-Bank Bags, Void Storage, and the Reagent Bank were removed from the game in 11.2.0.
+Each element type is its own group so you can configure them independently from Masque's Skin Settings.
 
-Each element type is its own group so you can configure them independently from Masque's Skin Settings.  The Combined Backpack will inherit the Backpack and Main Bags configuration.
+The Warband Bank and Bank use the same inventory elements in Retail, so they share skin options as well.
 
 An additional options panel is provided to hide background and slot artwork that might clash with certain Masque skins.
 
 ## Classic Support
 
-Classic is missing many features from Retail, so unsupported groups will not appear in Masque options.  Currently, only the following elements are supported by the game:
+Classic versions available in the US are fully supported. Elements not available in Classic will not appear in Masque's Skin Settings.
 
-- Bags (including Backpack, Keyring, and Bank)
-- Bank
-- Mail
-- Merchants
-- Loot
-- Character
-- Inspect Character
-- Bag Bar
-- Equipment Flyouts (Cataclysm Classic and later)
-- Guild Bank (Burning Crusade Classic and later)
-
-In Classic, all bags are consolidated to a single Bags group, including the Keyring.  This is due to the way the game reuses Bag windows.  Since Cataclysm Classic, the Keyring and Equipment Manager have been removed, and Void Storage was not implemented.
+In Classic, all bags are consolidated to a single Bags group, including the Keyring. This is due to the way the game reuses Bag windows.
 
 Most interface frames in Classic are built using a single background image, rather than multiple layers, so the options to hide background and slot artwork are not feasible.  Adding this feature would require drawing replacement artwork and including it with the addon, so it is not planned.
 
-I've done limited testing with Classic versions because I don't play them, but I believe everything should work.  If you report bugs or submit patches, I'll do my best to address them.
+I don't play Classic so testing is somewhat limited, but I'll do my best to address bug reports promptly.
 
 ## Compatibility
 
-This addon is not intended to apply Masque skins over addons that replace or heavily modify parts of the base interface and may conflict with them.  If you experience a conflict, use Masque's Skin Settings to disable the affected group and reload your UI. This should allow the other addon to control the interface without interference.
+This addon is intended to skin the base WoW interface. Addons that heavily modify parts of the base interface may conflict. If you experience a conflict, use Masque's Skin Settings to disable the affected group and reload your UI. This should allow the other addon to control the interface without interference.
 
 If you'd like to see Masque support in a conflicting addon, try sending a feature request to that addon's author directly.
 
@@ -64,7 +53,7 @@ If you'd like to help localize this addon, please submit translations [here](htt
 
 ## Other Mods
 
-If you're looking to skin the built-in action bars as well, check out [Masque Blizzard Bars](https://github.com/kstange/MasqueBlizzBars) ([CurseForge](https://www.curseforge.com/wow/addons/masque-blizz-bars-revived "CurseForge"), [Wago](https://addons.wago.io/addons/masqueblizzbars), [WoWInterface](https://www.wowinterface.com/downloads/info26502-MasqueBlizzardBars.html))!
+If you want to skin the built-in action bars as well, check out [Masque Blizzard Bars](https://github.com/kstange/MasqueBlizzBars) ([CurseForge](https://www.curseforge.com/wow/addons/masque-blizz-bars-revived "CurseForge"), [Wago](https://addons.wago.io/addons/masqueblizzbars), [WoWInterface](https://www.wowinterface.com/downloads/info26502-MasqueBlizzardBars.html))!
 
 ## Special Thanks
 
