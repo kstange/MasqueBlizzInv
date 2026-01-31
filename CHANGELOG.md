@@ -1,3 +1,9 @@
+# Version 12.0.0.0
+
+- Updated TOC for Retail 12.0.1 (Beta)
+- Added an option to disable the bag slot artwork on the Combined Backpack
+- Refactored some steps for skinning new buttons to be more efficient
+
 # Version 11.2.7.0
 
 - Updated TOC for Retail 11.2.7

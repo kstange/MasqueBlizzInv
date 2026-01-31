@@ -103,17 +103,6 @@ function Addon:ContainerFrame_GenerateFrame(slots, target, parent)
 	local frameitem = frame .. "Item"
 	local group
 
-	-- If this is the Combined Bag, simulate skinning the bags one by one
-	if frame == "ContainerFrameCombinedBags" and Core:CheckVersion({ nil, 110000 }) then
-		--print("bag combined:", frame, slots, target)
-		for i = 1, 5 do
-			-- Figure out the number of slots in each bag
-			local bagslots = C_Container.GetContainerNumSlots(i-1)
-			Addon:ContainerFrame_GenerateFrame(bagslots, i-1, _G["ContainerFrame"..i])
-		end
-		return
-	end
-
 	-- Skip processing if the bag has no slots
 	if slots == 0 and frame ~= "ContainerFrameCombinedBags" then return end
 
@@ -135,6 +124,9 @@ function Addon:ContainerFrame_GenerateFrame(slots, target, parent)
 
 	Core:Skin(group.Buttons, group.Group, frameitem, slots)
 	if group.ButtonPools then
+		if frame == "ContainerFrameCombinedBags" then
+			Addon:Options_ContainerFrameCombinedBags_Update()
+		end
 		Core:SkinButtonPool(group.ButtonPools, group.Group)
 	end
 end
@@ -248,6 +240,21 @@ function Addon:Options_GuildBankFrame_Update()
 		end
 		if frame.BlackBG then
 			frame.BlackBG:SetShown(showbg)
+		end
+	end
+end
+
+-- Update the visibility of Void Storage elements based on settings
+function Addon:Options_ContainerFrameCombinedBags_Update()
+	-- This only works on Retail due to frame design
+	if not Core:CheckVersion({ 110000, nil }) then return end
+
+	local show = not Core:GetOption('ContainerFrameCombinedBagsHideSlots')
+
+	-- Find regions that use the texture and hide (or show) them
+	for button in ContainerFrameCombinedBags.itemButtonPool:EnumerateActive() do
+		if button.ItemSlotBackground then
+			button.ItemSlotBackground:SetShown(show)
 		end
 	end
 end
@@ -507,6 +514,11 @@ function Addon:Init()
 			Callbacks.AccountBankPanelHideSlots = Addon.Options_AccountBankPanel_Update
 		else
 			Metadata.Options.args.AccountBankPanel = nil
+		end
+		if Core:CheckVersion({ 110000, nil }) then
+			Callbacks.ContainerFrameCombinedBagsHideSlots = Addon.Options_ContainerFrameCombinedBags_Update
+		else
+			Metadata.Options.args.ContainerFrameCombinedBags = nil
 		end
 
 	else

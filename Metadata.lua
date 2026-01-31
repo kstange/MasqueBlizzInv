@@ -29,11 +29,12 @@ Metadata.MasqueFriendlyName = "Blizzard Inventory"
 --  To match it must be >= low and < high.
 --  High number is the first interface unsupported
 -- Buttons should contain a list of frame names with an integer value
---  If -2, assume to be a function that returns a table of buttons
+--  If a string, assume to be a function or table of buttons
 --  If -1, assume to be a singular button with that name
 --  If  0, this is a dynamic frame to be skinned later
 --  If >0, attempt to loop through frames with the name prefix suffixed with
 --  the integer range
+-- HookFunction should contain a frame reference and function name to hook
 -- ButtonPools should reference parent frames containing an itemButtonPool
 -- State can be used for storing information about special buttons
 Metadata.Groups = {
@@ -60,9 +61,7 @@ Metadata.Groups = {
 	ContainerFrame1 = {
 		Title = "Backpack",
 		Versions = { 100000, nil },
-		Buttons = {
-			ContainerFrame1Item = 0
-		},
+		Buttons = { },
 		ButtonPools = {
 			ContainerFrame1
 		}
@@ -71,12 +70,7 @@ Metadata.Groups = {
 		Title = "Main Bags",
 		Notes = L["NOTES_MAIN_BAGS"],
 		Versions = { 100000, nil },
-		Buttons = {
-			ContainerFrame2Item = 0,
-			ContainerFrame3Item = 0,
-			ContainerFrame4Item = 0,
-			ContainerFrame5Item = 0,
-		},
+		Buttons = { },
 		ButtonPools = {
 			ContainerFrame2,
 			ContainerFrame3,
@@ -87,9 +81,7 @@ Metadata.Groups = {
 	ContainerFrame6 = {
 		Title = "Reagent Bag",
 		Versions = { 100000, nil },
-		Buttons = {
-			ContainerFrame6Item = 0
-		},
+		Buttons = { },
 		ButtonPools = {
 			ContainerFrame6
 		}
@@ -412,6 +404,17 @@ Metadata.Options = {
 			name = L["OPTIONS_DESCRIPTION_MAIN"] .. "\n ",
 			type = "description",
 			fontSize = "medium",
+		},
+		ContainerFrameCombinedBags = {
+			name = L["Combined Backpack"],
+			type = "group",
+			args = {
+				ContainerFrameCombinedBagsHideSlots = {
+					name = L["Hide Slots"],
+					desc = L["OPTIONS_DESCRIPTION_SLOTS"],
+					type = "toggle",
+				},
+			}
 		},
 		BankFrame = {
 			name = L["Bank"],
