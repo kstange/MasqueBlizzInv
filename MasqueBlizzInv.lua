@@ -244,7 +244,7 @@ function Addon:Options_GuildBankFrame_Update()
 	end
 end
 
--- Update the visibility of Void Storage elements based on settings
+-- Update the visibility of Combined Backpack elements based on settings
 function Addon:Options_ContainerFrameCombinedBags_Update()
 	-- This only works on Retail due to frame design
 	if not Core:CheckVersion({ 110000, nil }) then return end
