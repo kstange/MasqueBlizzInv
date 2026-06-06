@@ -1,3 +1,7 @@
+# Version 12.0.7.0
+
+- Updated TOC for Retail 12.0.7
+
 # Version 12.0.5.1
 
 - Updated zhCN (Chinese Simplified) translation from LvWind

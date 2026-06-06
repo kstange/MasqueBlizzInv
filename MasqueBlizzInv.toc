@@ -1,4 +1,4 @@
-## Interface: 120005, 120001, 50504, 50503, 40402, 20505, 11508
+## Interface: 120007, 120005, 50504, 40402, 20505, 11508
 ## Version: @project-version@
 ## Title: Masque Blizzard Inventory
 ## Notes: Enables Masque to skin the built-in inventory UI
