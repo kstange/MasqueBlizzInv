@@ -1,21 +1,8 @@
-# Version 12.0.7.0
+# Version 12.1.0.0
 
-- Updated TOC for Retail 12.0.7
-
-# Version 12.0.5.1
-
-- Updated zhCN (Chinese Simplified) translation from LvWind
-
-# Version 12.0.5.0
-
-- Updated TOC for Retail 12.0.5
-- Updated TOC for Pandaria Classic 5.5.4 (PTR)
-
-# Version 12.0.0.0
-
-- Updated TOC for Retail 12.0.1 (Beta)
-- Added an option to disable the bag slot artwork on the Combined Backpack
-- Refactored some steps for skinning new buttons to be more efficient
+- Updated TOC for Retail 12.1.0
+- Updated TOC for Burning Crusade Classic 2.5.6
+- Updated TOC for Classic Era 1.15.9
 
 # Release History
 
