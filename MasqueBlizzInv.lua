@@ -116,7 +116,7 @@ function Addon:ContainerFrame_GenerateFrame(slots, target, parent)
 		group = Groups.ContainerFrameClassic
 	elseif target >= 6 then -- This is a bank bag
 		group = Groups.BankContainerFrames
-	elseif (target >= 1 and target < 5) or target == -1 then -- This is a held (main) bag
+	elseif (target >= 1 and target < 5) or target == -1 then -- This is a held (main) bag, -1 is keyring
 		group = Groups.ContainerFrames
 	else -- This frame matches its name (reagent, backpack, combined)
 		group = Groups[frame]
@@ -255,6 +255,28 @@ function Addon:Options_ContainerFrameCombinedBags_Update()
 	for button in ContainerFrameCombinedBags.itemButtonPool:EnumerateActive() do
 		if button.ItemSlotBackground then
 			button.ItemSlotBackground:SetShown(show)
+		end
+		Addon:HandleEmptyBackgroundAtlas(button, show)
+	end
+end
+
+-- Handle the empty slot artwork that blizzard puts behind buttons in Forever
+function Addon:HandleEmptyBackgroundAtlas(button, show)
+	if button.emptyBackgroundAtlas and not button.originalEmptyBackground then
+		button.originalEmptyBackground = button.emptyBackgroundAtlas
+	end
+
+	if button.originalEmptyBackground then
+		if show then
+			button.emptyBackgroundAtlas = button.originalEmptyBackground
+			if not button.icon:GetAtlas() and not button.icon:GetTexture() then
+				button.icon:SetAtlas(button.emptyBackgroundAtlas)
+			end
+		else
+			button.emptyBackgroundAtlas = nil
+			if button.icon:GetAtlas() == button.originalEmptyBackground then
+				button.icon:SetAtlas(nil)
+			end
 		end
 	end
 end
@@ -486,12 +508,12 @@ function Addon:Init()
 	Addon.Events = CreateFrame("Frame")
 	Addon.Events:RegisterEvent("INSPECT_READY")
 
-	if Core:CheckVersion({ nil, 30401 }) then
+	if Core:CheckVersion({ nil, 16000, 20000, 30401 }) then
 		-- Bank (Classic Era)
 		Addon.Events:RegisterEvent("BANKFRAME_OPENED")
 	end
 
-	if Core:CheckVersion({ 30401, nil }) then
+	if Core:CheckVersion({ 30401, nil, 16001, 20000 }) then
 		-- Bank, Guild Bank, and Void Storage
 		Addon.Events:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_SHOW")
 	end
