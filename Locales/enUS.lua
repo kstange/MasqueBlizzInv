@@ -32,7 +32,6 @@ local L = Shared.Locale
 --L["Bag Bar"] = "Bag Bar"
 --L["Character"] = "Character"
 --L["Inspect Character"] = "Inspect Character"
---L["Equipment Manager"] = "Equipment Manager"
 --L["Equipment Flyouts"] = "Equipment Flyouts"
 --L["Merchants"] = "Merchants"
 --L["Loot"] = "Loot"

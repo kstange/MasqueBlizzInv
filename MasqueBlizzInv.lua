@@ -296,17 +296,6 @@ function Addon:Options_MailFrame_Update()
 	end
 end
 
--- Fix some weird button behavior upon showing the icons in the Equipment Manager
-function Addon:GearManagerDialog_Update()
-	local bar = Groups.GearManagerDialog
-	for i = 1, bar.Buttons.GearSetButton do
-		local button = _G['GearSetButton'..i]
-		if button.icon:GetTexture() ~= nil then
-			button.icon:SetAlpha(1)
-			button.icon:Show()
-		end
-	end
-end
 
 -- A shared function to handle dynamic flyout allocation
 function Addon:HandleFlyout(group, bname, maxslots)
