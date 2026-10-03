@@ -41,7 +41,7 @@ Metadata.Groups = {
 	ContainerFrameClassic = {
 		Title = "Bags",
 		Notes = L["NOTES_BAGS_CLASSIC"],
-		Versions = { nil, 100000 },
+		Versions = { nil, 16000, 20000, 100000 },
 		Buttons = {
 			ContainerFrame1Item = 0,
 			ContainerFrame2Item = 0,
@@ -60,7 +60,7 @@ Metadata.Groups = {
 	},
 	ContainerFrame1 = {
 		Title = "Backpack",
-		Versions = { 100000, nil },
+		Versions = { 100000, nil, 16001, 20000 },
 		Buttons = { },
 		ButtonPools = {
 			ContainerFrame1
@@ -69,18 +69,19 @@ Metadata.Groups = {
 	ContainerFrames = {
 		Title = "Main Bags",
 		Notes = L["NOTES_MAIN_BAGS"],
-		Versions = { 100000, nil },
+		Versions = { 100000, nil, 16001, 20000 },
 		Buttons = { },
 		ButtonPools = {
 			ContainerFrame2,
 			ContainerFrame3,
 			ContainerFrame4,
-			ContainerFrame5
+			ContainerFrame5,
+			ContainerFrame7 -- Extra frame for keyring in Forever
 		}
 	},
 	ContainerFrame6 = {
 		Title = "Reagent Bag",
-		Versions = { 100000, nil },
+		Versions = { 100000, nil, 16001, 20000 },
 		Buttons = { },
 		ButtonPools = {
 			ContainerFrame6
@@ -88,7 +89,7 @@ Metadata.Groups = {
 	},
 	ContainerFrameCombinedBags = {
 		Title = "Combined Backpack",
-		Versions = { 110000, nil },
+		Versions = { 110000, nil, 16001, 20000 },
 		Buttons = { },
 		ButtonPools = {
 			ContainerFrameCombinedBags
@@ -234,6 +235,7 @@ Metadata.Groups = {
 			CharacterBag1Slot = -1,
 			CharacterBag2Slot = -1,
 			CharacterBag3Slot = -1,
+			CharacterReagentBag0Slot = -1,
 		}
 	},
 	InspectPaperDollFrame = {
@@ -307,7 +309,7 @@ Metadata.Groups = {
 	},
 	EquipmentFlyoutFrame = {
 		Title = "Equipment Flyouts",
-		Versions = { 40300, nil },
+		Versions = { 40300, nil, 16001, 20000 },
 		Buttons = {
 			EquipmentFlyoutFrameButton = 0,
 		}
@@ -332,7 +334,7 @@ Metadata.Groups = {
 	},
 	LootFrame = {
 		Title = "Loot",
-		Versions = { 100000, nil },
+		Versions = { 100000, nil, 16001, 20000 },
 		State = {
 			LootFrameItem = {},
 		},
@@ -340,7 +342,7 @@ Metadata.Groups = {
 	},
 	LootFrameClassic = {
 		Title = "Loot",
-		Versions = { nil, 100000 },
+		Versions = { nil, 16000, 20000, 100000 },
 		Buttons = {
 			LootButton = 4,
 		}

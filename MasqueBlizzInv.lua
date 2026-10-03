@@ -112,11 +112,11 @@ function Addon:ContainerFrame_GenerateFrame(slots, target, parent)
 	if target >= 13 then -- We don't know about this bag
 		print("MBI Error: Unknown bag opened", frame, slots, target)
 		return
-	elseif Core:CheckVersion({ nil, 100000 }) then
+	elseif Core:CheckVersion({ nil, 16000, 20000, 100000 }) then
 		group = Groups.ContainerFrameClassic
 	elseif target >= 6 then -- This is a bank bag
 		group = Groups.BankContainerFrames
-	elseif target >= 1 and target < 5 then -- This is a held (main) bag
+	elseif (target >= 1 and target < 5) or target == -1 then -- This is a held (main) bag
 		group = Groups.ContainerFrames
 	else -- This frame matches its name (reagent, backpack, combined)
 		group = Groups[frame]
@@ -449,15 +449,19 @@ function Addon:Init()
 	hooksecurefunc("ContainerFrame_GenerateFrame",
 	               Addon.ContainerFrame_GenerateFrame)
 
-	-- Inbox
-	hooksecurefunc("InboxFrame_Update",
-	               Addon.InboxFrame_Update)
-
-	-- Send Mail
+	-- Mailbox Tabs
+	-- There's a new implementation in 1.60, probably coming to 12.2 or 13.0?
+	if Core:CheckVersion({ 16001, 20000 }) then
+		hooksecurefunc(InboxFrame, "Update",
+		               Addon.InboxFrame_Update)
+	else
+		hooksecurefunc("InboxFrame_Update",
+		               Addon.InboxFrame_Update)
+	end
 	hooksecurefunc("SendMailFrame_Update",
 	               Addon.SendMailFrame_Update)
 
-	-- Reagent Bank and Warband Bank
+	-- Bank and Warband Bank
 	if Core:CheckVersion({ 60000, 110200 }) then
 		hooksecurefunc("BankFrame_ShowPanel",
 		               Addon.BankFrame_ShowPanel)
@@ -467,14 +471,14 @@ function Addon:Init()
 		               Addon.BankPanel_RefreshBankPanel)
 	end
 
-	-- EquipmentFlyout
-	if Core:CheckVersion({ 40300, nil }) then
+	-- Equipment Flyout
+	if Core:CheckVersion({ 40300, nil, 16001, 20000 }) then
 		hooksecurefunc("EquipmentFlyout_Show",
 		               Addon.EquipmentFlyout_Show)
 	end
 
-	-- LootFrame (Retail only)
-	if Core:CheckVersion({ 100000, nil }) then
+	-- LootFrame (Retail & Forever)
+	if Core:CheckVersion({ 100000, nil, 16001, 20000 }) then
 		hooksecurefunc(LootFrame, "Open",
 		               Addon.LootFrame_Open)
 	end
@@ -499,29 +503,29 @@ function Addon:Init()
 		Callbacks.BankFrameHideSlots = Addon.Options_BankFrame_Update
 		Callbacks.GuildBankFrameHideSlots = Addon.Options_GuildBankFrame_Update
 		Callbacks.GuildBankFrameHideBackground = Addon.Options_GuildBankFrame_Update
-		if Core:CheckVersion({ nil, 110200 }) then
-			Callbacks.ReagentBankFrameHideSlots = Addon.Options_ReagentBankFrame_Update
-			Callbacks.VoidStorageFrameHideSlots = Addon.Options_VoidStorageFrame_Update
-		else
-			Metadata.Options.args.ReagentBankFrame = nil
-			Metadata.Options.args.VoidStorageFrame = nil
-		end
 		Callbacks.MailFrameHideInboxSlots = Addon.Options_MailFrame_Update
 		Callbacks.MailFrameHideInboxBackground = Addon.Options_MailFrame_Update
 		Callbacks.MailFrameHideSendSlots = Addon.Options_MailFrame_Update
 		Callbacks.EquipmentFlyoutFrameHideSlots = Addon.Options_EquipmentFlyout_Show
-		if Core:CheckVersion({ 110000, 110200 }) then
-			Callbacks.AccountBankPanelHideSlots = Addon.Options_AccountBankPanel_Update
-		else
-			Metadata.Options.args.AccountBankPanel = nil
-		end
-		if Core:CheckVersion({ 110000, nil }) then
-			Callbacks.ContainerFrameCombinedBagsHideSlots = Addon.Options_ContainerFrameCombinedBags_Update
-		else
-			Metadata.Options.args.ContainerFrameCombinedBags = nil
-		end
-
+	end
+	if Core:CheckVersion({ 110000, 110200 }) then
+		Callbacks.AccountBankPanelHideSlots = Addon.Options_AccountBankPanel_Update
 	else
+		Metadata.Options.args.AccountBankPanel = nil
+	end
+	if Core:CheckVersion({ 100000, 110200 }) then
+		Callbacks.ReagentBankFrameHideSlots = Addon.Options_ReagentBankFrame_Update
+		Callbacks.VoidStorageFrameHideSlots = Addon.Options_VoidStorageFrame_Update
+	else
+		Metadata.Options.args.ReagentBankFrame = nil
+		Metadata.Options.args.VoidStorageFrame = nil
+	end
+	if Core:CheckVersion({ 110000, nil, 16001, 20000 }) then
+		Callbacks.ContainerFrameCombinedBagsHideSlots = Addon.Options_ContainerFrameCombinedBags_Update
+	else
+		Metadata.Options.args.ContainerFrameCombinedBags = nil
+	end
+	if Core:CheckVersion({ nil, 16000, 20000, 100000 }) then
 		-- Empty the whole options table because we don't support it on Classic
 		Metadata.Options = nil
 	end
