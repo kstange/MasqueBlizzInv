@@ -22,14 +22,26 @@ Masque Blizzard Inventory can currently skin the following elements, according t
 - Character
 - Inspect Character
 - Equipment Flyouts
-- Keyring (Classic only, before Cataclysm)
-- Bag Bar (Classic only)
+- Keyring (Classic before Cataclysm and Forever)
+- Bag Bar (Classic and Forever)
 
 Each element type is its own group so you can configure them independently from Masque's Skin Settings.
 
 The Warband Bank and Bank use the same inventory elements in Retail, so they share skin options as well.
 
 An additional options panel is provided to hide background and slot artwork that might clash with certain Masque skins.
+
+## Forever Support
+
+World of Warcraft: Forever has a mixture of classic and retail inventory elements. Support will be available soon, but isn't quite ready yet.
+
+In Forever, bags are grouped as follows:
+
+- Main Bags includes all common bags including the Keyring
+- The Reagent Bag is always skinned independently
+- The Backpack is skinned independently unless you have enabled the Combined Backpack
+- The Combined Backpack takes over the Backpack and Main Bags, except the Keyring, which is still skinned from the Main Bags group
+- Bank Bags are now part of a combined Bank that works like the Combined Backpack and cannot be skinned indepedently
 
 ## Classic Support
 
