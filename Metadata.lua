@@ -121,7 +121,7 @@ Metadata.Groups = {
 		Title = "Bank",
 		Delayed = true,
 		Skinned = false,
-		Versions = { nil, 110200 },
+		Versions = { nil, 16000, 20000, 110200 },
 		Buttons = {
 			BankSlotsFrame = {
 				Item = 28,
@@ -150,7 +150,7 @@ Metadata.Groups = {
 	BankPanel = {
 		Title = "Bank",
 		Delayed = true,
-		Versions = { 110200, nil },
+		Versions = { 110200, nil, 16001, 20000 },
 		Buttons = { },
 		ButtonPools = {
 			BankPanel

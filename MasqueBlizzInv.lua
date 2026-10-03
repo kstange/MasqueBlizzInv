@@ -178,7 +178,7 @@ function Addon:Options_BankFrame_Update()
 				end
 			end
 		end
-	elseif Core:CheckVersion({ 110200, nil }) then
+	elseif Core:CheckVersion({ 110200, nil, 16001, 20000 }) then
 		-- Find all the item buttons in the Warband Bank and hide (or show) them
 		for itemButton in BankPanel.itemButtonPool:EnumerateActive() do
 			itemButton.Background:SetShown(show)
@@ -224,7 +224,7 @@ end
 -- Update the visibility of Guild Bank elements based on settings
 function Addon:Options_GuildBankFrame_Update()
 	-- This only works on Retail due to frame design
-	if not Core:CheckVersion({ 100000, nil }) then return end
+	if not Core:CheckVersion({ 100000, nil, 16001, 20000 }) then return end
 
 	local show = not Core:GetOption('GuildBankFrameHideSlots')
 	local showbg = not Core:GetOption('GuildBankFrameHideBackground')
@@ -247,7 +247,7 @@ end
 -- Update the visibility of Combined Backpack elements based on settings
 function Addon:Options_ContainerFrameCombinedBags_Update()
 	-- This only works on Retail due to frame design
-	if not Core:CheckVersion({ 110000, nil }) then return end
+	if not Core:CheckVersion({ 110000, nil, 16001, 20000 }) then return end
 
 	local show = not Core:GetOption('ContainerFrameCombinedBagsHideSlots')
 
@@ -281,7 +281,7 @@ end
 -- Update the visibility of Equipment Flyout Frame background based on settings
 function Addon:Options_EquipmentFlyout_Show()
 	-- This frame only exists on Retail
-	if not Core:CheckVersion({ 100000, nil }) then return end
+	if not Core:CheckVersion({ 100000, nil, 16001, 20000 }) then return end
 
 	local show = not Core:GetOption('EquipmentFlyoutFrameHideSlots')
 	local frame = EquipmentFlyoutFrameButtons
@@ -298,7 +298,7 @@ end
 -- Update the visibility of Mail elements based on settings
 function Addon:Options_MailFrame_Update()
 	-- This only works on Retail due to frame design
-	if not Core:CheckVersion({ 100000, nil }) then return end
+	if not Core:CheckVersion({ 100000, nil, 16001, 20000 }) then return end
 
 	local showbg = not Core:GetOption('MailFrameHideInboxBackground')
 	local showinbox = not Core:GetOption('MailFrameHideInboxSlots')
@@ -466,7 +466,7 @@ function Addon:Init()
 		hooksecurefunc("BankFrame_ShowPanel",
 		               Addon.BankFrame_ShowPanel)
 	end
-	if Core:CheckVersion({ 110200, nil }) then
+	if Core:CheckVersion({ 110200, nil, 16001, 20000 }) then
 		hooksecurefunc(BankPanel, "RefreshBankPanel",
 		               Addon.BankPanel_RefreshBankPanel)
 	end
@@ -498,7 +498,7 @@ function Addon:Init()
 
 	Addon.Events:SetScript("OnEvent", Addon.HandleEvent)
 
-	if Core:CheckVersion({ 100000, nil }) then
+	if Core:CheckVersion({ 100000, nil, 16001, 20000 }) then
 		-- Register Callbacks for various options here
 		Callbacks.BankFrameHideSlots = Addon.Options_BankFrame_Update
 		Callbacks.GuildBankFrameHideSlots = Addon.Options_GuildBankFrame_Update
