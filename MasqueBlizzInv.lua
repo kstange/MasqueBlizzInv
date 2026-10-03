@@ -55,9 +55,6 @@ function Addon:HandleEvent(event, target)
 		elseif target == 10 then -- Guild Bank
 			frame = Groups.GuildBankFrame
 			Addon:Options_GuildBankFrame_Update()
-		elseif target == 26 then -- Void Storage
-			frame = Groups.VoidStorageFrame
-			Addon:Options_VoidStorageFrame_Update()
 		end
 		if not frame then
 			--print("unknown frame", target)
@@ -131,25 +128,6 @@ function Addon:ContainerFrame_GenerateFrame(slots, target, parent)
 	end
 end
 
--- Skin the ReagentBank and AccountBank the first time the user opens them.
--- There's no event to capture and it doesn't exist on initial bank open.
-function Addon:BankFrame_ShowPanel()
-	local rbframe = Groups.ReagentBankFrame
-	if BankFrame.activeTabIndex == 2 then
-		Addon:Options_ReagentBankFrame_Update()
-		if not rbframe.Skinned then
-			Core:Skin(rbframe.Buttons, rbframe.Group)
-			rbframe.Skinned = true
-		end
-	end
-
-	local abframe = Groups.AccountBankPanel
-	if BankFrame.activeTabIndex == 3 then
-		Addon:Options_AccountBankPanel_Update()
-		Core:SkinButtonPool(abframe.ButtonPools, abframe.Group)
-	end
-end
-
 -- Skin the Bank when the panel is refreshed. This is the unified bank from
 -- 11.2.0 onward.
 function Addon:BankPanel_RefreshBankPanel()
@@ -163,22 +141,7 @@ end
 function Addon:Options_BankFrame_Update()
 	-- This only works on Retail due to frame design
 	local show = not Core:GetOption('BankFrameHideSlots')
-	if Core:CheckVersion({ 100000, 110200 }) then
-
-		local frame = BankSlotsFrame
-		-- This is the texture map used for bank slot artwork
-		local texture = 590156
-
-		-- Find regions that use the texture and hide (or show) them
-		if frame then
-			for i = 1, select("#", frame:GetRegions()) do
-				local child = select(i, frame:GetRegions())
-				if type(child) == "table" and child.GetTexture and child:GetTexture() == texture then
-					child:SetShown(show)
-				end
-			end
-		end
-	elseif Core:CheckVersion({ 110200, nil, 16001, 20000 }) then
+	if Core:CheckVersion({ 110200, nil, 16001, 20000 }) then
 		-- Find all the item buttons in the Warband Bank and hide (or show) them
 		for itemButton in BankPanel.itemButtonPool:EnumerateActive() do
 			itemButton.Background:SetShown(show)
@@ -205,19 +168,6 @@ function Addon:Options_ReagentBankFrame_Update()
 				child:SetShown(show)
 			end
 		end
-	end
-end
-
--- Update the visibility of Warband Bank elements based on settings
-function Addon:Options_AccountBankPanel_Update()
-	-- This only works on Retail due to frame design
-	if not Core:CheckVersion({ 110000, 110200 }) then return end
-
-	local show = not Core:GetOption('AccountBankPanelHideSlots')
-
-	-- Find all the item buttons in the Warband Bank and hide (or show) them
-	for itemButton in AccountBankPanel.itemButtonPool:EnumerateActive() do
-		itemButton.Background:SetShown(show)
 	end
 end
 
@@ -276,25 +226,6 @@ function Addon:HandleEmptyBackgroundAtlas(button, show)
 			button.emptyBackgroundAtlas = nil
 			if button.icon:GetAtlas() == button.originalEmptyBackground then
 				button.icon:SetAtlas(nil)
-			end
-		end
-	end
-end
-
--- Update the visibility of Void Storage elements based on settings
-function Addon:Options_VoidStorageFrame_Update()
-	-- This only works on Retail due to frame design
-	if not Core:CheckVersion({ 100000, 110200 }) then return end
-
-	local show = not Core:GetOption('VoidStorageFrameHideSlots')
-	local buttons = Groups.VoidStorageFrame.Buttons
-
-	-- Find regions that use the texture and hide (or show) them
-	for button, count in pairs(buttons) do
-		for i = 1, count do
-			local bg = _G[button .. i .. "Bg"]
-			if bg then
-				bg:SetShown(show)
 			end
 		end
 	end
@@ -483,11 +414,6 @@ function Addon:Init()
 	hooksecurefunc("SendMailFrame_Update",
 	               Addon.SendMailFrame_Update)
 
-	-- Bank and Warband Bank
-	if Core:CheckVersion({ 60000, 110200 }) then
-		hooksecurefunc("BankFrame_ShowPanel",
-		               Addon.BankFrame_ShowPanel)
-	end
 	if Core:CheckVersion({ 110200, nil, 16001, 20000 }) then
 		hooksecurefunc(BankPanel, "RefreshBankPanel",
 		               Addon.BankPanel_RefreshBankPanel)
@@ -514,7 +440,7 @@ function Addon:Init()
 	end
 
 	if Core:CheckVersion({ 30401, nil, 16001, 20000 }) then
-		-- Bank, Guild Bank, and Void Storage
+		-- Bank, Guild Bank
 		Addon.Events:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_SHOW")
 	end
 
@@ -534,13 +460,6 @@ function Addon:Init()
 		Callbacks.AccountBankPanelHideSlots = Addon.Options_AccountBankPanel_Update
 	else
 		Metadata.Options.args.AccountBankPanel = nil
-	end
-	if Core:CheckVersion({ 100000, 110200 }) then
-		Callbacks.ReagentBankFrameHideSlots = Addon.Options_ReagentBankFrame_Update
-		Callbacks.VoidStorageFrameHideSlots = Addon.Options_VoidStorageFrame_Update
-	else
-		Metadata.Options.args.ReagentBankFrame = nil
-		Metadata.Options.args.VoidStorageFrame = nil
 	end
 	if Core:CheckVersion({ 110000, nil, 16001, 20000 }) then
 		Callbacks.ContainerFrameCombinedBagsHideSlots = Addon.Options_ContainerFrameCombinedBags_Update

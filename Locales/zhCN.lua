@@ -40,8 +40,6 @@ L["Mail"] = "邮件"
 L["Main Bags"] = "主背包"
 L["Merchants"] = "商人"
 L["Reagent Bag"] = "试剂袋"
-L["Reagent Bank"] = "试剂库"
-L["Void Storage"] = "虚空仓库"
 L["Warband Bank"] = "战团银行"
 
 L["NOTES_BAGS_CLASSIC"] = "该组为背包、钥匙圈、主袋和银行袋设计皮肤。"

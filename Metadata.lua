@@ -129,24 +129,6 @@ Metadata.Groups = {
 			},
 		}
 	},
-	ReagentBankFrame = {
-		Title = "Reagent Bank",
-		Delayed = true,
-		Skinned = false,
-		Versions = { 60000, 110200 },
-		Buttons = {
-			ReagentBankFrameItem = 98
-		}
-	},
-	AccountBankPanel = {
-		Title = "Warband Bank",
-		Delayed = true,
-		Versions = { 110000, 110200 },
-		Buttons = { },
-		ButtonPools = {
-			AccountBankPanel
-		}
-	},
 	BankPanel = {
 		Title = "Bank",
 		Delayed = true,
@@ -179,23 +161,6 @@ Metadata.Groups = {
 			GuildBankTab6 = { Button = -1 },
 			GuildBankTab7 = { Button = -1 },
 			GuildBankTab8 = { Button = -1 },
-		}
-	},
-	VoidStorageFrame = {
-		Title = "Void Storage",
-		Delayed = true,
-		Skinned = false,
-		-- Originally added in 4.3.0, but not being added in
-		-- Cata Classic, so mark as unsupported until 10.0.0
-		Versions = { 100000, 110200 },
-		Buttons = {
-			VoidStorageStorageButton = 80,
-			VoidStorageDepositButton = 9,
-			VoidStorageWithdrawButton = 9,
-			-- Tab buttons don't have icon in a reliable place
-			--VoidStorageFrame = {
-			--	Page = 2
-			--}
 		}
 	},
 	MailFrame = {
@@ -429,28 +394,6 @@ Metadata.Options = {
 				},
 			}
 		},
-		ReagentBankFrame = {
-			name = L["Reagent Bank"],
-			type = "group",
-			args = {
-				ReagentBankFrameHideSlots = {
-					name = L["Hide Slots"],
-					desc = L["OPTIONS_DESCRIPTION_SLOTS"],
-					type = "toggle",
-				},
-			}
-		},
-		AccountBankPanel = {
-			name = L["Warband Bank"],
-			type = "group",
-			args = {
-				AccountBankPanelHideSlots = {
-					name = L["Hide Slots"],
-					desc = L["OPTIONS_DESCRIPTION_SLOTS"],
-					type = "toggle",
-				},
-			}
-		},
 		GuildBankFrame = {
 			name = L["Guild Bank"],
 			type = "group",
@@ -466,17 +409,6 @@ Metadata.Options = {
 					desc = L["OPTIONS_DESCRIPTION_GUILDBANK_BACKGROUND"],
 					type = "toggle",
 					width = "full",
-				},
-			}
-		},
-		VoidStorageFrame = {
-			name = L["Void Storage"],
-			type = "group",
-			args = {
-				VoidStorageFrameHideSlots = {
-					name = L["Hide Slots"],
-					desc = L["OPTIONS_DESCRIPTION_SLOTS"],
-					type = "toggle",
 				},
 			}
 		},

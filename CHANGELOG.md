@@ -1,5 +1,8 @@
 # Version 12.1.5.1
 
+- Added compatibility with all existing supported containers in Forever
+- Added support for the new Bank UI in Forever
+- Removed unused Reagent Bank and Void Storage and pre-11.2.0 Warband Bank support
 - Updated TOC for Forever 1.60.1 (beta)
 
 # Version 12.1.5.0
