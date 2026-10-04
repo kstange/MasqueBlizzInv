@@ -33,7 +33,7 @@ An additional options panel is provided to hide background and slot artwork that
 
 ## Forever Support
 
-World of Warcraft: Forever has a mixture of classic and retail inventory elements. Support will be available soon, but isn't quite ready yet.
+World of Warcraft: Forever has a unique mixture of classic and retail inventory features, and should be fully supported.
 
 In Forever, bags are grouped as follows:
 
