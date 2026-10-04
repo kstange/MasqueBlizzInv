@@ -33,7 +33,7 @@ An additional options panel is provided to hide background and slot artwork that
 
 ## Forever Support
 
-World of Warcraft: Forever has a unique mixture of classic and retail inventory features, and should be fully supported.
+World of Warcraft: Forever has a unique mixture of Classic and Retail inventory features, and should be fully supported.
 
 In Forever, bags are grouped as follows:
 
@@ -41,7 +41,7 @@ In Forever, bags are grouped as follows:
 - The Reagent Bag is always skinned independently
 - The Backpack is skinned independently unless you have enabled the Combined Backpack
 - The Combined Backpack takes over the Backpack and Main Bags, except the Keyring, which is still skinned from the Main Bags group
-- Bank Bags are now part of a combined Bank that works like the Combined Backpack and cannot be skinned indepedently
+- Bank Bags are now part of a combined Bank that works like the Combined Backpack and cannot be skinned independently
 
 ## Classic Support
 
