@@ -95,28 +95,6 @@ Metadata.Groups = {
 			ContainerFrameCombinedBags
 		}
 	},
-	BankContainerFrames = {
-		Title = "Bank Bags",
-		Versions = { 100000, 110200 },
-		Buttons = {
-			ContainerFrame7Item  = 0,
-			ContainerFrame8Item  = 0,
-			ContainerFrame9Item  = 0,
-			ContainerFrame10Item = 0,
-			ContainerFrame11Item = 0,
-			ContainerFrame12Item = 0,
-			ContainerFrame13Item = 0,
-		},
-		ButtonPools = {
-			ContainerFrame7,
-			ContainerFrame8,
-			ContainerFrame9,
-			ContainerFrame10,
-			ContainerFrame11,
-			ContainerFrame12,
-			ContainerFrame13
-		}
-	},
 	BankFrame = {
 		Title = "Bank",
 		Delayed = true,
@@ -142,7 +120,7 @@ Metadata.Groups = {
 		Title = "Guild Bank",
 		Delayed = true,
 		Skinned = false,
-		Versions = { 20300, nil },
+		Versions = { 20300, nil, 16001, 20000 },
 		Buttons = {
 			GuildBankFrame = {
 				Column1 = { Button = 14 },

@@ -111,8 +111,6 @@ function Addon:ContainerFrame_GenerateFrame(slots, target, parent)
 		return
 	elseif Core:CheckVersion({ nil, 16000, 20000, 100000 }) then
 		group = Groups.ContainerFrameClassic
-	elseif target >= 6 then -- This is a bank bag
-		group = Groups.BankContainerFrames
 	elseif (target >= 1 and target < 5) or target == -1 then -- This is a held (main) bag, -1 is keyring
 		group = Groups.ContainerFrames
 	else -- This frame matches its name (reagent, backpack, combined)
@@ -148,27 +146,6 @@ function Addon:Options_BankFrame_Update()
 		end
 	end
 
-end
-
--- Update the visibility of Reagent Bank elements based on settings
-function Addon:Options_ReagentBankFrame_Update()
-	-- This only works on Retail due to frame design
-	if not Core:CheckVersion({ 100000, 110200 }) then return end
-
-	local show = not Core:GetOption('ReagentBankFrameHideSlots')
-	local frame = ReagentBankFrame
-	-- This is the texture map used for reagent bank slot artwork
-	local texture = 997675
-
-	-- Find regions that use the texture and hide (or show) them
-	if frame then
-		for i = 1, select("#", frame:GetRegions()) do
-			local child = select(i, frame:GetRegions())
-			if type(child) == "table" and child.GetTexture and child:GetTexture() == texture then
-				child:SetShown(show)
-			end
-		end
-	end
 end
 
 -- Update the visibility of Guild Bank elements based on settings
@@ -444,11 +421,6 @@ function Addon:Init()
 		Callbacks.MailFrameHideInboxBackground = Addon.Options_MailFrame_Update
 		Callbacks.MailFrameHideSendSlots = Addon.Options_MailFrame_Update
 		Callbacks.EquipmentFlyoutFrameHideSlots = Addon.Options_EquipmentFlyout_Show
-	end
-	if Core:CheckVersion({ 110000, 110200 }) then
-		Callbacks.AccountBankPanelHideSlots = Addon.Options_AccountBankPanel_Update
-	else
-		Metadata.Options.args.AccountBankPanel = nil
 	end
 	if Core:CheckVersion({ 110000, nil, 16001, 20000 }) then
 		Callbacks.ContainerFrameCombinedBagsHideSlots = Addon.Options_ContainerFrameCombinedBags_Update
