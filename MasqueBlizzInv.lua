@@ -189,21 +189,11 @@ end
 
 -- Handle the empty slot artwork that blizzard puts behind buttons in Forever
 function Addon:HandleEmptyBackgroundAtlas(button, show)
-	if button.emptyBackgroundAtlas and not button.originalEmptyBackground then
-		button.originalEmptyBackground = button.emptyBackgroundAtlas
-	end
-
-	if button.originalEmptyBackground then
-		if show then
-			button.emptyBackgroundAtlas = button.originalEmptyBackground
-			if not button.icon:GetAtlas() and not button.icon:GetTexture() then
-				button.icon:SetAtlas(button.emptyBackgroundAtlas)
-			end
-		else
-			button.emptyBackgroundAtlas = nil
-			if button.icon:GetAtlas() == button.originalEmptyBackground then
-				button.icon:SetAtlas(nil)
-			end
+	if button.emptyBackgroundAtlas then
+		if show and not button.icon:IsShown() then
+			button.icon:SetShown(true)
+		elseif not show and button.icon:GetAtlas() == button.emptyBackgroundAtlas and button.icon:IsShown() then
+			button.icon:SetShown(false)
 		end
 	end
 end
