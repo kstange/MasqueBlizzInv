@@ -1,3 +1,7 @@
+# Version 12.1.5.2
+
+- Changed how Hide Slots works for the Combined Backpack to hopefully prevent errors trying to use items from bags
+
 # Version 12.1.5.1
 
 - Added compatibility with all existing supported containers in Forever
