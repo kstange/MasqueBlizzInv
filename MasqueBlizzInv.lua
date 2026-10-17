@@ -360,7 +360,7 @@ function Addon:Init()
 
 	-- Mailbox Tabs
 	-- There's a new implementation in 1.60, probably coming to 12.2 or 13.0?
-	if Core:CheckVersion({ 16001, 20000 }) then
+	if Core:CheckVersion({ 16001, 20000, 120107, nil }) then
 		hooksecurefunc(InboxFrame, "Update",
 		               Addon.InboxFrame_Update)
 	else

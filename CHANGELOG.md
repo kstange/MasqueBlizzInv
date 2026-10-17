@@ -1,3 +1,8 @@
+# Version 12.1.5.3
+
+- Added compatibility with Retail 12.1.7
+- Updated TOC for Retail 12.1.7 (PTR)
+
 # Version 12.1.5.2
 
 - Changed how Hide Slots works for the Combined Backpack to hopefully prevent errors trying to use items from bags
