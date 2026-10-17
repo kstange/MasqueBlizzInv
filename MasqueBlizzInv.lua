@@ -359,7 +359,7 @@ function Addon:Init()
 	               Addon.ContainerFrame_GenerateFrame)
 
 	-- Mailbox Tabs
-	-- There's a new implementation in 1.60, probably coming to 12.2 or 13.0?
+	-- There's a new implementation in 1.60.1 and 12.1.7
 	if Core:CheckVersion({ 16001, 20000, 120107, nil }) then
 		hooksecurefunc(InboxFrame, "Update",
 		               Addon.InboxFrame_Update)
