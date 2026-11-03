@@ -63,6 +63,10 @@ If you'd like to see Masque support in a conflicting addon, try sending a featur
 
 If you'd like to help localize this addon, please submit translations [here](https://www.curseforge.com/wow/addons/masque-blizz-inventory/localization).
 
+## LLM Policy
+
+LLM ("Generative AI") agents are not used for development of this project and such contributions will not be accepted.
+
 ## Other Mods
 
 If you want to skin the built-in action bars as well, check out [Masque Blizzard Bars](https://github.com/kstange/MasqueBlizzBars) ([CurseForge](https://www.curseforge.com/wow/addons/masque-blizz-bars-revived "CurseForge"), [Wago](https://addons.wago.io/addons/masqueblizzbars), [WoWInterface](https://www.wowinterface.com/downloads/info26502-MasqueBlizzardBars.html))!
