@@ -1,7 +1,7 @@
-# Version 12.1.5.3
+# Version 12.1.7.0
 
 - Added compatibility with Retail 12.1.7
-- Updated TOC for Retail 12.1.7 (PTR)
+- Updated TOC for Retail 12.1.7
 
 # Version 12.1.5.2
 
